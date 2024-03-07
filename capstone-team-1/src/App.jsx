@@ -1,34 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useEffect, useState } from 'react'
 import './App.css'
+import Footer from './components/Footer/Footer'
+import Header from './components/Header/Header'
+import JobList from './components/Main/JobList'
+import data_jobs from './data/data.json'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [jobs, setJobs] = useState([])
+  const [filters, setFilters] = useState([])
+
+  useEffect(() => setJobs(data_jobs))
+
+  // filter function
+  const filterFunc = ({ role, level, tools, languages }) => {
+    if (filters.length === 0) {
+      return true
+    }
+
+    const tags = [role, level]
+
+    return tags.some((tag) => filters.includes(tag))
+  }
+
+  const filteredJobs = jobs.filter(filterFunc)
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className='w-full min-h-screen'>
+      <Header />
+      <div className='max-w-7xl mx-auto'>{/* use filter function here */}</div>
+
+      {/* joblist component here */}
+      <JobList filteredJobs={filteredJobs} />
+      {/* Footer component here */}
+      <Footer />
+    </div>
   )
 }
 
