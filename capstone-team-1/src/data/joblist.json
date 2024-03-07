@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "company": "Photosnap",
+    "logo": "assets/images/photosnap.svg",
+    "isNew": true,
+    "featured": true,
+    "position": "Project Name",
+    "role": "Website",
+    "postedAt": "1d ago",
+    "status": "Approved",
+    "languages": ["HTML", "CSS", "JavaScript"],
+    "tools": []
+  },
+  {
+    "id": 2,
+    "company": "Manage",
+    "logo": "assets/images/manage.svg",
+    "isNew": false,
+    "featured": true,
+    "position": "Project Idea",
+    "role": "App",
+    "postedAt": "1d ago",
+    "status": "Newly Submitted",
+    "languages": ["Python"],
+    "tools": ["React"]
+  },
+  {
+    "id": 3,
+    "company": "Account",
+    "logo": "assets/images/account.svg",
+    "isNew": true,
+    "featured": false,
+    "position": "Project 3",
+    "role": "App",
+    "postedAt": "2d ago",
+    "status": "Assigned",
+    "location": "USA Only",
+    "languages": ["JavaScript"],
+    "tools": ["React", "Email", "MongoDB"]
+  },
+  {
+    "id": 4,
+    "company": "MyHome",
+    "logo": "assets/images/myhome.svg",
+    "isNew": false,
+    "featured": false,
+    "position": "Project 4",
+    "role": "Website",
+    "postedAt": "5d ago",
+    "status": "In Review",
+    "location": "USA Only",
+    "languages": ["CSS", "JavaScript"],
+    "tools": []
+  },
+  {
+    "id": 5,
+    "company": "Adan",
+    "logo": "assets/images/photosnap.svg",
+    "isNew": false,
+    "featured": true,
+    "position": "Project Adan",
+    "role": "Website",
+    "postedAt": "1d ago",
+    "status": "Approved",
+    "languages": ["HTML", "JavaScript"],
+    "tools": []
+  }
+]
