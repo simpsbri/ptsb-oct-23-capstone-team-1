@@ -1,4 +1,4 @@
-const JobCard = ({ job, handleTagClick }) => {
+const ProjectCard = ({ job, handleTagClick }) => {
   const {
     company,
     logo,
@@ -67,4 +67,4 @@ const JobCard = ({ job, handleTagClick }) => {
   )
 }
 
-export default JobCard
+export default ProjectCard
