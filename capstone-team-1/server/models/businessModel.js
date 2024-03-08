@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const businessModel = mongoose.Schema(
   {
-    companyName: { type: String, required: true },
+    businessName: { type: String, required: true },
     businessId: { type: Number, required: true },
     isNew: { type: Boolean, required: true },
     businessStreet: { type: String, required: true },
