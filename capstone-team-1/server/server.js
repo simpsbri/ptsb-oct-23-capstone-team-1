@@ -1,9 +1,9 @@
-const express = require('express');
-const dotenv = require('dotenv');
-const PORT = 4000;
+import express from 'express';
+import dotenv from 'dotenv';
+// const PORT = 4000;
 const app = express();
-const connectDB = require('./config/db');
-const colors = require('colors');
+import connectDB from './config/db.js';
+import colors from 'colors';
 
 dotenv.config();
 connectDB();
