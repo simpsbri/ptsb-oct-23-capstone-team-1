@@ -8,6 +8,10 @@ import colors from 'colors';
 dotenv.config();
 connectDB();
 
+app.get('/', (req, res) => {
+  res.send('Hello, world!');
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`.yellow.bold);
 });
