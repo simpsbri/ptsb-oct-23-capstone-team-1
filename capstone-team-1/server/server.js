@@ -1,6 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
-// const PORT = 4000;
+const PORT = 4000;
 const app = express();
 import connectDB from './config/db.js';
 import colors from 'colors';
