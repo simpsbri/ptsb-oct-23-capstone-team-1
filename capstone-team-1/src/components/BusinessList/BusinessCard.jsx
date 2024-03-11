@@ -1,40 +1,21 @@
-const ProjectCard = ({ job, handleTagClick }) => {
-  const {
-    company,
-    logo,
-    isNew,
-    isFeatured,
-    position,
-    role,
-    postedAt,
-    status,
-    languages,
-    tools,
-  } = job
+const BusinessCard = ({ business, handleTagClick }) => {
+  const { company_name, isNew, isFeatured, Overview, Projects, logo } = business
 
-  const tags = [role]
-
-  if (tools) {
-    tags.push(...tools)
-  }
-
-  if (languages) {
-    tags.push(...languages)
-  }
+  const tags = Array.isArray(Projects) ? Projects : [Projects]
 
   return (
     <div className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
-      {/* company logo */}
-      <img
-        src={logo}
-        alt='logo'
-        className='-mt-11mb-4 w-20 h-20 sm:mt-0 sm:h-24 sm:my-0'
-      />
-
       <div className='flex-flex-col-justify-between ml-4'>
-        {/* company name */}
+        {/* company name with logo */}
         <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>
-          {company}
+          {logo && (
+            <img
+              src={logo}
+              alt={`${company_name} logo`}
+              className='w-9 h-9 object-cover'
+            />
+          )}
+          {company_name}
           {isNew && (
             <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white'>
               New!
@@ -47,12 +28,9 @@ const ProjectCard = ({ job, handleTagClick }) => {
           )}
         </h1>
 
-        {/* job position */}
-        <h1 className='text-xl font-bold cursor-pointer'>{position}</h1>
-
         {/* job info */}
-        <p className='flex items-center gap-2 text-dark_gray_cyan text-base'>
-          {postedAt} • {status}
+        <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>
+          {Overview}
         </p>
       </div>
       {/* Job tags */}
@@ -60,7 +38,8 @@ const ProjectCard = ({ job, handleTagClick }) => {
         {tags.map((tag, index) => (
           <button
             key={`tag-${index}`}
-            className='text-primary_dark_cyan bg-light_grayish_cyan_filter_pill font-bold p-2 rounded mr-4 mb-4 sm:mb-0'
+            className='text-primary_dark_cyan bg-light_grayish_cyan_filter_pill font-bold p-2 rounded mr-4 mb-4 sm:mb-0 sm:ml-auto'
+            onClick={() => handleTagClick(tag)} // Add onClick event to handle tag clicks
           >
             {tag}
           </button>
@@ -70,4 +49,4 @@ const ProjectCard = ({ job, handleTagClick }) => {
   )
 }
 
-export default ProjectCard
+export default BusinessCard
