@@ -1,10 +1,9 @@
 import BusinessCard from './BusinessCard'
 
 const BusinessList = ({ handleTagClick, filteredBusinesses }) => {
-  console.log('filteredBusinesses:', filteredBusinesses)
   return (
-    <div className='max-w-7xl mx-auto'>
-      <div className>Businesses</div>
+    <div className='flex flex-col items-center mx-auto h-96'>
+      <div className='font-bold mb-4'>Businesses</div>
       <div className='flex flex-col'>
         {filteredBusinesses &&
           filteredBusinesses.map((business) => (
