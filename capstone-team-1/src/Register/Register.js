@@ -42,7 +42,20 @@ const Register = () => {
     setValidName(result);
   }, [user]);
 
-  return <div>Register</div>;
+  useEffect(() => {
+    const result = PWD_REGEX.test(pwd);
+    console.log(result);
+    console.log(pwd);
+    setValidPwd(result);
+    const match = pwd === matchPwd;
+    setValidMatch(match);
+  }, [pwd, matchPwd]);
+
+  useEffect(() => {
+    setErrMsg('');
+  }, [user, pwd, matchPwd]);
+
+  return <section>Register</section>;
 };
 
 export default Register;
