@@ -1,0 +1,67 @@
+[
+  {
+    "id": 1,
+    "name": "Alex Johnson",
+    "email": "alex.johnson@example.com",
+    "password": "password123",
+    "projectId": 101,
+    "projectTasks": ["Task 1", "Task 2", "Task 3"],
+    "isAdmin": true,
+    "role": "Website",
+    "postedAt": "1d ago",
+    "status": "Approved",
+    "languages": ["English", "Spanish", "French"]
+  },
+  {
+    "id": 2,
+    "name": "Jamie Lee",
+    "email": "jamie.lee@example.com",
+    "password": "password456",
+    "projectId": 102,
+    "projectTasks": ["Task 4", "Task 5"],
+    "isAdmin": false,
+    "role": "App",
+    "postedAt": "1d ago",
+    "status": "Newly Submitted",
+    "languages": ["Mandarin"]
+  },
+  {
+    "id": 3,
+    "name": "Chris Kim",
+    "email": "chris.kim@example.com",
+    "password": "password789",
+    "projectId": 103,
+    "projectTasks": ["Task 6", "Task 7", "Task 8"],
+    "isAdmin": true,
+    "role": "App",
+    "postedAt": "2d ago",
+    "status": "Assigned",
+    "languages": ["Korean", "English"]
+  },
+  {
+    "id": 4,
+    "name": "Pat Taylor",
+    "email": "pat.taylor@example.com",
+    "password": "password101112",
+    "projectId": 104,
+    "projectTasks": ["Task 9"],
+    "isAdmin": false,
+    "role": "Website",
+    "postedAt": "5d ago",
+    "status": "In Review",
+    "languages": ["German", "English"]
+  },
+  {
+    "id": 5,
+    "name": "Jordan Smith",
+    "email": "jordan.smith@example.com",
+    "password": "password131415",
+    "projectId": 105,
+    "projectTasks": ["Task 10", "Task 11"],
+    "isAdmin": true,
+    "role": "Website",
+    "postedAt": "1d ago",
+    "status": "Approved",
+    "languages": ["Italian", "English"]
+  }
+]
