@@ -23,9 +23,6 @@ const UserList = ({ handleEditClick }) => {
 
   return (
     <>
-      <Header />
-      <HorizontalNav />
-
       <div className='flex flex-col items-center mx-auto h-auto'>
         <h2 className='text-2xl font-bold mb-4'>Users</h2>
         <div className='flex justify-center items-center w-full py-2'>
@@ -49,7 +46,6 @@ const UserList = ({ handleEditClick }) => {
             ))}
         </div>
       </div>
-      <Footer />
     </>
   )
 }

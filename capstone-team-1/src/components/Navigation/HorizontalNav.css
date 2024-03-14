@@ -24,7 +24,7 @@ li:last-child {
   border-right: none;
 }
 
-a {
+.navlink {
   text-decoration: none;
   color: #eef6f6;
   font-size: 16px;

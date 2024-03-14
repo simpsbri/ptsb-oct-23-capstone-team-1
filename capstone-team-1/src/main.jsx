@@ -6,26 +6,43 @@ import Root from './routes/root'
 import Businesses from './routes/businesses'
 import AllUsers from './routes/users'
 import Projects from './routes/projects'
-import VerticalNav from './components/Navigation/HorizontalNav'
+// import VerticalNav from './components/Navigation/HorizontalNav'
+import MainLayout from './components/MainLayout'
 
 import './index.css'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Root />,
+    element: (
+      <MainLayout>
+        <Root />
+      </MainLayout>
+    ),
   },
   {
     path: '/businesses',
-    element: <Businesses />,
+    element: (
+      <MainLayout>
+        <Businesses />
+      </MainLayout>
+    ),
   },
   {
     path: '/users',
-    element: <AllUsers />,
+    element: (
+      <MainLayout>
+        <AllUsers />
+      </MainLayout>
+    ),
   },
   {
     path: '/projects',
-    element: <Projects />,
+    element: (
+      <MainLayout>
+        <Projects />
+      </MainLayout>
+    ),
   },
 ])
 

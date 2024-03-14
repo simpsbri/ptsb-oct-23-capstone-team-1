@@ -5,8 +5,6 @@ import HorizontalNav from '../components/Navigation/HorizontalNav'
 export default function Root() {
   return (
     <>
-      <Header />
-      <HorizontalNav />
       <div id='main'>
         <h1>We’re Looking for Businesses to Benefit from FREE Work! </h1>
         <h1>
@@ -47,7 +45,6 @@ export default function Root() {
           source code or design assets after the project concludes.
         </p>
       </div>
-      <Footer />
     </>
   )
 }
