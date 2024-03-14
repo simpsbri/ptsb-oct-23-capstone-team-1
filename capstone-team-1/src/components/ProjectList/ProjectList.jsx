@@ -22,8 +22,8 @@ const ProjectList = ({ handleEditClick }) => {
   return (
     <>
       <Header />
-
-      <div className='max-w-7xl mx-auto'>
+      <div className='min-w-full flex flex-col items-center mx-auto w-4/5 h-96'>
+        <div className='font-bold mb-4'>Projects</div>
         <div className='flex flex-col'>
           {projects.map((job) => (
             <ProjectCard job={job} key={job.id} />
