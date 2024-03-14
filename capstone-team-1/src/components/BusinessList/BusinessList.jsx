@@ -1,16 +1,41 @@
+import React, { useEffect, useState } from 'react'
 import BusinessCard from './BusinessCard'
+import Header from '../Header/Header'
+import Footer from '../Footer/Footer'
+import axios from 'axios'
+import HorizontalNav from '../Navigation/HorizontalNav'
 
-const BusinessList = ({ handleTagClick, filteredBusinesses }) => {
+const BusinessList = ({ handleTagClick }) => {
+  const [businesses, setBusinesses] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('src/data/businessList.json')
+        setBusinesses(response.data)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  if (!Array.isArray(businesses)) {
+    return <div>Loading...</div>
+  }
+
   return (
-    <div className='flex flex-col items-center mx-auto h-96'>
-      <div className='font-bold mb-4'>Businesses</div>
-      <div className='flex flex-col'>
-        {filteredBusinesses &&
-          filteredBusinesses.map((business) => (
+    <>
+      <div className='flex flex-col items-center mx-auto h-96'>
+        <div className='font-bold mb-4'>Businesses</div>
+        <div className='flex flex-col'>
+          {businesses.map((business) => (
             <BusinessCard business={business} key={business.id} />
           ))}
+        </div>
       </div>
-    </div>
+    </>
   )
 }
 
