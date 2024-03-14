@@ -133,6 +133,33 @@ const Register = () => {
         <span aria-label="dollar sign">$</span>
         <span aria-label="percent">%</span>
       </p>
+
+      <label htmlFor="confirm_pwd">
+        Confirm Password:
+        <span className={validMatch && matchPwd ? 'valid' : 'hide'}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+        <span className={validMatch || !matchPwd ? 'hide' : 'invalid'}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+      </label>
+      <input
+        type="password"
+        id="confirm_pwd"
+        onChange={(e) => setMatchPwd(e.target.value)}
+        required
+        aria-invalid={validMatch ? 'false' : 'true'}
+        aria-describedby="confirmnote"
+        onFocus={() => setMatchFocus(true)}
+        onBlur={() => setMatchFocus(false)}
+      />
+      <p
+        id="confirmnote"
+        className={matchFocus && !validMatch ? 'instructions' : 'offscreen'}
+      >
+        <FontAwesomeIcon icon={faInfoCirlce} />
+        Must match the first password input field.
+      </p>
     </form>
   </section>;
 };
