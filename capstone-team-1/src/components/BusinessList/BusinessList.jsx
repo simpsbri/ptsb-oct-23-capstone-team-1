@@ -3,6 +3,7 @@ import BusinessCard from './BusinessCard'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import axios from 'axios'
+import HorizontalNav from '../Navigation/HorizontalNav'
 
 const BusinessList = ({ handleTagClick }) => {
   const [businesses, setBusinesses] = useState([])
@@ -27,7 +28,7 @@ const BusinessList = ({ handleTagClick }) => {
   return (
     <>
       <Header />
-
+      <HorizontalNav />
       <div className='flex flex-col items-center mx-auto h-96'>
         <div className='font-bold mb-4'>Businesses</div>
         <div className='flex flex-col'>

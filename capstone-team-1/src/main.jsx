@@ -6,6 +6,7 @@ import Root from './routes/root'
 import Businesses from './routes/businesses'
 import AllUsers from './routes/users'
 import Projects from './routes/projects'
+import VerticalNav from './components/Navigation/HorizontalNav'
 
 import './index.css'
 

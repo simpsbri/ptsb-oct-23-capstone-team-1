@@ -3,6 +3,7 @@ import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import axios from 'axios'
 import UserCard from './UserCard'
+import HorizontalNav from '../Navigation/HorizontalNav'
 
 const UserList = ({ handleEditClick }) => {
   const [users, setUsers] = useState([])
@@ -23,6 +24,8 @@ const UserList = ({ handleEditClick }) => {
   return (
     <>
       <Header />
+      <HorizontalNav />
+
       <div className='flex flex-col items-center mx-auto h-auto'>
         <h2 className='text-2xl font-bold mb-4'>Users</h2>
         <div className='flex justify-center items-center w-full py-2'>

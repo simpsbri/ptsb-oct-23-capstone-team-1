@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import axios from 'axios'
+import HorizontalNav from '../Navigation/HorizontalNav'
 
 const ProjectList = ({ handleEditClick }) => {
   const [projects, setProjects] = useState([])
@@ -22,6 +23,7 @@ const ProjectList = ({ handleEditClick }) => {
   return (
     <>
       <Header />
+      <HorizontalNav />
       <div className='min-w-full flex flex-col items-center mx-auto w-4/5 h-96'>
         <div className='font-bold mb-4'>Projects</div>
         <div className='flex flex-col'>
