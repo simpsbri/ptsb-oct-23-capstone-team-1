@@ -66,7 +66,15 @@ const Register = () => {
     </p>
     <h1>Register</h1>
     <form>
-      <label htmlFor="username">Username:</label>
+      <label htmlFor="username">
+        Username:
+        <span className={validName ? 'valid' : 'hide'}>
+          <FontAwesomeIcon icon={faCheck} />
+        </span>
+        <span className={validName || !user ? 'hide' : 'invalid'}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+      </label>
       <input
         type="text"
         id="username"
@@ -90,6 +98,16 @@ const Register = () => {
         Must begin with a letter. <br />
         Letters, numbers, underscores, hyphens allowed.
       </p>
+
+      <label htmlFor="password">
+        Password:
+        <span className={validPwd ? 'valid' : 'hide'}>
+          <FontAwesomeIcon icon={faCheck} />
+        </span>
+        <span className={validPwd || !pwd ? 'hide' : 'invalid'}>
+          <FontAwesomeIcon icon={faTimes} />
+        </span>
+      </label>
     </form>
   </section>;
 };
