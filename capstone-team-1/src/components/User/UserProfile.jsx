@@ -1,16 +1,25 @@
-import React from 'react';
+import React from "react";
+import { Link } from "react-router-dom";
 
 const UserProfile = ({ user }) => {
-  const { name, email, isAdmin, role, languages } = user;
+  const { userId, name, email, isAdmin, role, languages } = user; // Assume `userId` is passed in
 
   return (
     <div className="flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid">
       <div className="flex flex-col justify-between ml-4">
         {/* Profile Header */}
-        <h1 className="text-2xl text-primary_dark_cyan font-bold mb-4">User Profile</h1>
+        <h1 className="text-2xl text-primary_dark_cyan font-bold mb-4">
+          User Profile
+        </h1>
         {/* User Info */}
         <div className="mb-4">
-          <h2 className="py-2 text-primary_dark_cyan text-lg">{name}</h2>
+          {/* Wrap name in Link */}
+          <h2 className="py-2 text-primary_dark_cyan text-lg">
+            <Link to={`/users/${userId}`} className="hover:underline">
+              {name}
+            </Link>{" "}
+            {/* Make sure this path is correct based on your router setup */}
+          </h2>
           <p className="text-dark_gray_cyan text-base">{email}</p>
           <p className="text-dark_gray_cyan text-base">{role}</p>
           {isAdmin && (
@@ -31,9 +40,7 @@ const UserProfile = ({ user }) => {
           ))}
         </div>
         {/* Edit Profile Button */}
-        <button
-          className="bg-primary_dark_cyan text-white font-bold p-2 rounded self-start"
-        >
+        <button className="bg-primary_dark_cyan text-white font-bold p-2 rounded self-start">
           Edit Profile
         </button>
       </div>
