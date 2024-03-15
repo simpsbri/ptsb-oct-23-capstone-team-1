@@ -2,18 +2,27 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const UserProfile = ({ user }) => {
-  const { userId, name, email, isAdmin, role, languages } = user; // Assume `userId` is passed in
+  const { userId, name, email, isAdmin, role, languages, profilePicture, bio } =
+    user; // Assume `userId`, `profilePicture`, and `bio` are passed in
 
   return (
     <div className="flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid">
       <div className="flex flex-col justify-between ml-4">
+        {/* Profile Picture */}
+        <img
+          src={profilePicture}
+          alt={`${name}'s profile`}
+          className="w-32 h-32 rounded-full mb-4"
+        />
+
         {/* Profile Header */}
         <h1 className="text-2xl text-primary_dark_cyan font-bold mb-4">
           User Profile
         </h1>
+
         {/* User Info */}
         <div className="mb-4">
-          {/* Wrap name in Link */}
+          {/* Name with Link */}
           <h2 className="py-2 text-primary_dark_cyan text-lg">
             <Link to={`/users/${userId}`} className="hover:underline">
               {name}
@@ -28,6 +37,10 @@ const UserProfile = ({ user }) => {
             </span>
           )}
         </div>
+
+        {/* Bio */}
+        <p className="text-dark_gray_cyan text-base mb-4">{bio}</p>
+
         {/* Languages */}
         <div className="flex flex-wrap gap-2 mb-4">
           {languages.map((language, index) => (
@@ -39,6 +52,7 @@ const UserProfile = ({ user }) => {
             </span>
           ))}
         </div>
+
         {/* Edit Profile Button */}
         <button className="bg-primary_dark_cyan text-white font-bold p-2 rounded self-start">
           Edit Profile
