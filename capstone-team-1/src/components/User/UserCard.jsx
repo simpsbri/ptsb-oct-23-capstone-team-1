@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 const UserCard = ({ user, handleEditClick }) => {
+
   const { id, name, email, isAdmin, role, postedAt, status, languages } = user;
 
   return (
@@ -8,10 +9,12 @@ const UserCard = ({ user, handleEditClick }) => {
       <div className="flex-flex-col-justify-between ml-4">
         {/* user info */}
         <h1 className="py-2 text-primary_dark_cyan text-lg">
+
           {/* Wrap the user name in a Link component */}
           <Link to={`/users/${id}`} className="hover:text-teal-700">
             {name}
           </Link>
+
           {isAdmin && (
             <span className="bg-primary_dark_cyan rounded-full px-3 text-base text-white ml-4">
               Admin
