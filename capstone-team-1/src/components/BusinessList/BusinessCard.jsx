@@ -1,3 +1,5 @@
+import React, { useEffect, useState } from 'react'
+
 const BusinessCard = ({ business, handleTagClick }) => {
   const { company_name, isNew, isFeatured, Overview, Projects, logo } = business
 
@@ -15,7 +17,7 @@ const BusinessCard = ({ business, handleTagClick }) => {
               className='w-9 h-9 object-cover'
             />
           )}
-          {company_name}
+          <a>{company_name}</a>
           {isNew && (
             <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white'>
               New!
