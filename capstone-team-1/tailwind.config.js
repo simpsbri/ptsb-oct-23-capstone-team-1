@@ -5,7 +5,7 @@ module.exports = {
     extend: {
       colors: {
         primary_bg: 'hsl(180, 52%, 96%)',
-        primary_dark_cyan: 'rgb(11, 74, 143, 0.4)',
+        primary_dark_cyan: '#9eb8d0',
         //
         dark_gray_cyan: '#7b8e8e',
         filter_tablets: '#eef6f6',

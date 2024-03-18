@@ -1,0 +1,18 @@
+.display-flex {
+  display: flex;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.header-links {
+  right: 0;
+  top: 0;
+  padding: 1rem;
+  margin-left: auto;
+}
+
+.header-link {
+  margin-right: 1rem;
+}
