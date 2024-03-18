@@ -18,7 +18,7 @@ const router = createBrowserRouter([
     element: (
       <MainLayout>
         <Root />
-        x<Register />
+        <Register />
       </MainLayout>
     ),
   },
