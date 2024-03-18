@@ -56,7 +56,7 @@ const Register = () => {
   }, [user, pwd, matchPwd]);
 
   return (
-    <section>
+    <section className="p-4 bg-primary_dark_cyan">
       <p
         ref={errRef}
         className={errMsg ? 'errmsg' : 'offscreen'}
@@ -64,14 +64,22 @@ const Register = () => {
       >
         {errMsg}
       </p>
-      <h1>Register</h1>
+      <h1 className="text-3xl font-bold mb-4">Register</h1>
       <form>
-        <label htmlFor="username">
+        <label htmlFor="username" className="block mb-2">
           Username:
-          <span className={validName ? 'valid' : 'hide'}>
+          <span
+            className={`ml-2 ${
+              validName && user ? 'text-green-500' : 'hidden'
+            }`}
+          >
             <FontAwesomeIcon icon={faCheck} />
           </span>
-          <span className={validName || !user ? 'hide' : 'invalid'}>
+          <span
+            className={`ml-2 ${
+              (validName && user) || !user ? 'hidden' : 'text-red-500'
+            }`}
+          >
             <FontAwesomeIcon icon={faTimes} />
           </span>
         </label>
@@ -86,6 +94,7 @@ const Register = () => {
           aria-describedby="uidnote"
           onFocus={() => setUserFocus(true)}
           onBlur={() => setUserFocus(false)}
+          className="block p-2 border rounded mb-3"
         />
         <p
           id="uidnote"

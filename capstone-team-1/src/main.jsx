@@ -8,6 +8,7 @@ import AllUsers from './routes/users';
 import Projects from './routes/projects';
 // import VerticalNav from './components/Navigation/HorizontalNav'
 import MainLayout from './components/MainLayout';
+import Register from './components/Register/Register';
 
 import './index.css';
 
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
     element: (
       <MainLayout>
         <Root />
+        x<Register />
       </MainLayout>
     ),
   },
