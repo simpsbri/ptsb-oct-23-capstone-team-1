@@ -10,8 +10,7 @@ const UserProfile = ({ user }) => {
   };
 
   const handleSave = () => {
-    // Here, you would normally make an API call to update the user data
-    // For demonstration, we're just toggling the edit state
+    // Here, you would be an API call to update the user data
     toggleEdit();
   };
 
@@ -31,8 +30,9 @@ const UserProfile = ({ user }) => {
     }));
   };
 
-  const inputStyle = "bg-black border p-2 rounded border-gray-400 w-full";
-  const textareaStyle = "bg-black border p-2 rounded border-gray-400 w-full";
+  const inputStyle = "bg-black border p-2 rounded border-gray-400 w-full mb-4";
+  const textareaStyle =
+    "bg-black border p-2 rounded border-gray-400 w-full mb-4";
 
   return (
     <div className="flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid">
@@ -79,7 +79,7 @@ const UserProfile = ({ user }) => {
               className={inputStyle}
             />
           ) : (
-            <p className="text-dark_gray_cyan text-base">
+            <p className="text-dark_gray_cyan text-base mb-4">
               {editableUser.email}
             </p>
           )}
@@ -93,7 +93,9 @@ const UserProfile = ({ user }) => {
               className={inputStyle}
             />
           ) : (
-            <p className="text-dark_gray_cyan text-base">{editableUser.role}</p>
+            <p className="text-dark_gray_cyan text-base mb-4">
+              {editableUser.role}
+            </p>
           )}
 
           {/* Admin Badge */}
