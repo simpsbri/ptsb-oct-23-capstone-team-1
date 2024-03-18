@@ -3,7 +3,6 @@ import BusinessCard from './BusinessCard'
 import Header from '../Header/Header'
 import Footer from '../Footer/Footer'
 import axios from 'axios'
-import HorizontalNav from '../Navigation/HorizontalNav'
 
 const BusinessList = ({ handleTagClick }) => {
   const [businesses, setBusinesses] = useState([])

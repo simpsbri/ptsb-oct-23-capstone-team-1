@@ -8,6 +8,7 @@ import AllUsers from './routes/users'
 import Projects from './routes/projects'
 import MainLayout from './components/MainLayout'
 import Profile from './routes/userProfile'
+import BusinessProfile from './routes/businessProfile'
 
 import './index.css'
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
       {
         path: '/businesses',
         element: <Businesses />,
+      },
+      {
+        path: '/businesses/:id',
+        element: <BusinessProfile />,
       },
       {
         path: '/users',
