@@ -1,39 +1,37 @@
-import { useEffect, useState } from 'react'
-
-import Registration from '../components/Registration/Registration'
+import { useEffect, useState } from 'react';
+import Homepage from '../components/Homepage/Homepage';
 
 export default function Root() {
-  const [businessList, setBusinessList] = useState([])
+  const [businessList, setBusinessList] = useState([]);
 
   const addBusiness = (newBusiness) => {
-    setBusinessList([...businessList, newBusiness])
-  }
+    setBusinessList([...businessList, newBusiness]);
+  };
 
   useEffect(() => {
     const saveBusinessList = async () => {
-      const jsonString = JSON.stringify(businessList)
+      const jsonString = JSON.stringify(businessList);
       const response = await fetch('src/data/businessList.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: jsonString,
-      })
+      });
       if (!response.ok) {
-        console.error('Error saving business list:', response.statusText)
+        console.error('Error saving business list:', response.statusText);
       }
-    }
+    };
 
-    saveBusinessList()
-  }, [businessList])
+    saveBusinessList();
+  }, [businessList]);
 
   return (
-    <div id="main' className='main-content'>
-      <h1 className='text-xl" style={{ backgroundColor: '#0b4a8f' }}>
+    <div id="main" className="main-content">
+      <h1 className="text-xl" style={{ backgroundColor: '#0b4a8f' }}>
         We’re Looking for Businesses to Benefit from FREE Work!{' '}
       </h1>
-      <br />
-      <h1 className='text-xl'>A Capstone Program </h1>
+      <h1 className="text-xl">A Capstone Program </h1>
       <p>
         Do you have a challenge in your organization that is going unsolved?
       </p>
@@ -70,9 +68,9 @@ export default function Root() {
         collaborate with a dedicated team of creators, and be free to use the
         source code or design assets after the project concludes.
       </p>
-      <div className='registration-container'>
-        <Registration addBusiness={addBusiness} />
+      <div className="flex w-full">
+        <Homepage />
       </div>
     </div>
-  )
+  );
 }
