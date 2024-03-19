@@ -602,6 +602,10 @@ video {
   margin-top: 1rem;
 }
 
+.mt-5 {
+  margin-top: 10rem;
+}
+
 .flex {
   display: flex;
 }
@@ -718,10 +722,17 @@ video {
 .p-6 {
   padding: 1.5rem;
 }
+.pl-1 {
+  padding-left: 17rem;
+}
 
 .px-3 {
   padding-left: 0.75rem;
   padding-right: 0.75rem;
+}
+
+.px-5 {
+  padding-left: 18rem;
 }
 
 .py-2 {
@@ -745,6 +756,11 @@ video {
 
 .text-xl {
   font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-xxl {
+  font-size: 2rem;
   line-height: 1.75rem;
 }
 

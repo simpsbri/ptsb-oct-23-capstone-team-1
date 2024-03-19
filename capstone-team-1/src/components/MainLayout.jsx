@@ -1,15 +1,18 @@
-import React from "react";
-import Header from "./Header/Header";
-import Footer from "./Footer/Footer";
-import HorizontalNav from "./Navigation/HorizontalNav";
+import React from 'react';
+import Header from './Header/Header';
+import Footer from './Footer/Footer';
+import HorizontalNav from './Navigation/HorizontalNav';
+import { Container } from '@mui/material';
 
 const MainLayout = ({ children }) => {
   return (
     <div>
-      <Header />
-      <HorizontalNav />
-      {children}
-      <Footer />
+      <Container maxWidth={false} sx={{ width: '100%' }}>
+        <Header />
+        <HorizontalNav />
+        {children}
+        <Footer />
+      </Container>
     </div>
   );
 };
