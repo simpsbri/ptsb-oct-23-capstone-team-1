@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const BusinessCard = ({ business, handleTagClick }) => {
-  const { company_name, isNew, isFeatured, Overview, Projects, logo } = business
+  const { company_name, isNew, isFeatured, Overview, Projects, logo, id } =
+    business
 
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
@@ -10,14 +12,16 @@ const BusinessCard = ({ business, handleTagClick }) => {
       <div className='flex-flex-col-justify-between ml-4'>
         {/* company name with logo */}
         <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>
-          {logo && (
-            <img
-              src={logo}
-              alt={`${company_name} logo`}
-              className='w-9 h-9 object-cover'
-            />
-          )}
-          <a>{company_name}</a>
+          <Link to={`/businesses/${id}`} className='flex items-center gap-2'>
+            {logo && (
+              <img
+                src={logo}
+                alt={`${company_name} logo`}
+                className='w-9 h-9 object-cover'
+              />
+            )}
+            {company_name}
+          </Link>
           {isNew && (
             <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white'>
               New!
