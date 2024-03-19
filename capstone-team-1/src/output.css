@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@500;700&display=swap');
 
+.main-content {
+  padding: 2rem; /* Add padding to create some space around the content */
+  max-width: 800px;
+  margin: 0 auto; /* Center the content */
+}
+.main-content p {
+  padding: 1rem 0; /* Add padding around the paragraphs */
+  line-height: 1.5; /* Improve readability */
+  font-size: 1rem;
+}
+
 /*
 ! tailwindcss v3.4.1 | MIT License | https://tailwindcss.com
 */

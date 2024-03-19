@@ -1,62 +1,56 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import App from "./App";
-import Root from "./routes/root";
-import Businesses from "./routes/businesses";
-import AllUsers from "./routes/users";
-import Projects from "./routes/projects";
-// import VerticalNav from './components/Navigation/HorizontalNav'
-import MainLayout from "./components/MainLayout";
-import Profile from "./routes/userProfile";
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
+import App from './App'
+import Root from './routes/root'
+import Businesses from './routes/businesses'
+import AllUsers from './routes/users'
+import Projects from './routes/projects'
+import MainLayout from './components/MainLayout'
+import Profile from './routes/userProfile'
+import BusinessProfile from './routes/businessProfile'
 
-import "./index.css";
+import './index.css'
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/', // catch-all route for all other paths
     element: (
       <MainLayout>
-        <Root />
+        <Outlet /> {/* renders the child route components */}
       </MainLayout>
     ),
+    children: [
+      {
+        path: '/', // includes the root path as a child route
+        element: <Root />,
+      },
+      {
+        path: '/businesses',
+        element: <Businesses />,
+      },
+      {
+        path: '/businesses/:id',
+        element: <BusinessProfile />,
+      },
+      {
+        path: '/users',
+        element: <AllUsers />,
+      },
+      {
+        path: '/projects',
+        element: <Projects />,
+      },
+      {
+        path: '/users/:id',
+        element: <Profile />,
+      },
+    ],
   },
-  {
-    path: "/businesses",
-    element: (
-      <MainLayout>
-        <Businesses />
-      </MainLayout>
-    ),
-  },
-  {
-    path: "/users",
-    element: (
-      <MainLayout>
-        <AllUsers />
-      </MainLayout>
-    ),
-  },
-  {
-    path: "/users/:id",
-    element: (
-      <MainLayout>
-        <Profile />
-      </MainLayout>
-    ),
-  },
-  {
-    path: "/projects",
-    element: (
-      <MainLayout>
-        <Projects />
-      </MainLayout>
-    ),
-  },
-]);
+])
 
-ReactDOM.createRoot(document.getElementById("root")).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
-);
+  </React.StrictMode>,
+)

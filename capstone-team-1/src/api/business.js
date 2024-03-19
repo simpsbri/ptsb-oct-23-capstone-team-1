@@ -12,7 +12,7 @@ mongoose.connect('mongodb://localhost:5173/business', {
 const app = express()
 
 // Define a route to load all business data
-app.get('/business', async (req, res) => {
+app.get('/businesses', async (req, res) => {
   const businessData = await BusinessModel.find()
 
   // Send the business data as a response
