@@ -40,12 +40,12 @@ const UserCard = ({ user, handleEditClick }) => {
       </div>
       {/* Edit user button */}
       <div className="flex items-center mt-4 mx-4 pt-4 sm:ml-auto">
-        <button
+        {/* <button
           className="bg-primary_dark_cyan text-white font-bold p-2 rounded"
           onClick={() => handleEditClick(user)}
         >
           Edit User
-        </button>
+        </button> */}
       </div>
     </div>
   );
