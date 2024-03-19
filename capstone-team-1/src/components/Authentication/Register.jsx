@@ -44,19 +44,9 @@ const Register = () => {
   }, [pwd, matchPwd]);
 
   return (
-    <section className="p-10 bg-primary_dark_cyan flex flex-row pl-1">
-      <div className="flex flex-col justify-center items-center h-screen">
-        <h1 className="text-xl font-bold mb-4 mt-5">Get in touch.</h1>
-
-        <p className="text-lg">
-          Are you interested in learning more about our capstone project
-          process?<br></br> Simply send us a message and our program manager
-          will reach out.
-        </p>
-      </div>
-
-      <div className="px-5">
-        <h1 className="text-xl font-bold mb-4">Register</h1>
+    <section className="p-10 bg-primary_dark_cyan flex w-full flex-row ">
+      <div>
+        <h1 className="text-xl font-bold mb-4">Contact Us</h1>
         <form>
           <Box
             component="form"
@@ -119,6 +109,23 @@ const Register = () => {
             className="p-2"
           >
             <TextField
+              required
+              id="outlined-required"
+              label="Required"
+              defaultValue="Company Name"
+            />
+          </Box>
+
+          {/* <Box
+            component="form"
+            sx={{
+              '& > :not(style)': { m: 1, width: '30ch' },
+            }}
+            noValidate
+            autoComplete="off"
+            className="p-2"
+          >
+            <TextField
               id="outlined-password-input"
               label="Password"
               type="password"
@@ -141,7 +148,7 @@ const Register = () => {
               type="password"
               autoComplete="current-password"
             />
-          </Box>
+          </Box> */}
 
           <Box
             component="form"
@@ -152,11 +159,7 @@ const Register = () => {
             autoComplete="off"
             className="p-2"
           >
-            <TextField
-              id="standard-basic"
-              label="Project Details"
-              variant="standard"
-            />
+            <TextField id="standard-basic" label="Message" variant="standard" />
           </Box>
           <Box
             component="form"

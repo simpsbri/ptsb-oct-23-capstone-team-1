@@ -16,6 +16,7 @@
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@mui/lab": "^5.0.0-alpha.168",
     "@mui/material": "^5.15.13",
     "axios": "^1.6.7",
     "colors": "^1.4.0",

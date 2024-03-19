@@ -1,11 +1,11 @@
-import Header from '../components/Header/Header'
-import Footer from '../components/Footer/Footer'
-import HorizontalNav from '../components/Navigation/HorizontalNav'
+import Header from '../components/Header/Header';
+import Footer from '../components/Footer/Footer';
+import HorizontalNav from '../components/Navigation/HorizontalNav';
 
 export default function Root() {
   return (
     <>
-      <div id='main'>
+      <div id="main" style={{ backgroundColor: '#0b4a8f' }}>
         <h1>We’re Looking for Businesses to Benefit from FREE Work! </h1>
         <h1>
           A Capstone Program Do you have a challenge in your organization that
@@ -46,5 +46,5 @@ export default function Root() {
         </p>
       </div>
     </>
-  )
+  );
 }

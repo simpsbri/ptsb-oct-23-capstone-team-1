@@ -720,13 +720,8 @@ video {
   padding-right: 0.75rem;
 }
 
-.px-4 {
-  padding-left: 0rem;
-  padding-right: 25rem;
-}
 .px-5 {
   padding-left: 18rem;
-  padding-right: 0rem;
 }
 
 .py-2 {
@@ -750,6 +745,11 @@ video {
 
 .text-xl {
   font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.text-xxl {
+  font-size: 2rem;
   line-height: 1.75rem;
 }
 
