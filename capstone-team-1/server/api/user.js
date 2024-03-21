@@ -1,5 +1,6 @@
 import express from "express";
 import UserModel from "../models/userModel.js";
+
 const router = express.Router();
 
 // Get all users
@@ -26,19 +27,5 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
-  try {
-    const user = await UserModel.findByIdAndUpdate(req.params.id, req.body, {
-      new: true,
-    });
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404).json({ message: "User not found" });
-    }
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
+// Export the router
 export default router;

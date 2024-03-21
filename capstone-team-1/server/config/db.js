@@ -1,19 +1,9 @@
-// this will connect to db and return the connection object
 import mongoose from "mongoose";
+import { MONGO_URI } from "./config.js";
 
-const connectDB = async () => {
-  try {
-    const conn = await mongoose.connect(process.env.MONGO_URI, {
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
-    });
-    console.log(
-      `MondgoDb connected: ${conn.connection.host}`.cyan.underline.bold
-    );
-  } catch (error) {
-    console.error(`Error: ${error.message}`.red.bold);
-    process.exit();
-  }
+export const connectDB = () => {
+  mongoose
+    .connect(MONGO_URI, {})
+    .then(() => console.log("MongoDB connected..."))
+    .catch((err) => console.log(err));
 };
-
-export default connectDB;
