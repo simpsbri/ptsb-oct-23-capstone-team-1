@@ -5,13 +5,22 @@ const UserProfile = ({ user }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [editableUser, setEditableUser] = useState({ ...user });
 
-  const toggleEdit = () => {
-    setIsEditing(!isEditing);
-  };
-
-  const handleSave = () => {
-    // Here, you would be an API call to update the user data
-    toggleEdit();
+  // This function is updated to make an API call
+  const handleSave = async () => {
+    try {
+      // Make an API call to update the user data
+      // Replace '/api/users/:id' with the actual ID of the user
+      const response = await axios.put(
+        `/api/users/${editableUser._id}`,
+        editableUser
+      );
+      // Assuming the API returns the updated user object, update the state
+      setEditableUser(response.data);
+      toggleEdit();
+    } catch (error) {
+      console.error("Error updating user:", error);
+      // Handle the error, e.g., show an error message to the user
+    }
   };
 
   const handleInputChange = (field, value) => {

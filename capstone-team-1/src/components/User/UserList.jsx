@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import axios from 'axios';
-import UserCard from './UserCard';
-import HorizontalNav from '../Navigation/HorizontalNav';
+import React, { useEffect, useState } from "react";
+import Header from "../Header/Header";
+import Footer from "../Footer/Footer";
+import axios from "axios";
+import UserCard from "./UserCard";
+import HorizontalNav from "../Navigation/HorizontalNav";
 
 const UserList = ({ handleEditClick }) => {
   const [users, setUsers] = useState([]);
@@ -11,10 +11,10 @@ const UserList = ({ handleEditClick }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('src/data/userList.json');
+        const response = await axios.get("/api/users");
         setUsers(response.data);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -30,7 +30,7 @@ const UserList = ({ handleEditClick }) => {
           <button
             // onClick={handleCreateNewUser}
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            style={{ position: 'absolute', right: '20px' }}
+            style={{ position: "absolute", right: "20px" }}
           >
             Create New User
           </button>

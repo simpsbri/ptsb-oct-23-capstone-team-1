@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import Homepage from '../components/Homepage/Homepage';
+import { useEffect, useState } from "react";
+import Homepage from "../components/Authentication/Homepage";
 
 export default function Root() {
   const [businessList, setBusinessList] = useState([]);
@@ -11,15 +11,15 @@ export default function Root() {
   useEffect(() => {
     const saveBusinessList = async () => {
       const jsonString = JSON.stringify(businessList);
-      const response = await fetch('src/data/businessList.json', {
-        method: 'POST',
+      const response = await fetch("src/data/businessList.json", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: jsonString,
       });
       if (!response.ok) {
-        console.error('Error saving business list:', response.statusText);
+        console.error("Error saving business list:", response.statusText);
       }
     };
 
@@ -28,8 +28,8 @@ export default function Root() {
 
   return (
     <div id="main" className="main-content">
-      <h1 className="text-xl" style={{ backgroundColor: '#0b4a8f' }}>
-        We’re Looking for Businesses to Benefit from FREE Work!{' '}
+      <h1 className="text-xl" style={{ backgroundColor: "#0b4a8f" }}>
+        We’re Looking for Businesses to Benefit from FREE Work!{" "}
       </h1>
       <h1 className="text-xl">A Capstone Program </h1>
       <p>
@@ -42,13 +42,13 @@ export default function Root() {
         Range Community College can work together with you to build a prototype,
         proof of concept, design map, or minimum viable product to solve your
         needs.
-      </p>{' '}
+      </p>{" "}
       <p>
         The Benefit to YOU is simple For the cost of some of your time, you can
         have a complete Software, UX/UI, Data Analytics, or Digital Marketing
         project completed for FREE! The value in service and labor equates to
         between $9,000 and $12,000!
-      </p>{' '}
+      </p>{" "}
       <p>
         What is a Capstone? Front Range Community College and Upright is a
         learning organization that teaches students the skills they need to
@@ -57,7 +57,7 @@ export default function Root() {
         solutions within an educational setting. Projects like yours are the
         final part of a 12-week boot camp curriculum and serve as the crowning
         achievement for student groups who are graduating from our program. We
-        call this opportunity our student capstone project.{' '}
+        call this opportunity our student capstone project.{" "}
       </p>
       <p>
         Capstone Project Overview Student teams work with real clients, such as
