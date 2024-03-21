@@ -3,7 +3,7 @@ import { PORT } from "./config/config.js";
 import { connectDB } from "./config/db.js";
 import { setupMiddleware } from "./config/middleware.js";
 import businessRoutes from "../server/api/business.js";
-import userRouter from "./api/users.js";
+import userRouter from "../server/api/user.js";
 import colors from "colors";
 
 import cors from "cors";
