@@ -1,3 +1,4 @@
+// this will connect to db and return the connection object
 import mongoose from "mongoose";
 
 const connectDB = async () => {

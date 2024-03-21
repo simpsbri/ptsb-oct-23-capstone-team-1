@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import EditBusinessForm from './EditBusiness'
+import React, { useState, useEffect } from 'react'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import {
   Box,
@@ -13,39 +12,87 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
+import MessageComponent from './BusinessMessages'
 
-const BusinessProfile = ({ business, onSave }) => {
-  const [isEditing, setIsEditing] = useState(false)
-  const [company_name, setCompany_name] = useState(business.company_name || '')
-  const [street, setStreet] = useState(business.street || '')
-  const [city, setCity] = useState(business.city || '')
-  const [state, setState] = useState(business.state || '')
-  const [zip, setZip] = useState(business.Zip || '')
-  const [Overview, setOverview] = useState(business.Overview || '')
+const BusinessProfile = () => {
+  const { id } = useParams()
+  const [business, setBusiness] = useState({})
+  const [company_name, setCompany_name] = useState('')
+  const [street, setStreet] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState('')
+  const [zip, setZip] = useState('')
+  const [overview, setOverview] = useState('')
+  const [primary_contact, setPrimary_contact] = useState('')
+  const [primary_contact_email, setPrimary_contact_email] = useState('')
+  const [messages, setMessages] = useState([])
+  const [saveSuccess, setSaveSuccess] = useState(false)
 
-  const handleSave = async (event, businessId) => {
-    event.preventDefault()
+  useEffect(() => {
+    const fetchBusiness = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:4000/businesses/${id}`,
+        )
+        setBusiness(response.data)
+        console.log('Business:', business)
+        setCompany_name(response.data.company_name || '')
+        setStreet(response.data.street || '')
+        setCity(response.data.city || '')
+        setState(response.data.state || '')
+        setZip(response.data.zip || '')
+        setOverview(response.data.Overview || '')
+        setPrimary_contact(response.data.primary_contact || '')
+        setPrimary_contact_email(response.data.primary_contact_email || '')
+        setMessages(
+          response.data.messages ? [...response.data.messages].reverse() : [],
+        )
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchBusiness()
+  }, [id])
+
+  const handleSave = async () => {
+    // Ensure the businessId is defined
+    if (!id) {
+      console.error('Business ID is undefined')
+      return
+    }
+
     try {
-      const response = await axios.put(
-        `http://localhost:5173/businesses/src/data/businessList/${businessId}`,
-        {
-          company_name,
-          street,
-          city,
-          state,
-          zip,
-          Overview,
-        },
-      )
-
-      if (!response.data.ok) {
-        throw new Error('Failed to save business')
+      // Declare and initialize businessData
+      const businessData = {
+        company_name,
+        street,
+        city,
+        state,
+        zip,
+        overview,
+        primary_contact,
+        primary_contact_email,
       }
 
-      onSave(response.data.business)
-      setIsEditing(false)
+      // Make the PUT request
+      const response = await axios.put(
+        `http://localhost:4000/businesses/${id}`,
+        businessData,
+      )
+
+      // Handle the response
+      if (response.status === 200) {
+        setSaveSuccess(true)
+        console.log('Business profile updated successfully')
+      } else {
+        console.error('Failed to update business profile')
+      }
     } catch (error) {
-      console.error(error)
+      console.error(
+        'An error occurred while updating the business profile:',
+        error,
+      )
     }
   }
 
@@ -53,13 +100,13 @@ const BusinessProfile = ({ business, onSave }) => {
     <>
       <Box className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid'>
         {/* Logo */}
-        <Box
+        {/* <Box
           component='img'
           src={business.logo}
           alt={`${business.company_name}'s logo`}
           className='rounded-full mb-4'
           style={{ width: '128px', height: '128px' }}
-        />
+        /> */}
 
         {/* Profile Header */}
         <Typography
@@ -69,7 +116,15 @@ const BusinessProfile = ({ business, onSave }) => {
         >
           Business Profile
         </Typography>
-
+        {saveSuccess && (
+          <Typography
+            variant='h2'
+            component='h1'
+            className='text-2xl text-red-500 font-bold mb-4 text-center'
+          >
+            Data save successfully!
+          </Typography>
+        )}
         {/* Business Info */}
         <form onSubmit={(event) => handleSave(event, business.id)}>
           <Grid container spacing={2}>
@@ -78,8 +133,34 @@ const BusinessProfile = ({ business, onSave }) => {
               <FormControl fullWidth>
                 <TextField
                   id='company_name'
+                  name='company_name'
+                  autoComplete='company_name'
                   value={company_name}
                   onChange={(e) => setCompany_name(e.target.value)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='primary_contact'>Primary Contact</InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='primary_contact'
+                  name='primary_contact'
+                  autoComplete='primary_contact'
+                  value={primary_contact}
+                  onChange={(e) => setPrimary_contact(e.target.value)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='primary_contact_email'>Email</InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='primary_contact_email'
+                  name='primary_contact_email'
+                  autoComplete='primary_contact_email'
+                  value={primary_contact_email}
+                  onChange={(e) => setPrimary_contact_email(e.target.value)}
                 />
               </FormControl>
             </Grid>
@@ -111,49 +192,45 @@ const BusinessProfile = ({ business, onSave }) => {
                     id='zip'
                     value={zip}
                     onChange={(e) => setZip(e.target.value)}
-                  />{' '}
-                </Box>{' '}
-              </FormControl>{' '}
-            </Grid>{' '}
+                  />
+                </Box>
+              </FormControl>
+            </Grid>
             <Grid item xs={12}>
               <InputLabel htmlFor='overview'>Overview</InputLabel>
               <FormControl fullWidth>
-                {' '}
                 <TextField
                   id='overview'
-                  value={Overview}
+                  value={overview}
                   onChange={(e) => setOverview(e.target.value)}
                   multiline
                   rows={4}
-                />{' '}
-              </FormControl>{' '}
-            </Grid>{' '}
-            <Grid item xs={12}>
-              {' '}
+                />
+              </FormControl>
+            </Grid>
+            {/* <Grid item xs={12}>
               <Typography
                 variant='h6'
                 component='h2'
                 className='text-sm font-medium text-gray-700 mb-1'
               >
-                {' '}
-                Projects{' '}
-              </Typography>{' '}
+                Projects
+              </Typography>
               <ul>
-                {' '}
                 {business.Projects.map((project, index) => (
                   <li key={index} className='text-dark_gray_cyan text-base'>
-                    {' '}
-                    {project}{' '}
+                    {project}
                   </li>
-                ))}{' '}
-              </ul>{' '}
-            </Grid>{' '}
+                ))}
+              </ul>
+            </Grid> */}
+            <MessageComponent messages={messages} />
           </Grid>
 
           {/* Save Button */}
           <Box className='flex mt-4'>
             <Button
-              type='submit'
+              onClick={handleSave}
               variant='contained'
               sx={{
                 mr: '1rem',
