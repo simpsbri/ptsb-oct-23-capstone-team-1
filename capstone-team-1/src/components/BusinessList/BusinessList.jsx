@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import BusinessCard from './BusinessCard'
 import axios from 'axios'
 import { Button } from '@mui/material'
+import { useNavigate } from 'react-router-dom'
 
 const BusinessList = ({ handleTagClick }) => {
+  const navigate = useNavigate()
   const [businesses, setBusinesses] = useState([])
 
   useEffect(() => {
@@ -31,7 +33,12 @@ const BusinessList = ({ handleTagClick }) => {
         <div className='flex items-center justify-between w-full mb-4'>
           <div className='font-bold text-center mx-auto w-4/10'>Businesses</div>
           <div className='flex items-center'>
-            <Button variant='contained' color='inherit' className='w-2/10'>
+            <Button
+              variant='contained'
+              color='inherit'
+              className='w-2/10'
+              onClick={() => navigate('createNewBusiness')}
+            >
               Create New
             </Button>
           </div>

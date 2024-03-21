@@ -1,8 +1,19 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import Business from '../models/businessModel.js'
+import nodemailer from 'nodemailer'
+import dotenv from 'dotenv'
 
 const router = express.Router()
+
+// create reusable transporter object using the default SMTP transport
+let transporter = nodemailer.createTransport({
+  service: 'gmail', // use 'gmail' as service
+  auth: {
+    user: process.env.GMAIL_USER,
+    pass: process.env.GMAIL_PASS,
+  },
+})
 
 router.get('/', async (req, res) => {
   try {
@@ -23,30 +34,33 @@ router.get('/:_id', async (req, res) => {
     return res.status(500).json({ message: err.message })
   }
 })
-
-router.post('/', async (req, res) => {
+router.post('/createNewBusiness', async (req, res) => {
   const newBusiness = new Business({
     company_name: req.body.company_name,
-    id: req.body.id,
     street: req.body.street,
     city: req.body.city,
     state: req.body.state,
     Zip: req.body.Zip,
     Phone: req.body.phone,
     Overview: req.body.Overview,
-    Projects: req.body.Projects,
-    businessUsers: req.body.businessUsers,
     primary_contact: req.body.primary_contact,
     primary_contact_email: req.body.primary_contact_email,
   })
-
   try {
     const savedBusiness = await newBusiness.save()
+
+    let info = await transporter.sendMail({
+      from: '"Brian Simpson" <simpsbri@gmail.com>', // sender address
+      to: 'brian@webkidss.org', // list of receivers
+      subject: 'New Business Created', // Subject line
+      text: `A new business has been created: ${newBusiness.company_name}\n\nPrimary Contact: ${newBusiness.primary_contact}\nPrimary Contact Email: ${newBusiness.primary_contact_email}\n\n\nOverview: ${newBusiness.Overview}`,
+    })
     res.status(201).json(savedBusiness)
   } catch (err) {
     res.status(400).json({ message: err.message })
   }
 })
+
 router.put('/:id', getBusiness, async (req, res) => {
   if (req.body.company_name != null) {
     ;(res.business.company_name = req.body.company_name),

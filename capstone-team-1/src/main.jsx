@@ -11,6 +11,7 @@ import MainLayout from './components/MainLayout'
 // import Homepage from './components/Authentication/Homepage';
 import Profile from './routes/userProfile'
 import BusinessProfile from './routes/businessProfile'
+import BusinessBlank from './routes/newBusinessProfile'
 
 import './index.css'
 
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
       {
         path: '/businesses',
         element: <Businesses />,
+      },
+      {
+        path: '/businesses/CreateNewBusiness',
+        element: <BusinessBlank />,
       },
       {
         path: '/businesses/:id',
