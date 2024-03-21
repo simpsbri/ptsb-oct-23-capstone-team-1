@@ -34,7 +34,7 @@ npm install
 npm start
 ```
 
-5. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
+5. Open your browser and navigate to [http://localhost:5173](http://localhost:5173).
 
 ## Application Structure
 

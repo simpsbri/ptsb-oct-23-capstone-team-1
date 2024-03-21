@@ -17,7 +17,7 @@ function HorizontalNav() {
         </li>
         <li>
           <Link to='/users' className='navlink'>
-            All Users
+            Users
           </Link>
         </li>
         <li>

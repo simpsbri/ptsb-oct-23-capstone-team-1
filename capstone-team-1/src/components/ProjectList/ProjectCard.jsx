@@ -24,13 +24,6 @@ const ProjectCard = ({ job, handleTagClick }) => {
 
   return (
     <div className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
-      {/* company logo */}
-      <img
-        src={logo}
-        alt='logo'
-        className='-mt-11mb-4 w-20 h-20 sm:mt-0 sm:h-24 sm:my-0'
-      />
-
       <div className='flex-flex-col-justify-between ml-4'>
         {/* company name */}
         <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>

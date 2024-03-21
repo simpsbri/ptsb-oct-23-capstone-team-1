@@ -24,7 +24,7 @@ const Header = () => {
           target='_blank'
           className='form-button'
         >
-          <button>Book a Call</button>
+          <button className='book-a-call-button'>Book a Call</button>
         </a>
       </div>
     </header>
