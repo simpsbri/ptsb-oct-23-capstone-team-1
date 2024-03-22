@@ -33,10 +33,15 @@ const BusinessCard = ({ business, handleTagClick }) => {
         (currentDate - messageDate) / (1000 * 60 * 60 * 24),
       )
 
-      if (differenceInDays > 30) {
-        setBackgroundColor('lightcoral')
-      } else {
-        setBackgroundColor('white')
+      switch (true) {
+        case differenceInDays > 60:
+          setBackgroundColor('lightcoral')
+          break
+        case differenceInDays > 30:
+          setBackgroundColor('gold')
+          break
+        default:
+          setBackgroundColor('white')
       }
     }
   }, [latestMessage])
