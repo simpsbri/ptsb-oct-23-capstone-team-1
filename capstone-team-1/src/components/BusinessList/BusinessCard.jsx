@@ -16,6 +16,7 @@ const BusinessCard = ({ business, handleTagClick }) => {
 
   const [busMessages, setBusMessages] = useState([])
   const latestMessage = useLatestMessage(busMessages, _id)
+  const [backgroundColor, setBackgroundColor] = useState('')
 
   useEffect(() => {
     fetch('http://localhost:4000/messages')
@@ -24,12 +25,29 @@ const BusinessCard = ({ business, handleTagClick }) => {
         setBusMessages(data)
       })
       .catch((error) => console.error('Error:', error))
-  }, [])
+
+    if (latestMessage) {
+      const messageDate = new Date(latestMessage.createdAt)
+      const currentDate = new Date()
+      const differenceInDays = Math.ceil(
+        (currentDate - messageDate) / (1000 * 60 * 60 * 24),
+      )
+
+      if (differenceInDays > 30) {
+        setBackgroundColor('lightcoral')
+      } else {
+        setBackgroundColor('white')
+      }
+    }
+  }, [latestMessage])
 
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
   return (
-    <div className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
+    <div
+      style={{ backgroundColor: backgroundColor }}
+      className='flex flex-col justify-between shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'
+    >
       <div className='flex-flex-col-justify-between ml-4'>
         {/* company name with logo */}
         <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>

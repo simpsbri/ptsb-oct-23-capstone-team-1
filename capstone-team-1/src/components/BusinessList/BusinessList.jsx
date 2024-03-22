@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-const BusinessList = ({ handleTagClick, latestMessage }) => {
+const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
   const navigate = useNavigate()
   const [businesses, setBusinesses] = useState([])
 
@@ -46,9 +46,10 @@ const BusinessList = ({ handleTagClick, latestMessage }) => {
           {businesses.map((business, index) => {
             return (
               <BusinessCard
-                key={index}
+                key={business._id}
                 business={business}
                 handleTagClick={handleTagClick}
+                backgroundColor={backgroundColor}
               />
             )
           })}
