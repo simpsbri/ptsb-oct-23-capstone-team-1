@@ -3,6 +3,7 @@ import { PORT } from './config/config.js'
 import { connectDB } from './config/db.js'
 import { setupMiddleware } from './config/middleware.js'
 import businessRoutes from '../server/api/business.js'
+import messagesRoutes from '../server/api/busMessages.js'
 import colors from 'colors'
 
 import cors from 'cors'
@@ -20,6 +21,8 @@ app.get('/', (req, res) => {
 })
 
 app.use('/businesses', businessRoutes)
+
+app.use('/messages', messagesRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)

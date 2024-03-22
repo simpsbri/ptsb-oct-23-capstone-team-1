@@ -4,7 +4,7 @@ import axios from 'axios'
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 
-const BusinessList = ({ handleTagClick }) => {
+const BusinessList = ({ handleTagClick, latestMessage }) => {
   const navigate = useNavigate()
   const [businesses, setBusinesses] = useState([])
 
@@ -12,7 +12,6 @@ const BusinessList = ({ handleTagClick }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:4000/businesses')
-        console.log(response.data)
         setBusinesses(response.data)
       } catch (error) {
         console.error('Error fetching data:', error)
@@ -44,13 +43,15 @@ const BusinessList = ({ handleTagClick }) => {
           </div>
         </div>
         <div className='flex flex-col w-full px-4'>
-          {businesses.map((business) => (
-            <BusinessCard
-              business={business}
-              key={business._id}
-              Projects={business.Projects}
-            />
-          ))}
+          {businesses.map((business, index) => {
+            return (
+              <BusinessCard
+                key={index}
+                business={business}
+                handleTagClick={handleTagClick}
+              />
+            )
+          })}
         </div>
       </div>
     </>

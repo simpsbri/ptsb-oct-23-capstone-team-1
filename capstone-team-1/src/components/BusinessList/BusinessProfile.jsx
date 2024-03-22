@@ -12,7 +12,7 @@ import {
   Select,
   MenuItem,
 } from '@mui/material'
-import MessageComponent from './BusinessMessages'
+import BusinessMessages from './BusinessMessages'
 
 const BusinessProfile = () => {
   const { id } = useParams()
@@ -35,7 +35,6 @@ const BusinessProfile = () => {
           `http://localhost:4000/businesses/${id}`,
         )
         setBusiness(response.data)
-        console.log('Business:', business)
         setCompany_name(response.data.company_name || '')
         setStreet(response.data.street || '')
         setCity(response.data.city || '')
@@ -224,7 +223,6 @@ const BusinessProfile = () => {
                 ))}
               </ul>
             </Grid> */}
-            <MessageComponent messages={messages} />
           </Grid>
 
           {/* Save Button */}
@@ -260,6 +258,7 @@ const BusinessProfile = () => {
             </Link>
           </Box>
         </form>
+        <BusinessMessages />
       </Box>
     </>
   )

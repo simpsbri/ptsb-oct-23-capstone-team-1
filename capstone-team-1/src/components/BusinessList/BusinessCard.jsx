@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { useLatestMessage } from './useLatestMessage'
 
 const BusinessCard = ({ business, handleTagClick }) => {
   const {
@@ -9,9 +10,21 @@ const BusinessCard = ({ business, handleTagClick }) => {
     logo,
     primary_contact,
     primary_contact_email,
-    businessID,
+    _id,
     Projects,
   } = business
+
+  const [busMessages, setBusMessages] = useState([])
+  const latestMessage = useLatestMessage(busMessages, _id)
+
+  useEffect(() => {
+    fetch('http://localhost:4000/messages')
+      .then((response) => response.json())
+      .then((data) => {
+        setBusMessages(data)
+      })
+      .catch((error) => console.error('Error:', error))
+  }, [])
 
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
@@ -58,6 +71,21 @@ const BusinessCard = ({ business, handleTagClick }) => {
         <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>
           {Overview}
         </p>
+        {latestMessage && (
+          <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>
+            <b>Latest message:</b> {latestMessage.messageText}
+            <br />
+            <b>Created At:</b>
+            {new Date(latestMessage.createdAt).toLocaleString('en-US', {
+              hour: 'numeric',
+              minute: 'numeric',
+              month: 'numeric',
+              day: 'numeric',
+              year: '2-digit',
+              hour12: true,
+            })}
+          </p>
+        )}
       </div>
       {/* Job tags */}
       <div className='flex flex-wrap items-center mt-4 mx-4 pt-4 border-t border-gray-500 border-solid sm:ml-auto sm:border-0 sm:pt-0'>

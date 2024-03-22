@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {
   Box,
@@ -24,6 +24,8 @@ function BusinessProfileBlank() {
   const [Zip, setZip] = useState('')
   const [Overview, setOverview] = useState('')
 
+  const navigate = useNavigate()
+
   async function handleSave(event) {
     event.preventDefault()
 
@@ -46,15 +48,7 @@ function BusinessProfileBlank() {
       )
       console.log(response.data) // Optional: Log the response data
 
-      // Reset the form fields after successful save
-      setCompany_name('')
-      setPrimary_contact('')
-      setPrimary_contact_email('')
-      setStreet('')
-      setCity('')
-      setState('')
-      setZip('')
-      setOverview('')
+      navigate('/businesses')
     } catch (error) {
       console.error(error)
       // Handle error here
