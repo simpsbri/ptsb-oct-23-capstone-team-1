@@ -12,29 +12,13 @@ To run this app, you need to have Node.js and npm installed on your computer. Yo
 
 1. Clone this repository to your local machine:
 
-```
-git clone https://github.com/your-username/your-repo.git
-```
+git clone https://github.com/your-username/your-repo.git 2. Navigate to the project directory:
 
-2. Navigate to the project directory:
+cd your-repo 3. Install the dependencies:
 
-```
-cd your-repo
-```
+npm install 4. Start the development server:
 
-3. Install the dependencies:
-
-```
-npm install
-```
-
-4. Start the development server:
-
-```
-npm start
-```
-
-5. Open your browser and navigate to [http://localhost:5173](http://localhost:5173).
+npm start 5. Open your browser and navigate to [http://localhost:5173](http://localhost:5173).
 
 ## Application Structure
 

@@ -60,4 +60,18 @@ router.get("/:_id", async (req, res) => {
   }
 });
 
+// PUT update user by ID
+router.put("/:id", async (req, res) => {
+  try {
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      req.params.id,
+      req.body,
+      { new: true }
+    );
+    res.json(updatedUser);
+  } catch (error) {
+    res.status(500).send(error.message);
+  }
+});
+
 export default router;
