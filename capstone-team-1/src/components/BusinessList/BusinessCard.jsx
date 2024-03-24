@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './business.css'
 import { useLatestMessage } from './useLatestMessage'
-import WarningIcon from '@mui/icons-material/Warning'
-import ReportIcon from '@mui/icons-material/Report'
+import ReportGmailerrorredTwoToneIcon from '@mui/icons-material/ReportGmailerrorredTwoTone'
+import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone'
+import AnnouncementTwoToneIcon from '@mui/icons-material/AnnouncementTwoTone'
+import ContactSupportTwoToneIcon from '@mui/icons-material/ContactSupportTwoTone'
 
 const BusinessCard = ({ business, handleTagClick }) => {
   const {
@@ -25,32 +27,45 @@ const BusinessCard = ({ business, handleTagClick }) => {
   useEffect(() => {
     fetch('http://localhost:4000/messages')
       .then((response) => response.json())
-      .then((data) => {
-        setBusMessages(data)
-      })
-      .catch((error) => console.error('Error:', error))
+      .then(
+        (data) => {
+          const businessMessages = data.filter(
+            (message) => message.businessId === _id,
+          )
+          setBusMessages(businessMessages)
 
-    if (latestMessage) {
-      const messageDate = new Date(latestMessage.createdAt)
-      const currentDate = new Date()
-      const differenceInDays = Math.ceil(
-        (currentDate - messageDate) / (1000 * 60 * 60 * 24),
+          const latestMessage = businessMessages.sort(
+            (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+          )[0]
+
+          if (!latestMessage) {
+            setBackgroundColor('gray')
+            setStatusIcon(<ContactSupportTwoToneIcon />)
+          } else {
+            const messageDate = new Date(latestMessage.createdAt)
+            const currentDate = new Date()
+            const differenceInDays = Math.ceil(
+              (currentDate - messageDate) / (1000 * 60 * 60 * 24),
+            )
+
+            switch (true) {
+              case differenceInDays > 60:
+                setBackgroundColor('lightcoral')
+                setStatusIcon(<ReportGmailerrorredTwoToneIcon />)
+                break
+              case differenceInDays > 30:
+                setBackgroundColor('yellow')
+                setStatusIcon(<WarningTwoToneIcon />)
+                break
+              default:
+                setBackgroundColor('lightgreen')
+                setStatusIcon(<AnnouncementTwoToneIcon />)
+            }
+          }
+        },
+        [latestMessage],
       )
-
-      switch (true) {
-        case differenceInDays > 60:
-          setBackgroundColor('lightcoral')
-          setStatusIcon(<ReportIcon />)
-          break
-        case differenceInDays > 30:
-          setBackgroundColor('gold')
-          setStatusIcon(<WarningIcon />)
-          break
-        default:
-          setBackgroundColor('white')
-      }
-    }
-  }, [latestMessage])
+  })
 
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
