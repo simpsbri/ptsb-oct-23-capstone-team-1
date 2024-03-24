@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import './business.css'
 import { useLatestMessage } from './useLatestMessage'
+import WarningIcon from '@mui/icons-material/Warning'
+import ReportIcon from '@mui/icons-material/Report'
 
 const BusinessCard = ({ business, handleTagClick }) => {
   const {
@@ -17,6 +20,7 @@ const BusinessCard = ({ business, handleTagClick }) => {
   const [busMessages, setBusMessages] = useState([])
   const latestMessage = useLatestMessage(busMessages, _id)
   const [backgroundColor, setBackgroundColor] = useState('')
+  const [statusIcon, setStatusIcon] = useState(null)
 
   useEffect(() => {
     fetch('http://localhost:4000/messages')
@@ -36,9 +40,11 @@ const BusinessCard = ({ business, handleTagClick }) => {
       switch (true) {
         case differenceInDays > 60:
           setBackgroundColor('lightcoral')
+          setStatusIcon(<ReportIcon />)
           break
         case differenceInDays > 30:
           setBackgroundColor('gold')
+          setStatusIcon(<WarningIcon />)
           break
         default:
           setBackgroundColor('white')
@@ -49,10 +55,7 @@ const BusinessCard = ({ business, handleTagClick }) => {
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
   return (
-    <div
-      style={{ backgroundColor: backgroundColor }}
-      className='flex flex-col justify-between shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'
-    >
+    <div className='flex flex-col justify-between items-center shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
       <div className='flex-flex-col-justify-between ml-4'>
         {/* company name with logo */}
         <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>
@@ -110,6 +113,7 @@ const BusinessCard = ({ business, handleTagClick }) => {
           </p>
         )}
       </div>
+
       {/* Job tags */}
       <div className='flex flex-wrap items-center mt-4 mx-4 pt-4 border-t border-gray-500 border-solid sm:ml-auto sm:border-0 sm:pt-0'>
         {tags.map((tag, index) => (
@@ -121,6 +125,12 @@ const BusinessCard = ({ business, handleTagClick }) => {
             {tag.projectName}
           </button>
         ))}
+      </div>
+      <div
+        className='h-full svg_icons'
+        style={{ backgroundColor: backgroundColor }}
+      >
+        {statusIcon}
       </div>
     </div>
   )

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import {
@@ -11,6 +11,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Alert,
 } from '@mui/material'
 import BusinessMessages from './BusinessMessages'
 
@@ -27,6 +28,34 @@ const BusinessProfile = () => {
   const [primary_contact_email, setPrimary_contact_email] = useState('')
   const [messages, setMessages] = useState([])
   const [saveSuccess, setSaveSuccess] = useState(false)
+  const saveSuccessRef = useRef(null)
+  const [saveError, setSaveError] = useState(false)
+  const saveErrorRef = useRef(null)
+
+  useEffect(() => {
+    if (saveSuccess && saveSuccessRef.current) {
+      saveSuccessRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+    // Reset saveSuccess state after 3 seconds
+    const timeoutId = setTimeout(() => {
+      setSaveSuccess(false)
+    }, 3000)
+
+    // Clear timeout on component unmount
+    return () => clearTimeout(timeoutId)
+  }, [saveSuccess])
+
+  useEffect(() => {
+    if (saveError && saveErrorRef.current) {
+      saveErrorRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+    const timeoutId = setTimeout(() => {
+      setSaveSuccess(false)
+    }, 3000)
+
+    // Clear timeout on component unmount
+    return () => clearTimeout(timeoutId)
+  }, [saveError])
 
   useEffect(() => {
     const fetchBusiness = async () => {
@@ -84,14 +113,17 @@ const BusinessProfile = () => {
       if (response.status === 200) {
         setSaveSuccess(true)
         console.log('Business profile updated successfully')
+        setSaveError(false)
       } else {
         console.error('Failed to update business profile')
+        setSaveError(true)
       }
     } catch (error) {
       console.error(
         'An error occurred while updating the business profile:',
         error,
       )
+      setSaveError(true)
     }
   }
 
@@ -116,14 +148,16 @@ const BusinessProfile = () => {
           Business Profile
         </Typography>
         {saveSuccess && (
-          <Typography
-            variant='h2'
-            component='h1'
-            className='text-2xl text-red-500 font-bold mb-4 text-center'
-          >
-            Data save successfully!
-          </Typography>
+          <Alert variant='filled' severity='success' ref={saveSuccessRef}>
+            Updates save successfully.
+          </Alert>
         )}
+        {saveError && (
+          <Alert variant='filled' severity='error' ref={saveErrorRef}>
+            Updates not successful.
+          </Alert>
+        )}
+
         {/* Business Info */}
         <form onSubmit={(event) => handleSave(event, business.id)}>
           <Grid container spacing={2}>

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
   const navigate = useNavigate()
   const [businesses, setBusinesses] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,29 +31,38 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
     <>
       <div className='flex flex-col items-center mx-auto h-96 w-full'>
         <div className='flex items-center justify-between w-full mb-4'>
-          <div className='font-bold text-center mx-auto w-4/10'>Businesses</div>
-          <div className='flex items-center'>
+          <div className='font-bold text-center mx-auto'>Businesses</div>
+        </div>
+        <div className='flex justify-between w-full mb-4'>
+          <div className='flex ml-5'>
             <Button
               variant='contained'
               color='inherit'
-              className='w-2/10'
               onClick={() => navigate('createNewBusiness')}
             >
               Create New
             </Button>
           </div>
+          <div>
+            <input
+              type='text'
+              placeholder='Search'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className='p-2 border rounded-md shadow-sm w-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mr-4'
+            />
+          </div>
         </div>
         <div className='flex flex-col w-full px-4'>
-          {businesses.map((business, index) => {
-            return (
-              <BusinessCard
-                key={business._id}
-                business={business}
-                handleTagClick={handleTagClick}
-                backgroundColor={backgroundColor}
-              />
+          {businesses
+            .filter((business) =>
+              business.company_name
+                .toLowerCase()
+                .includes(searchTerm.toLowerCase()),
             )
-          })}
+            .map((business) => (
+              <BusinessCard key={business._id} business={business} />
+            ))}
         </div>
       </div>
     </>

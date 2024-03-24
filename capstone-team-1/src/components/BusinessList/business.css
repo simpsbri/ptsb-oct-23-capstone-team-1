@@ -30,3 +30,7 @@
 .deleteButton:hover {
   background-color: #f10000;
 }
+.svg_icons {
+  transform: scale(5);
+  margin-right: 3rem;
+}
