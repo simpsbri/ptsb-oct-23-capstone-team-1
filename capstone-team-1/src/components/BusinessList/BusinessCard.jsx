@@ -4,10 +4,10 @@ import './business.css'
 import { useLatestMessage } from './useLatestMessage'
 import ReportGmailerrorredTwoToneIcon from '@mui/icons-material/ReportGmailerrorredTwoTone'
 import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone'
-import AnnouncementTwoToneIcon from '@mui/icons-material/AnnouncementTwoTone'
+import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone'
 import ContactSupportTwoToneIcon from '@mui/icons-material/ContactSupportTwoTone'
 
-const BusinessCard = ({ business, handleTagClick }) => {
+const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   const {
     company_name,
     isNew,
@@ -23,6 +23,7 @@ const BusinessCard = ({ business, handleTagClick }) => {
   const latestMessage = useLatestMessage(busMessages, _id)
   const [backgroundColor, setBackgroundColor] = useState('')
   const [statusIcon, setStatusIcon] = useState(null)
+  const [status, setStatus] = useState('')
 
   useEffect(() => {
     fetch('http://localhost:4000/messages')
@@ -41,6 +42,8 @@ const BusinessCard = ({ business, handleTagClick }) => {
           if (!latestMessage) {
             setBackgroundColor('gray')
             setStatusIcon(<ContactSupportTwoToneIcon />)
+            setStatus('No Messages Yet')
+            updateStatus('No Messages Yet')
           } else {
             const messageDate = new Date(latestMessage.createdAt)
             const currentDate = new Date()
@@ -52,20 +55,29 @@ const BusinessCard = ({ business, handleTagClick }) => {
               case differenceInDays > 60:
                 setBackgroundColor('lightcoral')
                 setStatusIcon(<ReportGmailerrorredTwoToneIcon />)
+                setStatus('No Messages in 60 days')
+                updateStatus('No Messages in 60 days')
                 break
               case differenceInDays > 30:
                 setBackgroundColor('yellow')
                 setStatusIcon(<WarningTwoToneIcon />)
+                setStatus('No Messages in 30 days')
+                updateStatus('No Messages in 30 days')
                 break
               default:
                 setBackgroundColor('lightgreen')
-                setStatusIcon(<AnnouncementTwoToneIcon />)
+                setStatusIcon(<ChatBubbleTwoToneIcon />)
+                setStatus('Active')
+                updateStatus('Active')
             }
           }
         },
         [latestMessage],
       )
-  })
+      .catch((error) => {
+        console.error('Error fetching messages:', error)
+      })
+  }, [])
 
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
