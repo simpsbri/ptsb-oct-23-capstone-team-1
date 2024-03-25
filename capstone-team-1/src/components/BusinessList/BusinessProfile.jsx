@@ -26,11 +26,38 @@ const BusinessProfile = () => {
   const [overview, setOverview] = useState('')
   const [primary_contact, setPrimary_contact] = useState('')
   const [primary_contact_email, setPrimary_contact_email] = useState('')
-  const [messages, setMessages] = useState([])
+
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
   const [saveError, setSaveError] = useState(false)
   const saveErrorRef = useRef(null)
+
+  const [passedMessages, setPassedMessages] = useState([])
+  const [lastContactedDate, setLastContactedDate] = useState('')
+  const fetchMessages = (id) => {
+    fetch('http://localhost:4000/messages')
+      .then((response) => response.json())
+      .then((data) => {
+        // Filter messages for the current business
+        const businessMessages = data.filter(
+          (message) => message.businessId === id,
+        )
+
+        // Sort messages from newest to oldest
+        const sortedMessages = businessMessages.sort(
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        )
+
+        // Update the passedMessages state
+        setPassedMessages(sortedMessages)
+
+        // If there are any messages, update the lastContactedDate state
+        if (sortedMessages.length > 0) {
+          setLastContactedDate(sortedMessages[0].createdAt)
+          console.log('Initialization of LastContact' + lastContactedDate)
+        }
+      })
+  }
 
   useEffect(() => {
     if (saveSuccess && saveSuccessRef.current) {
@@ -72,15 +99,16 @@ const BusinessProfile = () => {
         setOverview(response.data.Overview || '')
         setPrimary_contact(response.data.primary_contact || '')
         setPrimary_contact_email(response.data.primary_contact_email || '')
-        setMessages(
-          response.data.messages ? [...response.data.messages].reverse() : [],
-        )
       } catch (error) {
         console.error(error)
       }
     }
 
     fetchBusiness()
+  }, [id])
+
+  useEffect(() => {
+    fetchMessages(id)
   }, [id])
 
   const handleSave = async () => {
@@ -101,6 +129,7 @@ const BusinessProfile = () => {
         overview,
         primary_contact,
         primary_contact_email,
+        lastContactedDate,
       }
 
       // Make the PUT request
@@ -170,6 +199,19 @@ const BusinessProfile = () => {
                   autoComplete='company_name'
                   value={company_name}
                   onChange={(e) => setCompany_name(e.target.value)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='last_contacted_date'>
+                Last Contacted Date
+              </InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='last_contacted_date'
+                  name='last_contacted_date'
+                  autoComplete='last_contacted_date'
+                  value={new Date(lastContactedDate).toLocaleDateString()}
                 />
               </FormControl>
             </Grid>
