@@ -10,12 +10,16 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
 
 const Register = () => {
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const userRef = useRef();
   const errRef = useRef();
 
@@ -116,50 +120,24 @@ const Register = () => {
             />
           </Box>
 
-          {/* <Box
+          <Box
             component="form"
             sx={{
-              '& > :not(style)': { m: 1, width: '30ch' },
+              '& > :not(style)': {
+                m: 1,
+                width: isSmallScreen ? '75%' : '35ch',
+              },
             }}
             noValidate
             autoComplete="off"
             className="p-2"
           >
             <TextField
-              id="outlined-password-input"
-              label="Password"
-              type="password"
-              autoComplete="current-password"
+              id="standard-basic"
+              label="What is the issue you are trying to solve for? "
+              variant="standard"
+              fullWidth
             />
-          </Box>
-
-          <Box
-            className="p-2"
-            component="form"
-            sx={{
-              '& > :not(style)': { m: 1, width: '30ch' },
-            }}
-            noValidate
-            autoComplete="off"
-          >
-            <TextField
-              id="outlined-password-input"
-              label="Confirm Password"
-              type="password"
-              autoComplete="current-password"
-            />
-          </Box> */}
-
-          <Box
-            component="form"
-            sx={{
-              '& > :not(style)': { m: 1, width: '30ch' },
-            }}
-            noValidate
-            autoComplete="off"
-            className="p-2"
-          >
-            <TextField id="standard-basic" label="Message" variant="standard" />
           </Box>
           <Box
             component="form"
