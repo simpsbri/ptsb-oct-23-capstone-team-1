@@ -19,18 +19,24 @@
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/lab": "^5.0.0-alpha.168",
-    "@mui/material": "^5.15.13",
+    "@mui/material": "^5.15.14",
     "axios": "^1.6.8",
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "express": "^4.18.3",
+    "moment": "^2.30.1",
     "mongodb": "^6.5.0",
     "mongoose": "^8.2.3",
+    "mui": "^0.0.1",
+    "node-cron": "^3.0.3",
+    "node-moment": "^2.5.1",
+    "nodemailer": "^6.9.13",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-paginate": "^8.2.0",
     "react-router-dom": "^6.22.3"
   },
   "devDependencies": {
@@ -45,6 +51,6 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.4.1",
-    "vite": "^5.2.4"
+    "vite": "^5.1.4"
   }
 }

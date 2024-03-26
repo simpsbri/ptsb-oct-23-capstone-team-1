@@ -1,0 +1,36 @@
+.myButton {
+  margin-bottom: 1rem;
+  background-color: #9eb8d0;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.myButton:hover {
+  background-color: #1e3a8a;
+}
+.myTextarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #6b7280;
+  border-radius: 0.25rem;
+}
+
+.deleteButton {
+  margin-bottom: 1rem;
+  background-color: #ee5656;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.deleteButton:hover {
+  background-color: #f10000;
+}
+.svg_icons {
+  transform: scale(5);
+  margin-right: 3rem;
+}
