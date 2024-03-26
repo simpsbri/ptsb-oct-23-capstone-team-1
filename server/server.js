@@ -5,6 +5,8 @@ import { setupMiddleware } from './config/middleware.js'
 import businessRoutes from '../server/api/business.js'
 import messagesRoutes from '../server/api/busMessages.js'
 import colors from 'colors'
+import dotenv from 'dotenv'
+dotenv.config()
 
 import cors from 'cors'
 const app = express()
