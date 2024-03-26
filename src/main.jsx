@@ -7,8 +7,6 @@ import Businesses from './routes/businesses'
 import AllUsers from './routes/users'
 import Projects from './routes/projects'
 import MainLayout from './components/MainLayout'
-// import Register from './components/Authentication/Register'
-// import Homepage from './components/Authentication/Homepage';
 import Profile from './routes/userProfile'
 import BusinessProfile from './routes/businessProfile'
 import BusinessBlank from './routes/newBusinessProfile'

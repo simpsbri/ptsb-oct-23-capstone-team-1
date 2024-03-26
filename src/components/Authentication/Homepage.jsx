@@ -114,7 +114,9 @@ const Homepage = () => {
           <TabPanel value="1">
             <Registration />{' '}
           </TabPanel>
-          <TabPanel value="2">Item Two</TabPanel>
+          <TabPanel value="2">
+            <Login />
+          </TabPanel>
         </TabContext>
       </Box>
       {/* <Box
