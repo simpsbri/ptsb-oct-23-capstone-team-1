@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 })
 
-const sendEmailNotificationNinetyDays = async () => {
+const sendEmail90 = async () => {
   try {
     const response = await axios.get('http://localhost:4000/businesses')
     const businesses = response.data
@@ -65,4 +65,4 @@ const sendEmailNotificationNinetyDays = async () => {
   }
 }
 
-export default sendEmailNotificationNinetyDays
+export default sendEmail90
