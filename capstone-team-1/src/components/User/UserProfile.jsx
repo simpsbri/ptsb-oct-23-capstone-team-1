@@ -246,9 +246,12 @@ const UserProfile = () => {
     }
 
     try {
+      // eslint-disable-next-line no-unused-vars
+      const { _id, ...editedUser } = editableUser;
+      console.log("editedUser", editedUser);
       const response = await axios.put(
         `http://localhost:4000/users/${id}`,
-        editableUser
+        editedUser
       );
       if (response.status === 200) {
         setUser(editableUser);
