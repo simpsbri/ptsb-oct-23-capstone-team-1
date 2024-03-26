@@ -34,6 +34,7 @@ const BusinessProfile = () => {
 
   const [passedMessages, setPassedMessages] = useState([])
   const [lastContactedDate, setLastContactedDate] = useState('')
+
   const fetchMessages = (id) => {
     fetch('http://localhost:4000/messages')
       .then((response) => response.json())
@@ -54,7 +55,6 @@ const BusinessProfile = () => {
         // If there are any messages, update the lastContactedDate state
         if (sortedMessages.length > 0) {
           setLastContactedDate(sortedMessages[0].createdAt)
-          console.log('Initialization of LastContact' + lastContactedDate)
         }
       })
   }
@@ -99,6 +99,8 @@ const BusinessProfile = () => {
         setOverview(response.data.Overview || '')
         setPrimary_contact(response.data.primary_contact || '')
         setPrimary_contact_email(response.data.primary_contact_email || '')
+        setLastContactedDate(response.data.lastContactedDate || '')
+        console.log(response.data)
       } catch (error) {
         console.error(error)
       }
@@ -117,7 +119,7 @@ const BusinessProfile = () => {
       console.error('Business ID is undefined')
       return
     }
-
+    console.log(lastContactedDate)
     try {
       // Declare and initialize businessData
       const businessData = {
@@ -131,7 +133,7 @@ const BusinessProfile = () => {
         primary_contact_email,
         lastContactedDate,
       }
-
+      console.log(lastContactedDate)
       // Make the PUT request
       const response = await axios.put(
         `http://localhost:4000/businesses/${id}`,
@@ -211,7 +213,12 @@ const BusinessProfile = () => {
                   id='last_contacted_date'
                   name='last_contacted_date'
                   autoComplete='last_contacted_date'
-                  value={new Date(lastContactedDate).toLocaleDateString()}
+                  value={
+                    isNaN(new Date(lastContactedDate))
+                      ? 'Not Contacted'
+                      : new Date(lastContactedDate).toLocaleDateString()
+                  }
+                  disabled
                 />
               </FormControl>
             </Grid>

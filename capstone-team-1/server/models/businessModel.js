@@ -16,6 +16,7 @@ const businessModel = new mongoose.Schema(
     primary_contact: { type: String, required: false },
     primary_contact_email: { type: String, required: false },
     messages: { type: [Array], required: false },
+    lastContactedDate: { type: Date, required: false },
   },
   {
     timestamps: true,
