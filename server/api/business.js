@@ -3,7 +3,6 @@ import mongoose from 'mongoose'
 import Business from '../models/businessModel.js'
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
-import { getMaxListeners } from 'events'
 
 const router = express.Router()
 

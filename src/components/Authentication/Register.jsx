@@ -39,63 +39,73 @@ const Register = () => {
   const [errMsg, setErrMsg] = useState('')
   const [success, setSuccess] = useState(false)
 
+  const [isSubmitted, setIsSubmitted] = useState(false)
   const [company_name, setCompany_name] = useState('')
   const [primary_contact, setPrimary_contact] = useState('')
   const [primary_contact_email, setPrimary_contact_email] = useState('')
   const [initialProject, setInitialProject] = useState('')
   const [Phone, setPhone] = useState('')
 
-  async function CreateNewBusiness(event) {
+  async function handleSave(event) {
     event.preventDefault()
 
     const newBusiness = {
       company_name,
       primary_contact,
       primary_contact_email,
+      initialProject,
+      Phone,
     }
 
     try {
       // Send a POST request to save the new document in MongoDB
       const response = await axios.post(
-        'http://localhost:4000/businesses/createNewBusiness',
+        'http://localhost:4000/register',
         newBusiness,
       )
+      setIsSubmitted(true)
       console.log(response.data) // Optional: Log the response data
-
-      navigate('/businesses')
     } catch (error) {
       console.error(error)
       // Handle error here
     }
   }
+  // useEffect(() => {
+  //   const result = PWD_REGEX.test(pwd)
+  //   console.log(result)
+  //   console.log(pwd)
+  //   setValidPwd(result)
+  //   const match = pwd === matchPwd
+  //   setValidMatch(match)
+  // }, [pwd, matchPwd])
 
-  useEffect(() => {
-    const result = PWD_REGEX.test(pwd)
-    console.log(result)
-    console.log(pwd)
-    setValidPwd(result)
-    const match = pwd === matchPwd
-    setValidMatch(match)
-  }, [pwd, matchPwd])
+  if (isSubmitted) {
+    return (
+      <section className='p-10 bg-primary_dark_cyan flex w-full flex-row '>
+        <div>
+          <h1 className='text-xl font-bold mb-4'>
+            Thank you for your interest
+          </h1>
+          <p>
+            Thank you for your interest in supporting the Front Range Community
+            College Capstone Program. Our program manager will reach out
+            shortly. In the meantime feel free to learn more on our website:{' '}
+            <a href='https://frontrange.uprighted.com/'>
+              https://frontrange.uprighted.com/
+            </a>
+          </p>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className='p-10 bg-primary_dark_cyan flex w-full flex-row '>
       <div>
         <h1 className='text-xl font-bold mb-4'>Contact Us</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault()
-            CreateNewBusiness({
-              primary_contact,
-              primary_contact_email,
-              company_name,
-              Phone,
-              initialProject,
-            })
-          }}
-        >
+        <form onSubmit={(event) => handleSave(event)}>
           <Box
-            component='form'
+            component='div'
             sx={{
               '& > :not(style)': { m: 0.5, width: '30ch' },
             }}
@@ -105,14 +115,16 @@ const Register = () => {
           >
             <TextField
               required
-              id='primary_contact_name'
-              label='Required'
-              defaultValue='Name'
+              id='primary_contact'
+              label='Name'
+              placeholder='Name'
+              value={primary_contact}
+              onChange={(event) => setPrimary_contact(event.target.value)}
             />
           </Box>
 
           <Box
-            component='form'
+            component='div'
             sx={{
               '& > :not(style)': { m: 1, width: '30ch' },
             }}
@@ -123,13 +135,15 @@ const Register = () => {
             <TextField
               required
               id='outlined-required'
-              label='Required'
-              defaultValue='primary_contact_email'
+              label='Email'
+              placeholder='Email'
+              value={primary_contact_email}
+              onChange={(event) => setPrimary_contact_email(event.target.value)}
             />
           </Box>
 
           <Box
-            component='form'
+            component='div'
             sx={{
               '& > :not(style)': { m: 1, width: '30ch' },
             }}
@@ -140,13 +154,15 @@ const Register = () => {
             <TextField
               required
               id='outlined-required'
-              label='Required'
-              defaultValue='Phone'
+              label='Phone'
+              placeholder='Phone'
+              value={Phone}
+              onChange={(event) => setPhone(event.target.value)}
             />
           </Box>
 
           <Box
-            component='form'
+            component='div'
             sx={{
               '& > :not(style)': { m: 1, width: '30ch' },
             }}
@@ -157,13 +173,15 @@ const Register = () => {
             <TextField
               required
               id='outlined-required'
-              label='Required'
-              defaultValue='company_name'
+              label='Company/Agency'
+              placeholder='Company/Agency'
+              value={company_name}
+              onChange={(event) => setCompany_name(event.target.value)}
             />
           </Box>
 
           <Box
-            component='form'
+            component='div'
             sx={{
               '& > :not(style)': {
                 m: 1,
@@ -179,10 +197,12 @@ const Register = () => {
               label='What is the issue you are trying to solve for? '
               variant='standard'
               fullWidth
+              value={initialProject}
+              onChange={(event) => setInitialProject(event.target.value)}
             />
           </Box>
           <Box
-            component='form'
+            component='div'
             sx={{
               '& > :not(style)': { m: 1, width: '30ch' },
             }}
@@ -191,7 +211,9 @@ const Register = () => {
             className='p-2'
           >
             <Stack spacing={2} direction='row'>
-              <Button variant='contained'>Submit</Button>
+              <Button variant='contained' type='submit'>
+                Submit
+              </Button>
             </Stack>
           </Box>
         </form>
