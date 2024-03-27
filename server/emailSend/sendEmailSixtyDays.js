@@ -45,7 +45,7 @@ const sendEmail60 = async () => {
         } else {
           formattedDate = 'Not Contacted'
         }
-        emailBody += `Company Name: ${business.company_name}, \n Contact: ${business.primary_contact}, Email: ${business.primary_contact_email}, Last Contacted: ${formattedDate}\n`
+        emailBody += `Company Name: ${business.company_name}, \n Contact: ${business.primary_contact}, \n Email: ${business.primary_contact_email},\n Status: ${business.businessStatus}, Last Contacted: ${formattedDate}\n`
       })
 
       const mailOptions = {

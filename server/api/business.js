@@ -45,6 +45,7 @@ router.post('/createNewBusiness', async (req, res) => {
     Overview: req.body.Overview,
     primary_contact: req.body.primary_contact,
     primary_contact_email: req.body.primary_contact_email,
+    businessStatus: 'new',
     lastContactedDate: undefined,
   })
   try {
@@ -75,7 +76,8 @@ router.put('/:id', getBusiness, async (req, res) => {
       (res.business.businessUsers = req.body.businessUsers),
       (res.business.primary_contact = req.body.primary_contact),
       (res.business.primary_contact_email = req.body.primary_contact_email),
-      (res.business.lastContactedDate = req.body.lastContactedDate)
+      (res.business.lastContactedDate = req.body.lastContactedDate),
+      (res.business.businessStatus = req.body.businessStatus)
   }
 
   try {

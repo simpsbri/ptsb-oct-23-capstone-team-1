@@ -9,12 +9,12 @@ dotenv.config()
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.REACT_APP_EMAIL_USER,
-    pass: process.env.REACT_APP_EMAIL_PASSWORD,
+    user: process.env.VITE_EMAIL_USER,
+    pass: process.env.VITE_EMAIL_PASSWORD,
   },
 })
 
-const sendEmailNotificationThirtyDays = async () => {
+const sendEmail30 = async () => {
   try {
     const response = await axios.get('http://localhost:4000/businesses')
     const businesses = response.data
@@ -48,7 +48,7 @@ const sendEmailNotificationThirtyDays = async () => {
         } else {
           formattedDate = 'Not Contacted'
         }
-        emailBody += `Company Name: ${business.company_name}, \n Contact: ${business.primary_contact}, Email: ${business.primary_contact_email}, Last Contacted: ${formattedDate}\n`
+        emailBody += `Company Name: ${business.company_name}, \n Contact: ${business.primary_contact}, \n Email: ${business.primary_contact_email},\n Status: ${business.businessStatus}, Last Contacted: ${formattedDate}\n`
       })
 
       const mailOptions = {
@@ -70,4 +70,4 @@ const sendEmailNotificationThirtyDays = async () => {
   }
 }
 
-export default sendEmailNotificationThirtyDays
+export default sendEmail30

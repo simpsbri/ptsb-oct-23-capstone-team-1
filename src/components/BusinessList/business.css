@@ -34,3 +34,16 @@
   transform: scale(5);
   margin-right: 3rem;
 }
+
+.addNewButton {
+  margin-bottom: 1rem;
+  background-color: #00e676;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+.addNewButton:hover {
+  background-color: #00a153;
+}
