@@ -6,6 +6,7 @@ import businessRoutes from '../server/api/business.js';
 import messagesRoutes from '../server/api/busMessages.js';
 import userRouter from '../server/api/users.js';
 import newBusinessRouter from '../server/api/register.js';
+import projectRouter from '../server/api/projects.js'
 import colors from 'colors';
 import dotenv from 'dotenv';
 dotenv.config();
@@ -31,5 +32,7 @@ app.use('/api/user', userRouter);
 app.use('/register', newBusinessRouter);
 
 app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
   console.log(`Server running on port ${PORT}`);
 });
