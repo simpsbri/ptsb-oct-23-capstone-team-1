@@ -17,6 +17,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
     primary_contact_email,
     _id,
     Projects,
+    businessStatus,
   } = business
 
   const [busMessages, setBusMessages] = useState([])
@@ -99,16 +100,9 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
             )}
             {company_name}
           </Link>
-          {isNew && (
-            <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white'>
-              New!
-            </span>
-          )}
-          {/* {isFeatured && (
-            <span className='bg-gray-700 rounded-xl px-3 text-base text-white'>
-              Featured
-            </span>
-          )} */}
+          <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white'>
+            {businessStatus}
+          </span>
         </h1>
         {/* primary contact info */}
         <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>

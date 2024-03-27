@@ -13,6 +13,9 @@ import {
   MenuItem,
   Alert,
 } from '@mui/material'
+import { useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
+
 import BusinessMessages from './BusinessMessages'
 
 const BusinessProfile = () => {
@@ -26,6 +29,7 @@ const BusinessProfile = () => {
   const [overview, setOverview] = useState('')
   const [primary_contact, setPrimary_contact] = useState('')
   const [primary_contact_email, setPrimary_contact_email] = useState('')
+  const [businessStatus, setBusinessStatus] = useState('New')
 
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
@@ -34,6 +38,9 @@ const BusinessProfile = () => {
 
   const [passedMessages, setPassedMessages] = useState([])
   const [lastContactedDate, setLastContactedDate] = useState('')
+
+  const theme = useTheme()
+  const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
 
   const fetchMessages = (id) => {
     fetch('http://localhost:4000/messages')
@@ -100,7 +107,7 @@ const BusinessProfile = () => {
         setPrimary_contact(response.data.primary_contact || '')
         setPrimary_contact_email(response.data.primary_contact_email || '')
         setLastContactedDate(response.data.lastContactedDate || '')
-        console.log(response.data)
+        setBusinessStatus(response.data.businessStatus)
       } catch (error) {
         console.error(error)
       }
@@ -132,6 +139,7 @@ const BusinessProfile = () => {
         primary_contact,
         primary_contact_email,
         lastContactedDate,
+        businessStatus,
       }
 
       // Make the PUT request
@@ -143,10 +151,8 @@ const BusinessProfile = () => {
       // Handle the response
       if (response.status === 200) {
         setSaveSuccess(true)
-        console.log('Business profile updated successfully')
         setSaveError(false)
       } else {
-        console.error('Failed to update business profile')
         setSaveError(true)
       }
     } catch (error) {
@@ -171,13 +177,37 @@ const BusinessProfile = () => {
         /> */}
 
         {/* Profile Header */}
-        <Typography
-          variant='h2'
-          component='h1'
-          className='text-2xl text-primary_dark_cyan font-bold mb-4'
-        >
-          Business Profile
-        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={6}>
+            <Typography variant={matchesXS ? 'h6' : 'h2'}>
+              Business Profile
+            </Typography>
+          </Grid>
+          <Grid item xs style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <Box display='flex' flexDirection='column'>
+              <InputLabel id='businessStatus-label'>
+                Business Status:
+              </InputLabel>
+              <FormControl variant='outlined'>
+                <Select
+                  labelId='businessStatus-label'
+                  id='businessStatus'
+                  value={businessStatus}
+                  onChange={(e) => setBusinessStatus(e.target.value)}
+                  label='Business Status'
+                >
+                  <MenuItem value={'New'}>New</MenuItem>
+                  <MenuItem value={'UnderReview'}>Under Review</MenuItem>
+                  <MenuItem value={'Active'}>Active</MenuItem>
+                  <MenuItem value={'Inactive'}>Inactive</MenuItem>
+                  <MenuItem value={'Denied'}>Denied</MenuItem>
+                  {/* Add more MenuItem components for additional statuses if needed */}
+                </Select>
+              </FormControl>
+            </Box>
+          </Grid>
+        </Grid>
+
         {saveSuccess && (
           <Alert variant='filled' severity='success' ref={saveSuccessRef}>
             Updates save successfully.
