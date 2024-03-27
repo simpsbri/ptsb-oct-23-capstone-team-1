@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 import Business from '../models/businessModel.js'
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
+import { getMaxListeners } from 'events'
 
 const router = express.Router()
 
@@ -10,8 +11,8 @@ const router = express.Router()
 let transporter = nodemailer.createTransport({
   service: 'gmail', // use 'gmail' as service
   auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASS,
+    user: 'simpsbri@gmail.com',
+    pass: 'jcei kwdi xdcp nclv',
   },
 })
 
@@ -45,6 +46,7 @@ router.post('/createNewBusiness', async (req, res) => {
     Overview: req.body.Overview,
     primary_contact: req.body.primary_contact,
     primary_contact_email: req.body.primary_contact_email,
+    lastContactedDate: undefined,
   })
   try {
     const savedBusiness = await newBusiness.save()

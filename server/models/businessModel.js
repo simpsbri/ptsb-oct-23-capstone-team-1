@@ -4,6 +4,7 @@ const businessModel = new mongoose.Schema(
   {
     company_name: { type: String, required: true },
     businessID: { type: mongoose.Schema.Types.ObjectId, ref: 'Business' },
+    lastContactedDate: { type: Date, default: null, required: false },
     isNew: { type: Boolean, required: false },
     street: { type: String, required: false },
     city: { type: String, required: false },
@@ -15,8 +16,6 @@ const businessModel = new mongoose.Schema(
     businessUsers: { type: [Array], required: false },
     primary_contact: { type: String, required: false },
     primary_contact_email: { type: String, required: false },
-    messages: { type: [Array], required: false },
-    lastContactedDate: { type: Date, required: false },
   },
   {
     timestamps: true,

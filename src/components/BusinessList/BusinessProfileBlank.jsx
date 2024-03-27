@@ -23,6 +23,7 @@ function BusinessProfileBlank() {
   const [state, setState] = useState('')
   const [Zip, setZip] = useState('')
   const [Overview, setOverview] = useState('')
+  const [lastContactedDate, setLastContactedDate] = useState('')
 
   const navigate = useNavigate()
 
@@ -38,6 +39,7 @@ function BusinessProfileBlank() {
       state,
       Zip,
       Overview,
+      lastContactedDate,
     }
 
     try {
@@ -79,7 +81,7 @@ function BusinessProfileBlank() {
         <form onSubmit={(event) => handleSave(event)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <InputLabel htmlFor='company_name'>Company Name</InputLabel>
+              <InputLabel htmlFor='company_name'>Company Name*</InputLabel>
               <FormControl fullWidth>
                 <TextField
                   id='company_name'
@@ -87,6 +89,7 @@ function BusinessProfileBlank() {
                   autoComplete='company_name'
                   value={company_name}
                   onChange={(e) => setCompany_name(e.target.value)}
+                  required
                 />
               </FormControl>
             </Grid>

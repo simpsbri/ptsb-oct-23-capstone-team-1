@@ -119,7 +119,7 @@ const BusinessProfile = () => {
       console.error('Business ID is undefined')
       return
     }
-    console.log(lastContactedDate)
+
     try {
       // Declare and initialize businessData
       const businessData = {
@@ -133,7 +133,7 @@ const BusinessProfile = () => {
         primary_contact_email,
         lastContactedDate,
       }
-      console.log(lastContactedDate)
+
       // Make the PUT request
       const response = await axios.put(
         `http://localhost:4000/businesses/${id}`,
