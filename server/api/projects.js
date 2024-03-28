@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import Project from "../models/projectModel.js"; // Assuming you have a projectModel.js file
+import Project from "../models/projectModel.js";
 
 const router = express.Router();
 

@@ -46,7 +46,6 @@ const ProjectList = ({ handleEditClick }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        // Adjust the endpoint to match where your projects data is served
         const response = await axios.get("http://localhost:4000/projects");
         setProjects(response.data);
       } catch (error) {
