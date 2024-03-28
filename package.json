@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"npm run start:api\" \"npm run dev\"",
+    "start": "concurrently \"npm run start:api\" \"npm run dev\" \"npm run start:cron\"",
     "start:api": "node server/server.js",
+    "start:cron": "node server/emailSend/emailScheduler.js",
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",

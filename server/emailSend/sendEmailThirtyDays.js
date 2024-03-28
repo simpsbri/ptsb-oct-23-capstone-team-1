@@ -25,7 +25,6 @@ const sendEmail30 = async () => {
 
     let businessesNotContacted = businesses.filter((business) => {
       const lastContactedDate = startOfDay(new Date(business.lastContactedDate))
-      console.log('lastContactedDate:', lastContactedDate)
 
       return (
         lastContactedDate > sixtyDaysAgo && lastContactedDate < thirtyDaysAgo
