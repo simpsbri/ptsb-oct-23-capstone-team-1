@@ -1,21 +1,22 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
-import App from './App'
-import Root from './routes/root'
-import Businesses from './routes/businesses'
-import AllUsers from './routes/users'
-import Projects from './routes/projects'
-import MainLayout from './components/MainLayout'
-import Profile from './routes/userProfile'
-import BusinessProfile from './routes/businessProfile'
-import BusinessBlank from './routes/newBusinessProfile'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import App from "./App";
+import Root from "./routes/root";
+import Businesses from "./routes/businesses";
+import AllUsers from "./routes/users";
+import Projects from "./routes/projects";
+import Project from "./routes/projectProfile";
+import MainLayout from "./components/MainLayout";
+import Profile from "./routes/userProfile";
+import BusinessProfile from "./routes/businessProfile";
+import BusinessBlank from "./routes/newBusinessProfile";
 
-import './index.css'
+import "./index.css";
 
 const router = createBrowserRouter([
   {
-    path: '/', // catch-all route for all other paths
+    path: "/", // catch-all route for all other paths
     element: (
       <MainLayout>
         <Outlet /> {/* renders the child route components */}
@@ -23,39 +24,43 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: '/', // includes the root path as a child route
+        path: "/", // includes the root path as a child route
         element: <Root />,
       },
       {
-        path: '/businesses',
+        path: "/businesses",
         element: <Businesses />,
       },
       {
-        path: '/businesses/CreateNewBusiness',
+        path: "/businesses/CreateNewBusiness",
         element: <BusinessBlank />,
       },
       {
-        path: '/businesses/:id',
+        path: "/businesses/:id",
         element: <BusinessProfile />,
       },
       {
-        path: '/users',
+        path: "/users",
         element: <AllUsers />,
       },
       {
-        path: '/projects',
+        path: "/projects",
         element: <Projects />,
       },
       {
-        path: '/users/:id',
+        path: "/users/:id",
         element: <Profile />,
+      },
+      {
+        path: "/projects/:id",
+        element: <Project />,
       },
     ],
   },
-])
+]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);
