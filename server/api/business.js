@@ -77,7 +77,8 @@ router.put('/:id', getBusiness, async (req, res) => {
       (res.business.primary_contact = req.body.primary_contact),
       (res.business.primary_contact_email = req.body.primary_contact_email),
       (res.business.lastContactedDate = req.body.lastContactedDate),
-      (res.business.businessStatus = req.body.businessStatus)
+      (res.business.businessStatus = req.body.businessStatus),
+      (res.business.initialProject = req.body.initialProject)
   }
 
   try {

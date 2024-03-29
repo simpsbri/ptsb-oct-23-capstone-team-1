@@ -11,7 +11,6 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   const {
     company_name,
     isNew,
-    Overview,
     logo,
     primary_contact,
     primary_contact_email,
@@ -124,10 +123,6 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
           Primary Contact Email: {primary_contact_email}
         </p>
 
-        {/* job info */}
-        <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>
-          {Overview}
-        </p>
         {latestMessage && (
           <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>
             <b>Latest message:</b> {latestMessage.messageText}
