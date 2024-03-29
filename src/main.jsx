@@ -7,6 +7,7 @@ import Businesses from "./routes/businesses";
 import AllUsers from "./routes/users";
 import Projects from "./routes/projects";
 import Project from "./routes/projectProfile";
+import ProjectProfileBlank from "./routes/newProjectProfile";
 import MainLayout from "./components/MainLayout";
 import Profile from "./routes/userProfile";
 import BusinessProfile from "./routes/businessProfile";
@@ -54,6 +55,10 @@ const router = createBrowserRouter([
       {
         path: "/projects/:id",
         element: <Project />,
+      },
+      {
+        path: "/projects/CreateNewProject",
+        element: <ProjectProfileBlank />,
       },
     ],
   },

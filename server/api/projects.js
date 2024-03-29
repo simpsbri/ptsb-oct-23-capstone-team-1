@@ -29,7 +29,7 @@ router.get("/:_id", async (req, res) => {
 });
 
 // POST a new project
-router.post("/", async (req, res) => {
+router.post("/CreateNewProject", async (req, res) => {
   try {
     const newProject = new Project(req.body);
     const savedProject = await newProject.save();
