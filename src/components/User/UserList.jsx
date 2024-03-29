@@ -8,6 +8,7 @@ const UserList = () => {
   const navigate = useNavigate()
 
   const [users, setUsers] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -21,6 +22,10 @@ const UserList = () => {
 
     fetchUsers()
   }, [])
+
+  const filteredUsers = users.filter((user) =>
+    user.name.toLowerCase().includes(searchTerm.toLowerCase()),
+  )
 
   return (
     <>
@@ -40,9 +45,19 @@ const UserList = () => {
               Create New
             </button>
           </div>
+          <div>
+            <input
+              type='text'
+              placeholder='Search Users'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className='p-2 border rounded-md shadow-sm w-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mr-4'
+            />
+          </div>
         </div>
-        {Array.isArray(users) &&
-          users.map((user) => <UserCard key={user._id} user={user} />)}
+        {filteredUsers.map((user) => (
+          <UserCard key={user._id} user={user} />
+        ))}
       </div>
     </>
   )
