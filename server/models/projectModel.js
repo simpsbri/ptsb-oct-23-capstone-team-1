@@ -1,10 +1,10 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
 const projectModel = new mongoose.Schema(
   {
-    business: {
+    businessId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Business",
+      ref: 'Business',
       required: true,
     },
     projectTitle: { type: String, required: true },
@@ -14,9 +14,9 @@ const projectModel = new mongoose.Schema(
   },
   {
     timestamps: true,
-  }
-);
+  },
+)
 
-const Project = mongoose.model("Project", projectModel);
+const Project = mongoose.model('Project', projectModel)
 
-export default Project;
+export default Project
