@@ -30,6 +30,7 @@ const BusinessProfile = () => {
   const [primary_contact, setPrimary_contact] = useState('')
   const [primary_contact_email, setPrimary_contact_email] = useState('')
   const [businessStatus, setBusinessStatus] = useState('New')
+  const [initialProject, setInitialProject] = useState('')
 
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
@@ -108,6 +109,7 @@ const BusinessProfile = () => {
         setPrimary_contact_email(response.data.primary_contact_email || '')
         setLastContactedDate(response.data.lastContactedDate || '')
         setBusinessStatus(response.data.businessStatus)
+        setInitialProject(response.data.initialProject || '')
       } catch (error) {
         console.error(error)
       }
@@ -309,7 +311,21 @@ const BusinessProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <InputLabel htmlFor='overview'>Overview</InputLabel>
+              <InputLabel htmlFor='initialProject'>
+                Initial Project Submission
+              </InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='initialProject'
+                  value={initialProject}
+                  onChange={(e) => setInitialProject(e.target.value)}
+                  multiline
+                  rows={4}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='overview'>Company Overview</InputLabel>
               <FormControl fullWidth>
                 <TextField
                   id='overview'
