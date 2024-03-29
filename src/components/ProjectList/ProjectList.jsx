@@ -29,18 +29,18 @@ const ProjectList = () => {
           <Button
             variant="contained"
             color="primary"
-            onClick={() => navigate("/projects/create")} // Adjust the route as needed
+            onClick={() => navigate("/projects/createNewProject")} // Adjust the route as needed
           >
             Create New Project
           </Button>
         </div>
-        <Button
+        {/* <Button
           variant="contained"
           color="primary"
-          onClick={() => navigate("/ProjectList/CreateNewProject")}
+          onClick={() => navigate("/projects/createNewProject")}
         >
           Create New Project
-        </Button>
+        </Button> */}
         <div className="flex flex-col w-full px-4">
           {projects.map((project) => (
             <ProjectCard project={project} key={project._id} />

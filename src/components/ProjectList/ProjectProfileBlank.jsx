@@ -33,7 +33,7 @@ function ProjectProfileBlank() {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/projects/CreateNewProject",
+        "http://localhost:4000/projects/createNewProject",
         newProject
       );
       console.log(response.data);
