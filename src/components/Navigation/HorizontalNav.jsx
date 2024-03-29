@@ -30,12 +30,12 @@ function HorizontalNav() {
         }
         const lastContactedDate = new Date(business.lastContactedDate)
         const thirtyDaysAgo = new Date()
+
         thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
         return lastContactedDate < thirtyDaysAgo
       })
-
       setOldBusinessesCount(oldBusinesses.length)
-    }, 10000)
+    }, 5000)
 
     // Clear the interval when the component unmounts
     return () => clearInterval(intervalId)
