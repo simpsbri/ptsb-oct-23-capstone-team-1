@@ -7,9 +7,13 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 // Schedule task to run every day at 7AM
-cron.schedule('34 17 * * *', function () {
-  console.log('Running sendEmailNotification at 07:00 AM every day')
-  sendEmail30()
-  sendEmail60()
-  sendEmail90()
-})
+try {
+  cron.schedule('0 7 * * *', function () {
+    console.log('Running sendEmailNotification at 07:00 AM every day')
+    sendEmail30()
+    sendEmail60()
+    sendEmail90()
+  })
+} catch (error) {
+  console.error('An error occurred:', error)
+}

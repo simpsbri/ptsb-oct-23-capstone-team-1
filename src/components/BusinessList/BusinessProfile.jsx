@@ -377,4 +377,13 @@ const BusinessProfile = () => {
   )
 }
 
+//TODO: <h3>Associated Users</h3>
+// <ul className='usersList'>
+//   {users.map((user) => (
+//     <li className='usersList' key={user.id}>
+//       {user.name}
+//     </li>
+//   ))}
+// </ul>
+
 export default BusinessProfile

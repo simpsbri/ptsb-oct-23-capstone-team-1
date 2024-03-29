@@ -1,6 +1,5 @@
 import nodemailer from 'nodemailer'
 import { subDays, startOfDay } from 'date-fns'
-import cron from 'node-cron'
 import axios from 'axios'
 import dotenv from 'dotenv'
 
@@ -9,8 +8,8 @@ dotenv.config()
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: process.env.REACT_APP_EMAIL_USER,
-    pass: process.env.REACT_APP_EMAIL_PASSWORD,
+    user: process.env.VITE_EMAIL_USER,
+    pass: process.env.VITE_EMAIL_PASSWORD,
   },
 })
 

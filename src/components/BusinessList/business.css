@@ -47,3 +47,7 @@
 .addNewButton:hover {
   background-color: #00a153;
 }
+.usersList {
+  display: inline-block;
+  font-weight: 400;
+}

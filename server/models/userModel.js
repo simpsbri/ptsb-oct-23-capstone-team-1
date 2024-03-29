@@ -3,23 +3,19 @@ import bcrypt from 'bcryptjs'
 
 const userSchema = mongoose.Schema(
   {
-    _id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     name: { type: String, required: true },
     email: { type: String, required: true, unique: true },
     password: { type: String },
-    projectId: { type: Number },
-    projectTasks: { type: [String] },
     isAdmin: {
       type: Boolean,
       required: true,
       default: false,
     },
     role: { type: String },
-    postedAt: { type: Date },
     status: { type: String },
     languages: { type: [String] },
     bio: { type: String },
-    businessId: { type: String }, // FIXME: should be a reference to a business
+    businessId: { type: mongoose.Schema.Types.ObjectId, ref: 'Business' },
   },
   {
     timestamps: true,

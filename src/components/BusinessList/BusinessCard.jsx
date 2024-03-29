@@ -25,6 +25,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   const [backgroundColor, setBackgroundColor] = useState('')
   const [statusIcon, setStatusIcon] = useState(null)
   const [status, setStatus] = useState('')
+  const [users, setUsers] = useState([])
 
   useEffect(() => {
     fetch('http://localhost:4000/messages')
@@ -80,6 +81,15 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
       })
   }, [])
 
+  useEffect(() => {
+    fetch(`http://localhost:4000/users`)
+      .then((response) => response.json())
+      .then((data) => {
+        const filteredUsers = data.filter((user) => user.businessId === _id)
+        setUsers(filteredUsers)
+      })
+  }, [_id])
+
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
   return (
@@ -106,12 +116,12 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
         </h1>
         {/* primary contact info */}
         <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>
-          {primary_contact}
+          Primary Contact: {primary_contact}
         </p>
 
         {/* primary contact email */}
         <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>
-          {primary_contact_email}
+          Primary Contact Email: {primary_contact_email}
         </p>
 
         {/* job info */}
@@ -133,6 +143,14 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
             })}
           </p>
         )}
+        <h3>Associated Users</h3>
+        <ul className='usersList'>
+          {users.map((user, index) => (
+            <li className='usersList' key={index}>
+              {user.name}
+            </li>
+          ))}
+        </ul>
       </div>
 
       {/* Job tags */}
@@ -147,6 +165,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
           </button>
         ))}
       </div>
+
       <div
         className='h-full svg_icons'
         style={{ backgroundColor: backgroundColor }}
