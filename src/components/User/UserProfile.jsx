@@ -21,6 +21,36 @@ import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import './user.css'
 
+//rich text editor
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+//resizable text area for input.
+import { ResizableBox } from 'react-resizable'
+import 'react-resizable/css/styles.css'
+
+const modules = {
+  toolbar: [
+    ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+    ['blockquote', 'code-block'],
+
+    [{ header: 1 }, { header: 2 }], // custom button values
+    [{ list: 'ordered' }, { list: 'bullet' }],
+    [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+    [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+
+    [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+    [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+    [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+    [{ font: [] }],
+    [{ align: [] }],
+
+    ['clean'], // remove formatting button
+
+    ['link', 'image'], // link and image, video
+  ],
+}
+
 const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false)
   const { id } = useParams()
@@ -234,13 +264,26 @@ const UserProfile = () => {
             <Grid item xs={12}>
               <InputLabel htmlFor='bio'>Bio</InputLabel>
               <FormControl fullWidth>
-                <TextField
-                  id='bio'
-                  value={bio}
-                  onChange={(e) => setBio(e.target.value)}
-                  multiline
-                  rows={4}
-                />
+                <ResizableBox
+                  width={Infinity}
+                  height={200}
+                  minConstraints={[Infinity, 100]}
+                  maxConstraints={[Infinity, 300]}
+                  style={{
+                    position: 'relative',
+                  }}
+                >
+                  <ReactQuill
+                    id='bio'
+                    value={bio}
+                    onChange={setBio}
+                    modules={modules}
+                    style={{
+                      height: '100%',
+                      overflowY: 'auto',
+                    }}
+                  />
+                </ResizableBox>
               </FormControl>
             </Grid>
           </Grid>

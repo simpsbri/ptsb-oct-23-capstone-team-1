@@ -1,13 +1,32 @@
 import { Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 const UserCard = ({ user, handleEditClick }) => {
-  const { _id, name, email, isAdmin, role, postedAt, status } = user
+  const { _id, name, email, isAdmin, role, postedAt, status, businessId } = user
+  const [businesses, setBusinesses] = useState([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:4000/businesses`)
+        setBusinesses(response.data)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
+
+  // Find the business that matches the businessId
+  const business = businesses.find((business) => business._id === businessId)
 
   return (
     <div className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
       <div className='flex-flex-col-justify-between ml-4'>
         {/* user info */}
-        <h1 className='py-2 text-primary_dark_cyan text-lg'>
+        <h1 className='py-2 text-primary_dark_cyan text-xl'>
           {/* Wrap the user name in a Link component */}
           <Link to={`/users/${_id}`} className='hover:text-teal-700'>
             {name}
@@ -24,26 +43,14 @@ const UserCard = ({ user, handleEditClick }) => {
         <p className='flex items-center gap-2 text-dark_gray_cyan text-base pr-6'>
           {role} - {status} - {postedAt}
         </p>
-        {/* languages */}
-        {/* <div className='flex items-center gap-2'>
-          {languages.map((language, index) => (
-            <span
-              key={`language-${index}`}
-              className='bg-light_grayish_cyan_filter_pill font-bold p-2 rounded mr-4'
-            >
-              {language}
-            </span>
-          ))}
-        </div> */}
       </div>
-      {/* Edit user button */}
+      {/* Associated Business Name */}
       <div className='flex items-center mt-4 mx-4 pt-4 sm:ml-auto'>
-        {/* <button
-          className="bg-primary_dark_cyan text-white font-bold p-2 rounded"
-          onClick={() => handleEditClick(user)}
-        >
-          Edit User
-        </button> */}
+        {business && (
+          <h4 className='text-dark_gray_cyan text-xl'>
+            {business.company_name}
+          </h4>
+        )}{' '}
       </div>
     </div>
   )

@@ -16,6 +16,13 @@ import {
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
+//rich text editor
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
+//resizable text area for input.
+import { ResizableBox } from 'react-resizable'
+import 'react-resizable/css/styles.css'
+
 import BusinessMessages from './BusinessMessages'
 
 const BusinessProfile = () => {
@@ -30,6 +37,7 @@ const BusinessProfile = () => {
   const [primary_contact, setPrimary_contact] = useState('')
   const [primary_contact_email, setPrimary_contact_email] = useState('')
   const [businessStatus, setBusinessStatus] = useState('New')
+  const [initialProject, setInitialProject] = useState('')
 
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
@@ -41,6 +49,29 @@ const BusinessProfile = () => {
 
   const theme = useTheme()
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
+
+  const modules = {
+    toolbar: [
+      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+      ['blockquote', 'code-block'],
+
+      [{ header: 1 }, { header: 2 }], // custom button values
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+      [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+
+      [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      [{ font: [] }],
+      [{ align: [] }],
+
+      ['clean'], // remove formatting button
+
+      ['link', 'image'], // link and image, video
+    ],
+  }
 
   const fetchMessages = (id) => {
     fetch('http://localhost:4000/messages')
@@ -108,6 +139,7 @@ const BusinessProfile = () => {
         setPrimary_contact_email(response.data.primary_contact_email || '')
         setLastContactedDate(response.data.lastContactedDate || '')
         setBusinessStatus(response.data.businessStatus)
+        setInitialProject(response.data.initialProject || '')
       } catch (error) {
         console.error(error)
       }
@@ -140,6 +172,7 @@ const BusinessProfile = () => {
         primary_contact_email,
         lastContactedDate,
         businessStatus,
+        initialProject,
       }
 
       // Make the PUT request
@@ -167,15 +200,6 @@ const BusinessProfile = () => {
   return (
     <>
       <Box className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid'>
-        {/* Logo */}
-        {/* <Box
-          component='img'
-          src={business.logo}
-          alt={`${business.company_name}'s logo`}
-          className='rounded-full mb-4'
-          style={{ width: '128px', height: '128px' }}
-        /> */}
-
         {/* Profile Header */}
         <Grid container spacing={3}>
           <Grid item xs={6}>
@@ -309,15 +333,55 @@ const BusinessProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <InputLabel htmlFor='overview'>Overview</InputLabel>
+              <InputLabel htmlFor='initialProject'>
+                Initial Project Submission
+              </InputLabel>
               <FormControl fullWidth>
-                <TextField
-                  id='overview'
-                  value={overview}
-                  onChange={(e) => setOverview(e.target.value)}
-                  multiline
-                  rows={4}
-                />
+                <ResizableBox
+                  width={Infinity}
+                  height={200}
+                  minConstraints={[Infinity, 100]}
+                  maxConstraints={[Infinity, 300]}
+                  style={{
+                    position: 'relative',
+                  }}
+                >
+                  <ReactQuill
+                    id='initialProject'
+                    value={initialProject}
+                    onChange={setInitialProject}
+                    modules={modules}
+                    style={{
+                      height: '100%',
+                      overflowY: 'auto',
+                    }}
+                  />
+                </ResizableBox>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='overview'>Company Overview</InputLabel>
+              <FormControl fullWidth>
+                <ResizableBox
+                  width={Infinity}
+                  height={200}
+                  minConstraints={[Infinity, 100]}
+                  maxConstraints={[Infinity, 300]}
+                  style={{
+                    position: 'relative',
+                  }}
+                >
+                  <ReactQuill
+                    id='overview'
+                    value={overview}
+                    onChange={setOverview}
+                    modules={modules}
+                    style={{
+                      height: '100%',
+                      overflowY: 'auto',
+                    }}
+                  />
+                </ResizableBox>
               </FormControl>
             </Grid>
             {/* <Grid item xs={12}>
