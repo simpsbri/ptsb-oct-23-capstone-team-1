@@ -145,8 +145,8 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
         )}
         <h3>Associated Users</h3>
         <ul className='usersList'>
-          {users.map((user) => (
-            <li className='usersList' key={user.id}>
+          {users.map((user, index) => (
+            <li className='usersList' key={index}>
               {user.name}
             </li>
           ))}

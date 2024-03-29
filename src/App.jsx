@@ -1,15 +1,68 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import Footer from './components/Footer/Footer'
-import Header from './components/Header/Header'
-// import JobList from './components/ProjectList/ProjectList'
-// import data_jobs from './data/joblist.json'
-import BusinessList from './components/BusinessList/BusinessList'
-import businessList from './data/businessList.json'
-import UserList from './components/User/UserList'
-import userList from './data/userList.json'
-import UserProfile from './components/User/UserProfile'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
+import Root from './routes/root'
+import Businesses from './routes/businesses'
+import AllUsers from './routes/users'
+import UserBlank from './routes/newUserBlank'
+import Projects from './routes/projects'
+import MainLayout from './components/MainLayout'
+import Profile from './routes/userProfile'
+import BusinessProfile from './routes/businessProfile'
+import BusinessBlank from './routes/newBusinessProfile'
 
-function App() {}
+import './index.css'
 
-export default App
+const router = createBrowserRouter([
+  {
+    path: '/', // catch-all route for all other paths
+    element: (
+      <MainLayout>
+        <Outlet /> {/* renders the child route components */}
+      </MainLayout>
+    ),
+    children: [
+      {
+        path: '/', // includes the root path as a child route
+        element: <Root />,
+      },
+      {
+        path: '/businesses',
+        element: <Businesses />,
+      },
+      {
+        path: '/businesses/CreateNewBusiness',
+        element: <BusinessBlank />,
+      },
+      {
+        path: '/businesses/:id',
+        element: <BusinessProfile />,
+      },
+      {
+        path: '/users',
+        element: <AllUsers />,
+      },
+      {
+        path: '/users/createNewUser',
+        element: <UserBlank />,
+      },
+      {
+        path: '/projects',
+        element: <Projects />,
+      },
+      {
+        path: '/users/:id',
+        element: <Profile />,
+      },
+    ],
+  },
+])
+
+const root = ReactDOM.createRoot(document.getElementById('root'))
+
+root.render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
+)
+export default router

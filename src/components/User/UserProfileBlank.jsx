@@ -14,33 +14,71 @@ import {
   ListItem,
   ListItemText,
   Alert,
-  Checkbox,
-  FormControlLabel,
 } from '@mui/material'
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import './user.css'
 
-const UserProfile = () => {
-  const [isEditing, setIsEditing] = useState(false)
-  const { id } = useParams()
-  const [user, setUser] = useState({})
-  const [saveSuccess, setSaveSuccess] = useState(false)
-  const saveSuccessRef = useRef(null)
-  const [saveError, setSaveError] = useState(false)
-  const saveErrorRef = useRef(null)
+const NewUserProfile = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false)
   const [bio, setBio] = useState('')
   const [languages, setLanguages] = useState([])
   const [businessId, setBusinessId] = useState('')
-  const [isAdmin, setIsAdmin] = useState(false)
-  const theme = useTheme()
 
   const [businesses, setBusinesses] = useState([])
   const [selectedBusiness, setSelectedBusiness] = useState('')
+  const theme = useTheme()
+
+  const [message, setMessage] = useState('')
+  const messageRef = useRef()
+
+  const navigate = useNavigate()
+
+  async function handleSave(event) {
+    event.preventDefault()
+
+    const newUser = {
+      name,
+      email,
+      password,
+      isAdmin,
+      role,
+      bio,
+      languages,
+      businessId: selectedBusiness,
+    }
+
+    try {
+      // Send a POST request to save the new document in MongoDB
+      const response = await axios.post(
+        'http://localhost:4000/users/createNewUser',
+        newUser,
+      )
+      console.log(response.data) // Optional: Log the response data
+
+      // Set the success message
+      setMessage('Successful Save')
+
+      // Redirect to /users after a delay to allow the message to be seen
+
+      setTimeout(() => {
+        navigate('/users')
+      }, 2000)
+    } catch (error) {
+      console.error(error)
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('Error data:', error.response.data)
+        console.error('Error status:', error.response.status)
+        console.error('Error headers:', error.response.headers)
+      }
+    }
+  }
 
   useEffect(() => {
     axios
@@ -54,98 +92,28 @@ const UserProfile = () => {
   }, [])
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const response = await axios.get(`http://localhost:4000/users/${id}`)
-        setName(response.data.name)
-        setEmail(response.data.email)
-        setPassword(response.data.password)
-        setRole(response.data.role)
-        setBio(response.data.bio)
-        setLanguages(response.data.languages)
-        setBusinessId(response.data.businessId)
-        setSelectedBusiness(String(response.data.businessId))
-        setIsAdmin(response.data.isAdmin)
-      } catch (error) {
-        console.error('Error fetching user:', error)
-      }
+    if (message && messageRef.current) {
+      messageRef.current.focus()
     }
-    fetchUser()
-  }, [id])
-
-  const handleSave = async () => {
-    if (!id) {
-      console.error('User ID is undefined')
-      return
-    }
-
-    try {
-      const userData = {
-        name,
-        email,
-        password,
-        role,
-        bio,
-        languages,
-        businessId: selectedBusiness,
-        isAdmin,
-      }
-      console.log('User Data:', userData)
-
-      const response = await axios.put(
-        `http://localhost:4000/users/${id}`,
-        userData,
-      )
-      if (response.status === 200) {
-        setSaveSuccess(true)
-        setSaveError(false)
-      } else {
-        setSaveError(true)
-      }
-    } catch (error) {
-      console.error('An error occurred while updating the profile:', error)
-      setSaveError(true)
-    }
-  } // handleSave
-
-  const deleteUser = async () => {
-    try {
-      const response = await axios.delete(`http://localhost:4000/users/${id}`)
-      if (response.status === 200) {
-        navigate('/users')
-      }
-    } catch (error) {
-      console.error('Error deleting user:', error)
-    }
-  } // deleteUser
+  }, [message])
 
   return (
     <>
       <Box className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid'>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant='h2'>User Profile</Typography>
+            <Typography variant='h2'>
+              New User Profile
+              {message && <div>{message}</div>}
+            </Typography>
           </Grid>
           <Grid item xs style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button variant='contained' color='warning' onClick={deleteUser}>
-              Delete User
-            </Button>
+            {/* Placeholder for status field */}
           </Grid>
         </Grid>
 
-        {saveSuccess && (
-          <Alert variant='filled' severity='success' ref={saveSuccessRef}>
-            Updates save successfully.
-          </Alert>
-        )}
-        {saveError && (
-          <Alert variant='filled' severity='error' ref={saveErrorRef}>
-            Updates not successful.
-          </Alert>
-        )}
-
         {/* Business Info */}
-        <form onSubmit={(event) => handleSave(event, user.id)}>
+        <form onSubmit={(event) => handleSave(event)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <InputLabel htmlFor='name'>Name</InputLabel>
@@ -153,7 +121,6 @@ const UserProfile = () => {
                 <TextField
                   id='name'
                   name='name'
-                  autoComplete='name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
@@ -165,7 +132,6 @@ const UserProfile = () => {
                 <TextField
                   id='email'
                   name='email'
-                  autoComplete='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -177,7 +143,6 @@ const UserProfile = () => {
                 <TextField
                   id='password'
                   name='password'
-                  autoComplete='password'
                   value={password}
                   type='password'
                   onChange={(e) => setPassword(e.target.value)}
@@ -213,24 +178,12 @@ const UserProfile = () => {
                 <TextField
                   id='role'
                   name='role'
-                  autoComplete='role'
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={isAdmin}
-                    onChange={(e) => setIsAdmin(e.target.checked)}
-                    name='isAdmin'
-                  />
-                }
-                label='Is Admin'
-              />
-            </Grid>
+
             <Grid item xs={12}>
               <InputLabel htmlFor='bio'>Bio</InputLabel>
               <FormControl fullWidth>
@@ -283,4 +236,4 @@ const UserProfile = () => {
   )
 }
 
-export default UserProfile
+export default NewUserProfile

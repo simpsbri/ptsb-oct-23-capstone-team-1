@@ -28,17 +28,7 @@ router.get('/:_id', async (req, res) => {
   }
 })
 
-// PUT update user by ID
-router.put('/:_id', async (req, res) => {
-  try {
-    const updatedUser = await User.findByIdAndUpdate(req.params._id, req.body)
-    res.json(updatedUser)
-  } catch (error) {
-    res.status(500).send(error.message)
-  }
-})
-
-router.put('/create', async (req, res) => {
+router.post('/createNewUser', async (req, res) => {
   try {
     const newUser = new User({
       name: req.body.name,
@@ -50,9 +40,33 @@ router.put('/create', async (req, res) => {
       bio: req.body.bio,
       businessId: req.body.businessId,
     })
-    res.status(201).json(newUser)
+    const savedUser = await newUser.save()
+    res.status(201).json(savedUser)
   } catch (error) {
     return res.status(400).json({ message: error.message })
+  }
+})
+
+// PUT update user by ID
+router.put('/:_id', async (req, res) => {
+  try {
+    const updatedUser = await User.findByIdAndUpdate(req.params._id, req.body)
+    res.json(updatedUser)
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
+})
+
+router.delete('/:_id', async (req, res) => {
+  try {
+    const deletedUser = await User.findOneAndDelete({ _id: req.params._id })
+    if (deletedUser) {
+      res.json({ message: 'User deleted successfully' })
+    } else {
+      res.status(404).json({ message: 'User not found' })
+    }
+  } catch (error) {
+    res.status(500).send(error.message)
   }
 })
 
