@@ -1,15 +1,11 @@
 import React from 'react'
-import { Container } from '@mui/material'
 import Registration from './Register'
 import Login from './Login'
-import Tabs from '@mui/material/Tabs'
-import Box from '@mui/material/Box'
-import Tab from '@mui/material/Tab'
+
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
-import Typography from '@mui/material/Typography'
-
+import { Container, Tabs, Tab, Box, Typography } from '@mui/material'
 const Homepage = () => {
   const [value, setValue] = React.useState('1')
 

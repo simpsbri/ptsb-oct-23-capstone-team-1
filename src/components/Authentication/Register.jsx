@@ -6,12 +6,13 @@ import {
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import Box from '@mui/material/Box'
+
 import TextField from '@mui/material/TextField'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { Box } from '@mui/material'
 import axios from 'axios'
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/
