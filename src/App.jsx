@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { lazy } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import Root from './routes/root'
@@ -10,8 +10,13 @@ import MainLayout from './components/MainLayout'
 import Profile from './routes/userProfile'
 import BusinessProfile from './routes/businessProfile'
 import BusinessBlank from './routes/newBusinessProfile'
+import { Suspense } from 'react'
 
 import './index.css'
+
+const LazyBusinessBlank = lazy(() => import('./routes/newBusinessProfile'))
+const LazyBusinessProfile = lazy(() => import('./routes/businessProfile'))
+const LazyUserProfile = lazy(() => import('./routes/userProfile'))
 
 const router = createBrowserRouter([
   {
@@ -32,11 +37,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/businesses/CreateNewBusiness',
-        element: <BusinessBlank />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyBusinessBlank />
+          </Suspense>
+        ),
       },
       {
         path: '/businesses/:id',
-        element: <BusinessProfile />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyBusinessProfile />
+          </Suspense>
+        ),
       },
       {
         path: '/users',
@@ -52,7 +65,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/users/:id',
-        element: <Profile />,
+        element: (
+          <Suspense fallback={<div>Loading...</div>}>
+            <LazyUserProfile />
+          </Suspense>
+        ),
       },
     ],
   },
