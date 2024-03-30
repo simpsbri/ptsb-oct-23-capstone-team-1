@@ -14,6 +14,8 @@ import {
   ListItem,
   ListItemText,
   Alert,
+  FormControlLabel,
+  Checkbox,
 } from '@mui/material'
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
@@ -55,6 +57,8 @@ const NewUserProfile = () => {
   const [password, setPassword] = useState('')
   const [role, setRole] = useState('')
   const [isAdmin, setIsAdmin] = useState(false)
+  const [isBusiness, setIsBusiness] = useState(false)
+  const [isCapstone, setIsCapstone] = useState(false)
   const [bio, setBio] = useState('')
   const [languages, setLanguages] = useState([])
   const [businessId, setBusinessId] = useState('')
@@ -76,6 +80,8 @@ const NewUserProfile = () => {
       email,
       password,
       isAdmin,
+      isBusiness,
+      isCapstone,
       role,
       bio,
       languages,
@@ -212,6 +218,38 @@ const NewUserProfile = () => {
                   onChange={(e) => setRole(e.target.value)}
                 />
               </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isBusiness}
+                    onChange={(e) => setIsBusiness(e.target.checked)}
+                    name='isBusiness'
+                  />
+                }
+                label='Is Business'
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isCapstone}
+                    onChange={(e) => setIsCapstone(e.target.checked)}
+                    name='isCapstone'
+                  />
+                }
+                label='Is Capstone'
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isAdmin}
+                    onChange={(e) => setIsAdmin(e.target.checked)}
+                    name='isAdmin'
+                  />
+                }
+                label='Is Admin'
+              />
             </Grid>
 
             <Grid item xs={12}>

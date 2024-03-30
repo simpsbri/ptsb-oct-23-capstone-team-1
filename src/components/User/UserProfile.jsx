@@ -67,6 +67,8 @@ const UserProfile = () => {
   const [languages, setLanguages] = useState([])
   const [businessId, setBusinessId] = useState('')
   const [isAdmin, setIsAdmin] = useState(false)
+  const [isBusiness, setIsBusiness] = useState(false)
+  const [isCapstone, setIsCapstone] = useState(false)
   const theme = useTheme()
 
   const [businesses, setBusinesses] = useState([])
@@ -96,6 +98,8 @@ const UserProfile = () => {
         setBusinessId(response.data.businessId)
         setSelectedBusiness(String(response.data.businessId))
         setIsAdmin(response.data.isAdmin)
+        setIsBusiness(response.data.isBusiness)
+        setIsCapstone(response.data.isCapstone)
       } catch (error) {
         console.error('Error fetching user:', error)
       }
@@ -119,6 +123,8 @@ const UserProfile = () => {
         languages,
         businessId: selectedBusiness,
         isAdmin,
+        isCapstone,
+        isBusiness,
       }
       console.log('User Data:', userData)
 
@@ -148,6 +154,14 @@ const UserProfile = () => {
       console.error('Error deleting user:', error)
     }
   } // deleteUser
+
+  useEffect(() => {
+    const moreThanOneChecked =
+      [isAdmin, isCapstone, isBusiness].filter(Boolean).length > 1
+    if (moreThanOneChecked) {
+      alert('Only one User Account type can be selected at a time.')
+    }
+  }, [isAdmin, isCapstone, isBusiness])
 
   return (
     <>
@@ -238,7 +252,7 @@ const UserProfile = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <InputLabel htmlFor='role'>Role</InputLabel>
+              <InputLabel htmlFor='role'>Business Role</InputLabel>
               <FormControl fullWidth>
                 <TextField
                   id='role'
@@ -250,6 +264,27 @@ const UserProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
+              <InputLabel htmlFor='isBusiness'>User Account Type</InputLabel>
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isBusiness}
+                    onChange={(e) => setIsBusiness(e.target.checked)}
+                    name='isBusiness'
+                  />
+                }
+                label='Is Business'
+              />
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    checked={isCapstone}
+                    onChange={(e) => setIsCapstone(e.target.checked)}
+                    name='isCapstone'
+                  />
+                }
+                label='Is Capstone'
+              />
               <FormControlLabel
                 control={
                   <Checkbox

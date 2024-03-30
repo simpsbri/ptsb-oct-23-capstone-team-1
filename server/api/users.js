@@ -35,6 +35,8 @@ router.post('/createNewUser', async (req, res) => {
       email: req.body.email,
       password: req.body.password,
       isAdmin: req.body.isAdmin,
+      isBusiness: req.body.isBusiness,
+      isCapstone: req.body.isCapstone,
       role: req.body.role,
       status: req.body.status,
       bio: req.body.bio,
