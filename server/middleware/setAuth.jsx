@@ -3,7 +3,7 @@ import React, { createContext, useState } from 'react'
 export const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
-  const [auth, setAuth] = useState({ token: false })
+  const [auth, setAuth] = useState({ token: true })
 
   // your authentication logic...
 
