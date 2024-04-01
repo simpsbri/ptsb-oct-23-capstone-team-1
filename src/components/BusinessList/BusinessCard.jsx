@@ -97,7 +97,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
         {/* company name with logo */}
         <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>
           <Link
-            to={`/businesses/${business._id}`}
+            to={`/admin/businesses/${business._id}`}
             className='flex items-center gap-2'
           >
             {logo && (

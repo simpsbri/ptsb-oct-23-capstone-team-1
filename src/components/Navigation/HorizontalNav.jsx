@@ -10,8 +10,8 @@ function HorizontalNav() {
   const [businesses, setBusinesses] = useState([])
   const [oldBusinessesCount, setOldBusinessesCount] = useState(0)
   const { auth } = useContext(AuthContext)
-  const businessId = auth.user.businessId
-  const userId = auth.user._id
+  const businessId = auth?.user?.businessId || null
+  const userId = auth?.user?._id || null
 
   useEffect(() => {
     const fetchData = async () => {
