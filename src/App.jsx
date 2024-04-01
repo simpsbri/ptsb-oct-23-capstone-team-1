@@ -15,6 +15,7 @@ import Businesses from './routes/businesses'
 import AllUsers from './routes/users'
 import UserBlank from './routes/newUserBlank'
 import Projects from './routes/projects'
+import ProjectOverview from './routes/projectProfile'
 import MainLayout from './components/MainLayout'
 import Profile from './routes/userProfile'
 import BusinessProfile from './routes/businessProfile'
@@ -65,6 +66,7 @@ function App() {
                   element={<LazyBusinessProfile />}
                 />
                 <Route path='projects' element={<Projects />} />
+                <Route path='projects/:id' element={<ProjectOverview />} />
                 <Route path='users/:id' element={<LazyUserProfile />} />
                 <Route path='users/createNewUser' element={<UserBlank />} />
               </Route>
