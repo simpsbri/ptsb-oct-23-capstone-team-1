@@ -336,7 +336,7 @@ const UserProfile = () => {
             </Button>
             {auth.isAdmin === 'Admin' && (
               <Link
-                to='/users'
+                to='/admin/users'
                 variant='contained'
                 sx={{
                   '&:hover': {
