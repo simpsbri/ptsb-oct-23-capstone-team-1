@@ -184,7 +184,7 @@ const ProjectProfile = () => {
               Save
             </Button>
             <Link
-              to='/projects'
+              to='/admin/projects'
               style={{ textDecoration: 'none', marginLeft: '10px' }}
             >
               <Button variant='outlined'>Back to List</Button>

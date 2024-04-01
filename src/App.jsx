@@ -15,12 +15,11 @@ import Businesses from './routes/businesses'
 import AllUsers from './routes/users'
 import UserBlank from './routes/newUserBlank'
 import Projects from './routes/projects'
+import ProjectOverview from './routes/projectProfile'
 import MainLayout from './components/MainLayout'
 import Profile from './routes/userProfile'
 import BusinessProfile from './routes/businessProfile'
 import BusinessBlank from './routes/newBusinessProfile'
-import ProjectList from './components/ProjectList/ProjectList'
-import ProjectProfile from './components/ProjectList/ProjectProfile'
 import NoAuthority from './routes/notAuthorized'
 import PrivateRoutes from './components/PrivateRoutes'
 import { AuthProvider } from '../server/middleware/setAuth'
@@ -67,6 +66,7 @@ function App() {
                   element={<LazyBusinessProfile />}
                 />
                 <Route path='projects' element={<Projects />} />
+                <Route path='projects/:id' element={<ProjectOverview />} />
                 <Route path='users/:id' element={<LazyUserProfile />} />
                 <Route path='users/createNewUser' element={<UserBlank />} />
               </Route>
