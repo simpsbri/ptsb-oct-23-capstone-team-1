@@ -56,18 +56,18 @@ function HorizontalNav() {
           </li>
           <li>
             <Badge badgeContent={oldBusinessesCount} color='warning'>
-              <Link to='/businesses' className='navlink'>
+              <Link to='/admin/businesses' className='navlink'>
                 Businesses
               </Link>
             </Badge>
           </li>
           <li>
-            <Link to='/users' className='navlink'>
+            <Link to='/admin/users' className='navlink'>
               Users
             </Link>
           </li>
           <li>
-            <Link to='/projects' className='navlink'>
+            <Link to='/admin/projects' className='navlink'>
               Projects
             </Link>
           </li>
