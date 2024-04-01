@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {
@@ -20,6 +20,7 @@ import {
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import './user.css'
+import { AuthContext } from '../../../server/middleware/setAuth'
 
 //rich text editor
 import ReactQuill from 'react-quill'
@@ -52,6 +53,7 @@ const modules = {
 }
 
 const UserProfile = () => {
+  const { auth } = useContext(AuthContext)
   const [isEditing, setIsEditing] = useState(false)
   const { id } = useParams()
   const [user, setUser] = useState({})
@@ -156,11 +158,17 @@ const UserProfile = () => {
           <Grid item xs={6}>
             <Typography variant='h2'>User Profile</Typography>
           </Grid>
-          <Grid item xs style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <Button variant='contained' color='warning' onClick={deleteUser}>
-              Delete User
-            </Button>
-          </Grid>
+          {auth.isAdmin === 'Admin' && (
+            <Grid
+              item
+              xs
+              style={{ display: 'flex', justifyContent: 'flex-end' }}
+            >
+              <Button variant='contained' color='warning' onClick={deleteUser}>
+                Delete User
+              </Button>
+            </Grid>
+          )}
         </Grid>
 
         {saveSuccess && (
@@ -222,9 +230,9 @@ const UserProfile = () => {
                   id='business-select'
                   value={selectedBusiness}
                   label='Business'
+                  disabled={auth.isAdmin !== 'Admin'}
                   onChange={(event) => {
                     setSelectedBusiness(event.target.value)
-                    console.log(event.target.value)
                   }}
                   className='userBusinessSelect'
                 >
@@ -249,21 +257,23 @@ const UserProfile = () => {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <InputLabel htmlFor='isAdmin'>User Type</InputLabel>
-              <FormControl fullWidth>
-                <Select
-                  id='isAdmin'
-                  name='isAdmin'
-                  value={isAdmin}
-                  onChange={(e) => setIsAdmin(e.target.value)}
-                >
-                  <MenuItem value={'Admin'}>Admin</MenuItem>
-                  <MenuItem value={'Business'}>Business</MenuItem>
-                  <MenuItem value={'Capstone'}>Capstone</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
+            {auth.isAdmin === 'Admin' && (
+              <Grid item xs={12}>
+                <InputLabel htmlFor='isAdmin'>User Type</InputLabel>
+                <FormControl fullWidth>
+                  <Select
+                    id='isAdmin'
+                    name='isAdmin'
+                    value={isAdmin}
+                    onChange={(e) => setIsAdmin(e.target.value)}
+                  >
+                    <MenuItem value={'Admin'}>Admin</MenuItem>
+                    <MenuItem value={'Business'}>Business</MenuItem>
+                    <MenuItem value={'Capstone'}>Capstone</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            )}
             <Grid item xs={12}>
               <InputLabel htmlFor='bio'>Bio</InputLabel>
               <FormControl fullWidth>
@@ -310,18 +320,20 @@ const UserProfile = () => {
             >
               Save
             </Button>
-            <Link
-              to='/users'
-              variant='contained'
-              sx={{
-                '&:hover': {
-                  color: '#9eb8d0',
-                },
-              }}
-              className='bg-primary_dark_cyan text-white font-bold p-2 rounded self-start mr-4 h-10'
-            >
-              Back to Users
-            </Link>
+            {auth.isAdmin === 'Admin' && (
+              <Link
+                to='/users'
+                variant='contained'
+                sx={{
+                  '&:hover': {
+                    color: '#9eb8d0',
+                  },
+                }}
+                className='bg-primary_dark_cyan text-white font-bold p-2 rounded self-start mr-4 h-10'
+              >
+                Back to Users
+              </Link>
+            )}
           </Box>
         </form>
       </Box>
