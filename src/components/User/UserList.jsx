@@ -1,31 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-import UserCard from './UserCard'
-import AddIcon from '@mui/icons-material/Add'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import UserCard from './UserCard';
+import AddIcon from '@mui/icons-material/Add';
+import { useNavigate } from 'react-router-dom';
 
 const UserList = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const [users, setUsers] = useState([])
-  const [searchTerm, setSearchTerm] = useState('')
+  const [users, setUsers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/users')
-        setUsers(response.data)
+        const response = await axios.get('http://localhost:4000/api/user');
+        setUsers(response.data);
       } catch (error) {
-        console.error('Error fetching users:', error)
+        console.error('Error fetching users:', error);
       }
-    }
+    };
 
-    fetchUsers()
-  }, [])
+    fetchUsers();
+  }, []);
 
   const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchTerm.toLowerCase()),
-  )
+    user.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <>
@@ -33,12 +33,12 @@ const UserList = () => {
         <div style={{ textAlign: 'center' }}>
           <h2>User List</h2>
         </div>
-        <div className='flex justify-between w-full mb-4'>
-          <div className='flex ml-5'>
+        <div className="flex justify-between w-full mb-4">
+          <div className="flex ml-5">
             <button
-              variant='contained'
+              variant="contained"
               // color='inherit'
-              className='bg-green-500 text-white addNewButton'
+              className="bg-green-500 text-white addNewButton"
               onClick={() => navigate('createNewUser')}
             >
               <AddIcon />
@@ -47,11 +47,11 @@ const UserList = () => {
           </div>
           <div>
             <input
-              type='text'
-              placeholder='Search Users'
+              type="text"
+              placeholder="Search Users"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className='p-2 border rounded-md shadow-sm w-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mr-4'
+              className="p-2 border rounded-md shadow-sm w-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mr-4"
             />
           </div>
         </div>
@@ -60,7 +60,7 @@ const UserList = () => {
         ))}
       </div>
     </>
-  )
-}
+  );
+};
 
-export default UserList
+export default UserList;
