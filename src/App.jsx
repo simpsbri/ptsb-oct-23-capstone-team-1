@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { lazy, useContext } from 'react'
 import ReactDOM from 'react-dom/client'
 import {
   createBrowserRouter,
@@ -22,6 +22,7 @@ import BusinessBlank from './routes/newBusinessProfile'
 import NoAuthority from './routes/notAuthorized'
 import PrivateRoutes from './components/PrivateRoutes'
 import { AuthProvider } from '../server/middleware/setAuth'
+import { AuthContext } from '../server/middleware/setAuth'
 import { Suspense } from 'react'
 
 import './index.css'
@@ -30,37 +31,62 @@ const LazyBusinessBlank = lazy(() => import('./routes/newBusinessProfile'))
 const LazyBusinessProfile = lazy(() => import('./routes/businessProfile'))
 const LazyUserProfile = lazy(() => import('./routes/userProfile'))
 
+function DebugAuthProvider() {
+  const authContext = useContext(AuthContext)
+
+  console.log(authContext)
+
+  return null
+}
+
 function App() {
   return (
     <div className='App'>
       <AuthProvider>
+        <DebugAuthProvider />
         <BrowserRouter>
           <Routes>
             <Route path='/' element={<Root />} />
             <Route path='/' element={<MainLayout />}>
-              <Route path='/' element={<PrivateRoutes />}>
-                <Route path='/profile' element={<Profile />} />
-                <Route path='/businesses' element={<Businesses />} />
+              <Route path='/admin' element={<PrivateRoutes isAdmin='Admin' />}>
+                <Route path='businesses' element={<Businesses />} />
+                <Route path='profile' element={<Profile />} />
                 <Route
-                  path='/businesses/CreateNewBusiness'
-                  element={<LazyBusinessBlank />}
-                />
-                <Route
-                  path='/users'
+                  path='users'
                   roles={['isAdmin']}
                   element={<AllUsers />}
                 />
-                <Route path='/users/createNewUser' element={<UserBlank />} />
-                <Route path='/projects' element={<Projects />} />
                 <Route
-                  path='/businesses/:id'
+                  path='businesses/CreateNewBusiness'
+                  element={<LazyBusinessBlank />}
+                />
+                <Route
+                  path='businesses/:id'
                   element={<LazyBusinessProfile />}
                 />
+                <Route path='projects' element={<Projects />} />
+                <Route path='users/:id' element={<LazyUserProfile />} />
+                <Route path='users/createNewUser' element={<UserBlank />} />
+              </Route>
 
-                <Route path='/users/:id' element={<LazyUserProfile />} />
+              <Route
+                path='/business'
+                element={<PrivateRoutes isAdmin='Business' />}
+              >
+                <Route path='businesses/:id' element={<BusinessProfile />} />
+                <Route path='users/:id' element={<LazyUserProfile />} />
+              </Route>
+
+              <Route
+                path='/capstone'
+                element={<PrivateRoutes isAdmin='Capstone' />}
+              >
+                <Route path='users/:id' element={<LazyUserProfile />} />
+                <Route path='projects' element={<Projects />} />
               </Route>
 
               <Route path='/not-authorized' element={<NoAuthority />} />
+              <Route path='*' element={<Navigate to='/not-authorized' />} />
             </Route>
           </Routes>
         </BrowserRouter>

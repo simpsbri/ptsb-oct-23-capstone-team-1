@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import axios from 'axios'
 import './HorizontalNav.css'
+import { AuthContext } from '../../../server/middleware/setAuth'
 import { Badge } from '@mui/material'
 
 function HorizontalNav() {
   const [showBadge, setShowBadge] = useState(false)
   const [businesses, setBusinesses] = useState([])
   const [oldBusinessesCount, setOldBusinessesCount] = useState(0)
+  const { auth } = useContext(AuthContext)
+  const businessId = auth.user.businessId
+  const userId = auth.user._id
 
   useEffect(() => {
     const fetchData = async () => {
@@ -41,34 +45,60 @@ function HorizontalNav() {
     return () => clearInterval(intervalId)
   }, [businesses])
 
-  return (
-    <nav style={{ width: '100%' }} className='mb-12'>
-      <ul style={{ display: 'flex' }}>
-        <li>
-          <Link to='/' className='navlink'>
-            Home
-          </Link>
-        </li>
-        <li>
-          <Badge badgeContent={oldBusinessesCount} color='warning'>
-            <Link to='/businesses' className='navlink'>
-              Businesses
+  if (auth.isAdmin === 'Admin') {
+    return (
+      <nav style={{ width: '100%' }} className='mb-12'>
+        <ul style={{ display: 'flex' }}>
+          <li>
+            <Link to='/' className='navlink'>
+              Home
             </Link>
-          </Badge>
-        </li>
-        <li>
-          <Link to='/users' className='navlink'>
-            Users
-          </Link>
-        </li>
-        <li>
-          <Link to='/projects' className='navlink'>
-            Projects
-          </Link>
-        </li>
-      </ul>
-    </nav>
-  )
+          </li>
+          <li>
+            <Badge badgeContent={oldBusinessesCount} color='warning'>
+              <Link to='/businesses' className='navlink'>
+                Businesses
+              </Link>
+            </Badge>
+          </li>
+          <li>
+            <Link to='/users' className='navlink'>
+              Users
+            </Link>
+          </li>
+          <li>
+            <Link to='/projects' className='navlink'>
+              Projects
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    )
+  }
+
+  if (auth.isAdmin === 'Business') {
+    return (
+      <nav style={{ width: '100%' }} className='mb-12'>
+        <ul style={{ display: 'flex' }}>
+          <li>
+            <Link to='/' className='navlink'>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to={`/business/businesses/${businessId}`} className='navlink'>
+              My Business
+            </Link>
+          </li>
+          <li>
+            <Link to={`/business/users/${userId}`} className='navlink'>
+              My Profile
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    )
+  }
 }
 
 export default HorizontalNav
