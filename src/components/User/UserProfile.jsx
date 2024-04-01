@@ -68,7 +68,9 @@ const UserProfile = () => {
   const [bio, setBio] = useState('')
   const [languages, setLanguages] = useState([])
   const [businessId, setBusinessId] = useState('')
-  const [isAdmin, setIsAdmin] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [isBusiness, setIsBusiness] = useState(false)
+  const [isCapstone, setIsCapstone] = useState(false)
   const theme = useTheme()
 
   const [businesses, setBusinesses] = useState([])
@@ -98,6 +100,8 @@ const UserProfile = () => {
         setBusinessId(response.data.businessId)
         setSelectedBusiness(String(response.data.businessId))
         setIsAdmin(response.data.isAdmin)
+        setIsBusiness(response.data.isBusiness)
+        setIsCapstone(response.data.isCapstone)
       } catch (error) {
         console.error('Error fetching user:', error)
       }
@@ -121,6 +125,8 @@ const UserProfile = () => {
         languages,
         businessId: selectedBusiness,
         isAdmin,
+        isCapstone,
+        isBusiness,
       }
       console.log('User Data:', userData)
 
@@ -150,6 +156,14 @@ const UserProfile = () => {
       console.error('Error deleting user:', error)
     }
   } // deleteUser
+
+  useEffect(() => {
+    const moreThanOneChecked =
+      [isAdmin, isCapstone, isBusiness].filter(Boolean).length > 1
+    if (moreThanOneChecked) {
+      alert('Only one User Account type can be selected at a time.')
+    }
+  }, [isAdmin, isCapstone, isBusiness])
 
   return (
     <>

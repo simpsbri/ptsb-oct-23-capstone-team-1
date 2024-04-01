@@ -1,21 +1,56 @@
-import React from 'react'
-import { Box } from '@mui/material'
-import TextField from '@mui/material/TextField'
-import { Stack } from '@mui/material'
-import Button from '@mui/material/Button'
-import { useState } from 'react'
-import PasswordInput from './PasswordInput'
-import EmailInput from './EmailInput'
+import React from 'react';
+import { Box } from '@mui/material';
+import { Stack } from '@mui/material';
+import Button from '@mui/material/Button';
+import { useState } from 'react';
+import PasswordInput from './PasswordInput';
+import EmailInput from './EmailInput';
+import axios from 'axios';
 
 const Login = () => {
-  const [password, setPassword] = useState('')
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    if (!email || !password) {
+      console.error('Please fill in all fields');
+      setLoading(false);
+      return;
+    }
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      };
+
+      const { data } = await axios.post(
+        'http://localhost:4000/api/user/login',
+        { email, password },
+        config
+      );
+      localStorage.setItem('userInfo', JSON.stringify(data));
+      // Handle the response here
+    } catch (err) {
+      console.error(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
-    <section className='p-10 bg-primary_dark_cyan flex w-full flex-row '>
+    <section className="p-10 bg-primary_dark_cyan flex w-full flex-row ">
       <div>
-        <h1 className='text-xl font-bold mb-4'>Login</h1>
-        <form>
+        <h1 className="text-xl font-bold mb-4">Login</h1>
+        <form onSubmit={submitHandler}>
           <Box>
-            <EmailInput />
+            <EmailInput
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </Box>
 
           <Box>
@@ -29,29 +64,33 @@ const Login = () => {
               }
             >
               <PasswordInput
-                password={password}
-                handlePassword={(e) => setPassword(e.target.value)}
+                // password={password}
+                // setPassword={setPassword}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
           </Box>
 
           <Box
-            component='div'
+            component="div"
             sx={{
               '& > :not(style)': { m: 1, width: '30ch' },
             }}
             noValidate
-            autoComplete='off'
-            className='p-2'
+            autoComplete="off"
+            className="p-2"
           >
-            <Stack spacing={2} direction='row'>
-              <Button variant='contained'>Submit</Button>
+            <Stack spacing={2} direction="row">
+              <Button variant="contained" type="submit">
+                Submit
+              </Button>
             </Stack>
           </Box>
         </form>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

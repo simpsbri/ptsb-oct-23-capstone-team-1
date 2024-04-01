@@ -3,7 +3,18 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 const UserCard = ({ user, handleEditClick }) => {
-  const { _id, name, email, isAdmin, role, postedAt, status, businessId } = user
+  const {
+    _id,
+    name,
+    email,
+    isAdmin,
+    isCapstone,
+    isBusiness,
+    role,
+    postedAt,
+    status,
+    businessId,
+  } = user
   const [businesses, setBusinesses] = useState([])
 
   useEffect(() => {
@@ -36,7 +47,17 @@ const UserCard = ({ user, handleEditClick }) => {
             <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white ml-4'>
               {isAdmin}
             </span>
-          ) : null}
+          )}
+          {isBusiness && (
+            <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white ml-4'>
+              Business
+            </span>
+          )}
+          {isCapstone && (
+            <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white ml-4'>
+              Capstone
+            </span>
+          )}
         </h1>
         <p className='text-dark_gray_cyan text-base'>{email}</p>
         {/* job info */}
