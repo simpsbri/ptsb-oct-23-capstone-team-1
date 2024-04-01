@@ -99,6 +99,30 @@ function HorizontalNav() {
       </nav>
     )
   }
+
+  if (auth.isAdmin === 'Capstone') {
+    return (
+      <nav style={{ width: '100%' }} className='mb-12'>
+        <ul style={{ display: 'flex' }}>
+          <li>
+            <Link to='/' className='navlink'>
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link to={`/capstone/users/${userId}`} className='navlink'>
+              My Profile
+            </Link>
+          </li>
+          <li>
+            <Link to='capstone/projects' className='navlink'>
+              Projects
+            </Link>
+          </li>
+        </ul>
+      </nav>
+    )
+  }
 }
 
 export default HorizontalNav
