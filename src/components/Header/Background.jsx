@@ -4,7 +4,7 @@ const Background = () => {
       <div>
         {' '}
         <img
-          src='src/assets/WorkGapSolution_Logo.png'
+          src='/WorkGapSolution_Logo.png'
           alt='WorkGap Logo'
           className='h-28'
         />
