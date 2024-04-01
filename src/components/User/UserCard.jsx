@@ -32,11 +32,11 @@ const UserCard = ({ user, handleEditClick }) => {
             {name}
           </Link>
 
-          {isAdmin && (
+          {isAdmin ? (
             <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white ml-4'>
-              Admin
+              {isAdmin}
             </span>
-          )}
+          ) : null}
         </h1>
         <p className='text-dark_gray_cyan text-base'>{email}</p>
         {/* job info */}

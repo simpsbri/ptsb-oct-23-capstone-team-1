@@ -203,7 +203,7 @@ const NewUserProfile = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <InputLabel htmlFor='role'>Role</InputLabel>
+              <InputLabel htmlFor='role'>Company/Agency Role</InputLabel>
               <FormControl fullWidth>
                 <TextField
                   id='role'
@@ -211,6 +211,21 @@ const NewUserProfile = () => {
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                 />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='isAdmin'>User Type</InputLabel>
+              <FormControl fullWidth>
+                <Select
+                  id='isAdmin'
+                  name='isAdmin'
+                  value={isAdmin}
+                  onChange={(e) => setIsAdmin(e.target.value)}
+                >
+                  <MenuItem value={'Admin'}>Admin</MenuItem>
+                  <MenuItem value={'Business'}>Business</MenuItem>
+                  <MenuItem value={'Capstone'}>Capstone</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
 

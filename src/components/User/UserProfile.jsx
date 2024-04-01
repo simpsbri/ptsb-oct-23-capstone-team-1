@@ -66,7 +66,7 @@ const UserProfile = () => {
   const [bio, setBio] = useState('')
   const [languages, setLanguages] = useState([])
   const [businessId, setBusinessId] = useState('')
-  const [isAdmin, setIsAdmin] = useState(false)
+  const [isAdmin, setIsAdmin] = useState('')
   const theme = useTheme()
 
   const [businesses, setBusinesses] = useState([])
@@ -238,7 +238,7 @@ const UserProfile = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <InputLabel htmlFor='role'>Role</InputLabel>
+              <InputLabel htmlFor='role'>Business/Agency Role</InputLabel>
               <FormControl fullWidth>
                 <TextField
                   id='role'
@@ -250,16 +250,19 @@ const UserProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={isAdmin}
-                    onChange={(e) => setIsAdmin(e.target.checked)}
-                    name='isAdmin'
-                  />
-                }
-                label='Is Admin'
-              />
+              <InputLabel htmlFor='isAdmin'>User Type</InputLabel>
+              <FormControl fullWidth>
+                <Select
+                  id='isAdmin'
+                  name='isAdmin'
+                  value={isAdmin}
+                  onChange={(e) => setIsAdmin(e.target.value)}
+                >
+                  <MenuItem value={'Admin'}>Admin</MenuItem>
+                  <MenuItem value={'Business'}>Business</MenuItem>
+                  <MenuItem value={'Capstone'}>Capstone</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <InputLabel htmlFor='bio'>Bio</InputLabel>
