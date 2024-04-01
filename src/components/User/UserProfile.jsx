@@ -74,7 +74,9 @@ const UserProfile = () => {
   const theme = useTheme()
 
   const [businesses, setBusinesses] = useState([])
-  const [selectedBusiness, setSelectedBusiness] = useState('')
+  const [selectedBusiness, setSelectedBusiness] = useState(
+    businesses[0]?._id || 'none',
+  )
 
   useEffect(() => {
     axios
@@ -250,6 +252,9 @@ const UserProfile = () => {
                   }}
                   className='userBusinessSelect'
                 >
+                  <MenuItem value='none'>
+                    <em>None</em>
+                  </MenuItem>
                   {businesses.map((business, index) => (
                     <MenuItem value={business._id} key={business._id}>
                       {business.company_name}
