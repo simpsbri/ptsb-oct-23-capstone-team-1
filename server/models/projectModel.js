@@ -10,7 +10,7 @@ const projectModel = new mongoose.Schema(
     projectTitle: { type: String, required: true },
     details: { type: String, required: true },
     status: { type: String, required: true },
-    tools: [{ type: String }],
+    projectType: [{ type: String }],
   },
   {
     timestamps: true,

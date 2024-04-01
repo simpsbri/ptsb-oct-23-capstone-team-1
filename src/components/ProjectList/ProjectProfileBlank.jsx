@@ -17,7 +17,7 @@ function ProjectProfileBlank() {
   const [projectTitle, setProjectTitle] = useState('')
   const [details, setDetails] = useState('')
   const [status, setStatus] = useState('Newly Submitted')
-  const [tools, setTools] = useState('')
+  const [projectType, setProjectType] = useState('') // Changed state from tools to projectType
   const [businesses, setBusinesses] = useState([])
   const [selectedBusiness, setSelectedBusiness] = useState('')
 
@@ -41,7 +41,7 @@ function ProjectProfileBlank() {
       projectTitle,
       details,
       status,
-      tools: tools.split(', ').map((tool) => tool.trim()),
+      projectType, // Changed tools to projectType
       businessId: selectedBusiness,
     }
 
@@ -109,9 +109,9 @@ function ProjectProfileBlank() {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label='Tools'
-                value={tools}
-                onChange={(e) => setTools(e.target.value)}
+                label='Project Type' // Changed label from Tools to Project Type
+                value={projectType}
+                onChange={(e) => setProjectType(e.target.value)} // Changed setTools to setProjectType
               />
             </Grid>
             <Grid item xs={12}>
@@ -124,9 +124,7 @@ function ProjectProfileBlank() {
                   label='Business'
                   onChange={(event) => {
                     setSelectedBusiness(event.target.value)
-                    console.log(event.target.value)
                   }}
-                  className='userBusinessSelect'
                 >
                   {businesses.map((business, index) => (
                     <MenuItem value={business._id} key={business._id}>

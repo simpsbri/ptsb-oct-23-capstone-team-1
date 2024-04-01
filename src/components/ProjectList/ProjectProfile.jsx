@@ -20,7 +20,7 @@ const ProjectProfile = () => {
   const [projectTitle, setProjectTitle] = useState('')
   const [details, setDetails] = useState('')
   const [status, setStatus] = useState('Newly Submitted')
-  const [tools, setTools] = useState([])
+  const [projectType, setProjectType] = useState('') // Updated state
   const [saveSuccess, setSaveSuccess] = useState(false)
   const [saveError, setSaveError] = useState(false)
   const [businesses, setBusinesses] = useState([])
@@ -45,7 +45,7 @@ const ProjectProfile = () => {
         setProjectTitle(response.data.projectTitle || '')
         setDetails(response.data.details || '')
         setStatus(response.data.status || '')
-        setTools(response.data.tools || [])
+        setProjectType(response.data.projectType || '') // Updated
         setSelectedBusiness(String(response.data.businessId) || '')
       } catch (error) {
         console.error(error)
@@ -66,7 +66,7 @@ const ProjectProfile = () => {
         projectTitle,
         details,
         status,
-        tools,
+        projectType, // Updated
         businessId: selectedBusiness,
       }
 
@@ -150,9 +150,9 @@ const ProjectProfile = () => {
             <Grid item xs={12}>
               <TextField
                 fullWidth
-                label='Tools'
-                value={tools.join(', ')}
-                onChange={(e) => setTools(e.target.value.split(', '))}
+                label='Project Type'
+                value={projectType}
+                onChange={(e) => setProjectType(e.target.value)}
               />
             </Grid>
             <Grid item xs={12}>
@@ -183,8 +183,11 @@ const ProjectProfile = () => {
             <Button onClick={handleSave} variant='contained' color='primary'>
               Save
             </Button>
-            <Link to='/projects' style={{ marginLeft: '10px' }}>
-              Back to List
+            <Link
+              to='/projects'
+              style={{ textDecoration: 'none', marginLeft: '10px' }}
+            >
+              <Button variant='outlined'>Back to List</Button>
             </Link>
           </Box>
         </form>

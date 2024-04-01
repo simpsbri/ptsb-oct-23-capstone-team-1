@@ -15,9 +15,13 @@ import cors from 'cors';
 const app = express();
 
 setupMiddleware(app);
+setupMiddleware(app);
 
 connectDB();
+connectDB();
 
+app.use(cors());
+app.use(express.json());
 app.use(cors());
 app.use(express.json());
 
@@ -32,6 +36,8 @@ app.use('/api/user', userRouter);
 app.use('/register', newBusinessRouter);
 
 app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
   console.log(`Server running on port ${PORT}`);
 });
   console.log(`Server running on port ${PORT}`);
