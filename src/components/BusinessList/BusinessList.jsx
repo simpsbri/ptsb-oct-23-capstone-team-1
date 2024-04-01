@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import BusinessCard from './BusinessCard'
 import axios from 'axios'
+
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Pagination from '@mui/material/Pagination'

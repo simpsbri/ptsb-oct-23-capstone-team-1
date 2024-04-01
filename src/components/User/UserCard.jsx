@@ -39,13 +39,13 @@ const UserCard = ({ user, handleEditClick }) => {
         {/* user info */}
         <h1 className='py-2 text-primary_dark_cyan text-xl'>
           {/* Wrap the user name in a Link component */}
-          <Link to={`/users/${_id}`} className='hover:text-teal-700'>
+          <Link to={`/admin/users/${_id}`} className='hover:text-teal-700'>
             {name}
           </Link>
 
-          {isAdmin && (
+          {isAdmin ? (
             <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white ml-4'>
-              Admin
+              {isAdmin}
             </span>
           )}
           {isBusiness && (

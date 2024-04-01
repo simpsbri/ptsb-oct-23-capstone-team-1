@@ -209,7 +209,7 @@ const NewUserProfile = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <InputLabel htmlFor='role'>Role</InputLabel>
+              <InputLabel htmlFor='role'>Company/Agency Role</InputLabel>
               <FormControl fullWidth>
                 <TextField
                   id='role'
@@ -220,36 +220,19 @@ const NewUserProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={isBusiness}
-                    onChange={(e) => setIsBusiness(e.target.checked)}
-                    name='isBusiness'
-                  />
-                }
-                label='Is Business'
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={isCapstone}
-                    onChange={(e) => setIsCapstone(e.target.checked)}
-                    name='isCapstone'
-                  />
-                }
-                label='Is Capstone'
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={isAdmin}
-                    onChange={(e) => setIsAdmin(e.target.checked)}
-                    name='isAdmin'
-                  />
-                }
-                label='Is Admin'
-              />
+              <InputLabel htmlFor='isAdmin'>User Type</InputLabel>
+              <FormControl fullWidth>
+                <Select
+                  id='isAdmin'
+                  name='isAdmin'
+                  value={isAdmin}
+                  onChange={(e) => setIsAdmin(e.target.value)}
+                >
+                  <MenuItem value={'Admin'}>Admin</MenuItem>
+                  <MenuItem value={'Business'}>Business</MenuItem>
+                  <MenuItem value={'Capstone'}>Capstone</MenuItem>
+                </Select>
+              </FormControl>
             </Grid>
 
             <Grid item xs={12}>

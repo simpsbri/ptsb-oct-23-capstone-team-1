@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import './business.css'
 import axios from 'axios'
+import { AuthContext } from '../../../server/middleware/setAuth'
 
 function BusinessMessages() {
+  const { auth } = useContext(AuthContext)
   const [messages, setMessages] = useState([])
   const [messageText, setMessageText] = useState('')
   const [showModal, setShowModal] = useState(false)
@@ -144,13 +146,16 @@ function BusinessMessages() {
                 }}
               >
                 <p className='text-gray-800'>{message.messageText}</p>
-                <button
-                  onClick={() => handleDeleteMessage(message._id)}
-                  className='deleteButton'
-                >
-                  Delete
-                </button>
+                {auth.isAdmin === 'Admin' && (
+                  <button
+                    onClick={() => handleDeleteMessage(message._id)}
+                    className='deleteButton'
+                  >
+                    Delete
+                  </button>
+                )}
               </div>
+
               {/* <p className='text-gray-800'>{message._id.toString()}</p> */}
               <p>{new Date(message.createdAt).toLocaleString()}</p>
               <hr />

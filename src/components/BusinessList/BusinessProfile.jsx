@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import {
@@ -15,6 +15,7 @@ import {
 } from '@mui/material'
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
+import { AuthContext } from '../../../server/middleware/setAuth'
 
 //rich text editor
 import ReactQuill from 'react-quill'
@@ -26,6 +27,7 @@ import 'react-resizable/css/styles.css'
 import BusinessMessages from './BusinessMessages'
 
 const BusinessProfile = () => {
+  const { auth } = useContext(AuthContext)
   const { id } = useParams()
   const [business, setBusiness] = useState({})
   const [company_name, setCompany_name] = useState('')
@@ -219,6 +221,7 @@ const BusinessProfile = () => {
                   value={businessStatus}
                   onChange={(e) => setBusinessStatus(e.target.value)}
                   label='Business Status'
+                  disabled={auth.isAdmin !== 'Admin'} // disable if the user is not an admin
                 >
                   <MenuItem value={'New'}>New</MenuItem>
                   <MenuItem value={'UnderReview'}>Under Review</MenuItem>
@@ -359,31 +362,33 @@ const BusinessProfile = () => {
                 </ResizableBox>
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <InputLabel htmlFor='overview'>Company Overview</InputLabel>
-              <FormControl fullWidth>
-                <ResizableBox
-                  width={Infinity}
-                  height={200}
-                  minConstraints={[Infinity, 100]}
-                  maxConstraints={[Infinity, 300]}
-                  style={{
-                    position: 'relative',
-                  }}
-                >
-                  <ReactQuill
-                    id='overview'
-                    value={overview}
-                    onChange={setOverview}
-                    modules={modules}
+            {auth.isAdmin === 'Admin' && (
+              <Grid item xs={12}>
+                <InputLabel htmlFor='overview'>Company Overview</InputLabel>
+                <FormControl fullWidth>
+                  <ResizableBox
+                    width={Infinity}
+                    height={200}
+                    minConstraints={[Infinity, 100]}
+                    maxConstraints={[Infinity, 300]}
                     style={{
-                      height: '100%',
-                      overflowY: 'auto',
+                      position: 'relative',
                     }}
-                  />
-                </ResizableBox>
-              </FormControl>
-            </Grid>
+                  >
+                    <ReactQuill
+                      id='overview'
+                      value={overview}
+                      onChange={setOverview}
+                      modules={modules}
+                      style={{
+                        height: '100%',
+                        overflowY: 'auto',
+                      }}
+                    />
+                  </ResizableBox>
+                </FormControl>
+              </Grid>
+            )}
             {/* <Grid item xs={12}>
               <Typography
                 variant='h6'
@@ -421,18 +426,20 @@ const BusinessProfile = () => {
             >
               Save
             </Button>
-            <Link
-              to='/businesses'
-              variant='contained'
-              sx={{
-                '&:hover': {
-                  color: '#9eb8d0',
-                },
-              }}
-              className='bg-primary_dark_cyan text-white font-bold p-2 rounded self-start mr-4 h-10'
-            >
-              Back to List
-            </Link>
+            {auth.isAdmin === 'Admin' && (
+              <Link
+                to='/businesses'
+                variant='contained'
+                sx={{
+                  '&:hover': {
+                    color: '#9eb8d0',
+                  },
+                }}
+                className='bg-primary_dark_cyan text-white font-bold p-2 rounded self-start mr-4 h-10'
+              >
+                Back to List
+              </Link>
+            )}
           </Box>
         </form>
         <BusinessMessages />
