@@ -46,51 +46,56 @@ function App() {
       <AuthProvider>
         <DebugAuthProvider />
         <BrowserRouter>
-          <Routes>
-            <Route path='/' element={<Root />} />
-            <Route path='/' element={<MainLayout />}>
-              <Route path='/admin' element={<PrivateRoutes isAdmin='Admin' />}>
-                <Route path='businesses' element={<Businesses />} />
-                <Route path='profile' element={<Profile />} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path='/' element={<Root />} />
+              <Route path='/' element={<MainLayout />}>
                 <Route
-                  path='users'
-                  roles={['isAdmin']}
-                  element={<AllUsers />}
-                />
+                  path='/admin'
+                  element={<PrivateRoutes isAdmin='Admin' />}
+                >
+                  <Route path='businesses' element={<Businesses />} />
+                  <Route path='profile' element={<Profile />} />
+                  <Route
+                    path='users'
+                    roles={['isAdmin']}
+                    element={<AllUsers />}
+                  />
+                  <Route
+                    path='businesses/CreateNewBusiness'
+                    element={<LazyBusinessBlank />}
+                  />
+                  <Route
+                    path='businesses/:id'
+                    element={<LazyBusinessProfile />}
+                  />
+                  <Route path='projects' element={<Projects />} />
+                  <Route path='projects/:id' element={<ProjectOverview />} />
+                  <Route path='users/:id' element={<LazyUserProfile />} />
+                  <Route path='users/createNewUser' element={<UserBlank />} />
+                </Route>
+
                 <Route
-                  path='businesses/CreateNewBusiness'
-                  element={<LazyBusinessBlank />}
-                />
+                  path='/business'
+                  element={<PrivateRoutes isAdmin='Business' />}
+                >
+                  <Route path='businesses/:id' element={<BusinessProfile />} />
+                  <Route path='users/:id' element={<LazyUserProfile />} />
+                </Route>
+
                 <Route
-                  path='businesses/:id'
-                  element={<LazyBusinessProfile />}
-                />
-                <Route path='projects' element={<Projects />} />
-                <Route path='projects/:id' element={<ProjectOverview />} />
-                <Route path='users/:id' element={<LazyUserProfile />} />
-                <Route path='users/createNewUser' element={<UserBlank />} />
-              </Route>
+                  path='/capstone'
+                  element={<PrivateRoutes isAdmin='Capstone' />}
+                >
+                  <Route path='users/:id' element={<LazyUserProfile />} />
+                  <Route path='projects' element={<Projects />} />
+                </Route>
 
-              <Route
-                path='/business'
-                element={<PrivateRoutes isAdmin='Business' />}
-              >
-                <Route path='businesses/:id' element={<BusinessProfile />} />
-                <Route path='users/:id' element={<LazyUserProfile />} />
+                <Route path='/not-authorized' element={<NoAuthority />} />
+                <Route path='*' element={<Navigate to='/not-authorized' />} />
               </Route>
-
-              <Route
-                path='/capstone'
-                element={<PrivateRoutes isAdmin='Capstone' />}
-              >
-                <Route path='users/:id' element={<LazyUserProfile />} />
-                <Route path='projects' element={<Projects />} />
-              </Route>
-
-              <Route path='/not-authorized' element={<NoAuthority />} />
-              <Route path='*' element={<Navigate to='/not-authorized' />} />
-            </Route>
-          </Routes>
+            </Routes>
+          </Suspense>
         </BrowserRouter>
       </AuthProvider>
     </div>
