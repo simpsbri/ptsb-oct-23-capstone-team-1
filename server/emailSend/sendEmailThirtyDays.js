@@ -4,6 +4,8 @@ import axios from 'axios'
 
 import dotenv from 'dotenv'
 
+import getAdminEmails from './adminEmails.js'
+
 dotenv.config()
 
 const transporter = nodemailer.createTransport({
@@ -22,6 +24,7 @@ const sendEmail30 = async () => {
     const today = startOfDay(new Date())
     const thirtyDaysAgo = subDays(today, 30)
     const sixtyDaysAgo = subDays(today, 60)
+    const adminEmails = await getAdminEmails()
 
     let businessesNotContacted = businesses.filter((business) => {
       const lastContactedDate = startOfDay(new Date(business.lastContactedDate))
@@ -51,8 +54,8 @@ const sendEmail30 = async () => {
       })
 
       const mailOptions = {
-        from: 'simpsbri@gmail.com',
-        to: 'brian@webkidss.org',
+        from: process.env.VITE_EMAIL_USER, // sender address
+        to: adminEmails.join(','), // list of receivers
         subject: 'Businesses not contacted in the last 30 days',
         text: emailBody,
       }

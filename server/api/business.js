@@ -1,17 +1,20 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import Business from '../models/businessModel.js'
+import getAdminEmails from '../emailSend/adminEmails.js'
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
+
+dotenv.config()
 
 const router = express.Router()
 
 // create reusable transporter object using the default SMTP transport
-let transporter = nodemailer.createTransport({
-  service: 'gmail', // use 'gmail' as service
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
   auth: {
-    user: 'simpsbri@gmail.com',
-    pass: 'jcei kwdi xdcp nclv',
+    user: process.env.VITE_EMAIL_USER,
+    pass: process.env.VITE_EMAIL_PASSWORD,
   },
 })
 
@@ -52,8 +55,8 @@ router.post('/createNewBusiness', async (req, res) => {
     const savedBusiness = await newBusiness.save()
 
     let info = await transporter.sendMail({
-      from: '"Brian Simpson" <simpsbri@gmail.com>', // sender address
-      to: 'brian@webkidss.org', // list of receivers
+      from: process.env.VITE_EMAIL_USER, // sender address
+      to: getAdminEmails.join(','), // list of receivers
       subject: 'New Business Created', // Subject line
       text: `A new business has been created: ${newBusiness.company_name}\n\nPrimary Contact: ${newBusiness.primary_contact}\nPrimary Contact Email: ${newBusiness.primary_contact_email}\n\n\nOverview: ${newBusiness.Overview}`,
     })
