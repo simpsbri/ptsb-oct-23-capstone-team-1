@@ -428,7 +428,7 @@ const BusinessProfile = () => {
             </Button>
             {auth.isAdmin === 'Admin' && (
               <Link
-                to='/businesses'
+                to='/admin/businesses'
                 variant='contained'
                 sx={{
                   '&:hover': {
