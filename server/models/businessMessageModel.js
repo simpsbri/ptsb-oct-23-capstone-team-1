@@ -10,6 +10,7 @@ const businessMessageModel = new mongoose.Schema(
     messageText: { type: String, required: true },
     businessId: { type: String, required: true },
     userId: { type: String }, // userId is optional
+    userName: { type: String },
   },
   {
     timestamps: true,

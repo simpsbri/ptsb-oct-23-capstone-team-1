@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 function MessageModal({ businessId }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -26,11 +28,7 @@ function MessageModal({ businessId }) {
         <div className='modal'>
           <div className='modal-content'>
             <h2>Add a Message</h2>
-            <input
-              type='text'
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
+            <ReactQuill value={message} onChange={setMessage} />
             <button onClick={handleSubmit}>Save Changes</button>
             <button onClick={handleClose}>Close</button>
           </div>

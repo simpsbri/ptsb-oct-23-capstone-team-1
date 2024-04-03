@@ -69,3 +69,15 @@
   overflow-y: auto;
   flex-grow: 1;
 }
+
+thead tr {
+  background-color: white !important;
+}
+
+tr:nth-child(even) {
+  background-color: #dbdbdb;
+}
+
+tr:nth-child(odd) {
+  background-color: #e8e8e8;
+}
