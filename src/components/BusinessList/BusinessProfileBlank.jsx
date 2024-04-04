@@ -183,7 +183,7 @@ function BusinessProfileBlank() {
               Save
             </Button>
             <Link
-              to='/businesses'
+              to='/admin/businesses'
               variant='contained'
               sx={{
                 '&:hover': {

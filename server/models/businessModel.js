@@ -4,7 +4,7 @@ const businessModel = new mongoose.Schema(
   {
     company_name: { type: String, required: true },
     businessID: { type: mongoose.Schema.Types.ObjectId, ref: 'Business' },
-    lastContactedDate: { type: Date, default: null, required: true },
+    lastContactedDate: { type: Date, default: null, required: false },
     initialProject: { type: String, required: false },
     isNew: { type: Boolean, required: false },
     street: { type: String, required: false },
