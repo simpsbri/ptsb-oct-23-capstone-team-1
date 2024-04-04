@@ -1,6 +1,8 @@
 import nodemailer from 'nodemailer'
 import { subDays, startOfDay } from 'date-fns'
 import axios from 'axios'
+import getAdminEmails from './adminEmails.js'
+
 import dotenv from 'dotenv'
 
 dotenv.config()
@@ -20,6 +22,7 @@ const sendEmail90 = async () => {
 
     const today = startOfDay(new Date())
     const ninetyDaysAgo = subDays(today, 90)
+    const adminEmails = await getAdminEmails()
 
     let businessesNotContacted = businesses.filter((business) => {
       if (business.lastContactedDate === null) {
@@ -31,7 +34,7 @@ const sendEmail90 = async () => {
 
     if (businessesNotContacted.length > 0) {
       let emailBody =
-        'Here is the list of businesses not contacted in the last 30 days:\n\n'
+        'Here is the list of businesses not contacted in the last 90 days:\n\n'
       businessesNotContacted.forEach((business) => {
         let formattedDate
         if (business.lastContactedDate) {
@@ -49,8 +52,8 @@ const sendEmail90 = async () => {
       })
 
       const mailOptions = {
-        from: 'simpsbri@gmail.com',
-        to: 'brian@webkidss.org',
+        from: process.env.VITE_EMAIL_USER, // sender address
+        to: adminEmails.join(','), // list of receivers
         subject: 'Businesses not contacted in the last 90 days',
         text: emailBody,
       }

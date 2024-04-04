@@ -42,12 +42,18 @@ function DebugAuthProvider() {
 }
 
 function App() {
+  const { auth } = useContext(AuthContext);
   return (
     <div className="App">
       <AuthProvider>
         <DebugAuthProvider />
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<Root />} />
+            <Route path="/" element={<MainLayout />}>
+              <Route path="/admin" element={<PrivateRoutes isAdmin="Admin" />}>
+                <Route path="businesses" element={<Businesses />} />
+                <Route path="profile" element={<Profile />} />
             <Route path="/" element={<Root />} />
             <Route path="/" element={<MainLayout />}>
               <Route path="/admin" element={<PrivateRoutes isAdmin="Admin" />}>
@@ -60,9 +66,11 @@ function App() {
                 />
                 <Route
                   path="businesses/CreateNewBusiness"
+                  path="businesses/CreateNewBusiness"
                   element={<LazyBusinessBlank />}
                 />
                 <Route
+                  path="businesses/:id"
                   path="businesses/:id"
                   element={<LazyBusinessProfile />}
                 />
@@ -79,7 +87,11 @@ function App() {
               <Route
                 path="/business"
                 element={<PrivateRoutes isAdmin="Business" />}
+                path="/business"
+                element={<PrivateRoutes isAdmin="Business" />}
               >
+                <Route path="businesses/:id" element={<BusinessProfile />} />
+                <Route path="users/:id" element={<LazyUserProfile />} />
                 <Route path="businesses/:id" element={<BusinessProfile />} />
                 <Route path="users/:id" element={<LazyUserProfile />} />
               </Route>
@@ -87,18 +99,26 @@ function App() {
               <Route
                 path="/capstone"
                 element={<PrivateRoutes isAdmin="Capstone" />}
+                path="/capstone"
+                element={<PrivateRoutes isAdmin="Capstone" />}
               >
+                <Route path="users/:id" element={<LazyUserProfile />} />
+                <Route path="projects" element={<Projects />} />
                 <Route path="users/:id" element={<LazyUserProfile />} />
                 <Route path="projects" element={<Projects />} />
               </Route>
 
               <Route path="/not-authorized" element={<NoAuthority />} />
               <Route path="*" element={<Navigate to="/not-authorized" />} />
+              <Route path="/not-authorized" element={<NoAuthority />} />
+              <Route path="*" element={<Navigate to="/not-authorized" />} />
             </Route>
           </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+        </Suspense>
+      </BrowserRouter>
     </div>
   );
+  );
 }
+export default App;
 export default App;

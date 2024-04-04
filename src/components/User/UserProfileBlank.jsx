@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState, useRef } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import {
   Box,
   Typography,
@@ -16,15 +16,15 @@ import {
   Alert,
   FormControlLabel,
   Checkbox,
-} from '@mui/material';
-import { useMediaQuery } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+} from '@mui/material'
+import { useMediaQuery } from '@mui/material'
+import { useTheme } from '@mui/material/styles'
 
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
-import { ResizableBox } from 'react-resizable';
-import 'react-resizable/css/styles.css';
+import { ResizableBox } from 'react-resizable'
+import 'react-resizable/css/styles.css'
 
 const modules = {
   toolbar: [
@@ -47,33 +47,33 @@ const modules = {
 
     ['link', 'image'], // link and image, video
   ],
-};
+}
 
-import './user.css';
+import './user.css'
 
 const NewUserProfile = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [role, setRole] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const [isBusiness, setIsBusiness] = useState(false);
-  const [isCapstone, setIsCapstone] = useState(false);
-  const [bio, setBio] = useState('');
-  const [languages, setLanguages] = useState([]);
-  const [businessId, setBusinessId] = useState('');
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [role, setRole] = useState('')
+  const [isAdmin, setIsAdmin] = useState(false)
+  const [isBusiness, setIsBusiness] = useState(false)
+  const [isCapstone, setIsCapstone] = useState(false)
+  const [bio, setBio] = useState('')
+  const [languages, setLanguages] = useState([])
+  const [businessId, setBusinessId] = useState('')
 
-  const [businesses, setBusinesses] = useState([]);
-  const [selectedBusiness, setSelectedBusiness] = useState('');
-  const theme = useTheme();
+  const [businesses, setBusinesses] = useState([])
+  const [selectedBusiness, setSelectedBusiness] = useState('')
+  const theme = useTheme()
 
-  const [message, setMessage] = useState('');
-  const messageRef = useRef();
+  const [message, setMessage] = useState('')
+  const messageRef = useRef()
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   async function handleSave(event) {
-    event.preventDefault();
+    event.preventDefault()
 
     const newUser = {
       name,
@@ -86,32 +86,32 @@ const NewUserProfile = () => {
       bio,
       languages,
       businessId: selectedBusiness,
-    };
+    }
 
     try {
       // Send a POST request to save the new document in MongoDB
       const response = await axios.post(
         'http://localhost:4000/api/user/createNewUser',
-        newUser
-      );
-      console.log(response.data); // Optional: Log the response data
+        newUser,
+      )
+      console.log(response.data) // Optional: Log the response data
 
       // Set the success message
-      setMessage('Successful Save');
+      setMessage('Successful Save')
 
       // Redirect to /users after a delay to allow the message to be seen
 
       setTimeout(() => {
-        navigate('/users');
-      }, 2000);
+        navigate('/users')
+      }, 2000)
     } catch (error) {
-      console.error(error);
+      console.error(error)
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
-        console.error('Error data:', error.response.data);
-        console.error('Error status:', error.response.status);
-        console.error('Error headers:', error.response.headers);
+        console.error('Error data:', error.response.data)
+        console.error('Error status:', error.response.status)
+        console.error('Error headers:', error.response.headers)
       }
     }
   }
@@ -120,25 +120,25 @@ const NewUserProfile = () => {
     axios
       .get('http://localhost:4000/businesses')
       .then((response) => {
-        setBusinesses(response.data);
+        setBusinesses(response.data)
       })
       .catch((error) => {
-        console.error('There was an error!', error);
-      });
-  }, []);
+        console.error('There was an error!', error)
+      })
+  }, [])
 
   useEffect(() => {
     if (message && messageRef.current) {
-      messageRef.current.focus();
+      messageRef.current.focus()
     }
-  }, [message]);
+  }, [message])
 
   return (
     <>
-      <Box className="flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid">
+      <Box className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid'>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant="h2">
+            <Typography variant='h2'>
               New User Profile
               {message && <div>{message}</div>}
             </Typography>
@@ -152,52 +152,52 @@ const NewUserProfile = () => {
         <form onSubmit={(event) => handleSave(event)}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
-              <InputLabel htmlFor="name">Name</InputLabel>
+              <InputLabel htmlFor='name'>Name</InputLabel>
               <FormControl fullWidth>
                 <TextField
-                  id="name"
-                  name="name"
+                  id='name'
+                  name='name'
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <InputLabel htmlFor="email">Email</InputLabel>
+              <InputLabel htmlFor='email'>Email</InputLabel>
               <FormControl fullWidth>
                 <TextField
-                  id="email"
-                  name="email"
+                  id='email'
+                  name='email'
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <InputLabel htmlFor="password">Password</InputLabel>
+              <InputLabel htmlFor='password'>Password</InputLabel>
               <FormControl fullWidth>
                 <TextField
-                  id="password"
-                  name="password"
+                  id='password'
+                  name='password'
                   value={password}
-                  type="password"
+                  type='password'
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
               <FormControl fullWidth>
-                <InputLabel id="business-select-label">Business</InputLabel>
+                <InputLabel id='business-select-label'>Business</InputLabel>
                 <Select
-                  labelId="business-select-label"
-                  id="business-select"
+                  labelId='business-select-label'
+                  id='business-select'
                   value={selectedBusiness}
-                  label="Business"
+                  label='Business'
                   onChange={(event) => {
-                    setSelectedBusiness(event.target.value);
-                    console.log(event.target.value);
+                    setSelectedBusiness(event.target.value)
+                    console.log(event.target.value)
                   }}
-                  className="userBusinessSelect"
+                  className='userBusinessSelect'
                 >
                   {businesses.map((business, index) => (
                     <MenuItem value={business._id} key={business._id}>
@@ -209,22 +209,22 @@ const NewUserProfile = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <InputLabel htmlFor="role">Company/Agency Role</InputLabel>
+              <InputLabel htmlFor='role'>Company/Agency Role</InputLabel>
               <FormControl fullWidth>
                 <TextField
-                  id="role"
-                  name="role"
+                  id='role'
+                  name='role'
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
                 />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <InputLabel htmlFor="isAdmin">User Type</InputLabel>
+              <InputLabel htmlFor='isAdmin'>User Type</InputLabel>
               <FormControl fullWidth>
                 <Select
-                  id="isAdmin"
-                  name="isAdmin"
+                  id='isAdmin'
+                  name='isAdmin'
                   value={isAdmin}
                   onChange={(e) => setIsAdmin(e.target.value)}
                 >
@@ -236,7 +236,7 @@ const NewUserProfile = () => {
             </Grid>
 
             <Grid item xs={12}>
-              <InputLabel htmlFor="bio">Bio</InputLabel>
+              <InputLabel htmlFor='bio'>Bio</InputLabel>
 
               <FormControl fullWidth>
                 <ResizableBox
@@ -249,7 +249,7 @@ const NewUserProfile = () => {
                   }}
                 >
                   <ReactQuill
-                    id="bio"
+                    id='bio'
                     value={bio}
                     onChange={setBio}
                     modules={modules}
@@ -264,10 +264,10 @@ const NewUserProfile = () => {
           </Grid>
 
           {/* Save Button */}
-          <Box className="flex mt-4">
+          <Box className='flex mt-4'>
             <Button
               onClick={handleSave}
-              variant="contained"
+              variant='contained'
               sx={{
                 mr: '1rem',
                 backgroundColor: '#9eb8d0',
@@ -283,14 +283,14 @@ const NewUserProfile = () => {
               Save
             </Button>
             <Link
-              to="/users"
-              variant="contained"
+              to='/admin/users'
+              variant='contained'
               sx={{
                 '&:hover': {
                   color: '#9eb8d0',
                 },
               }}
-              className="bg-primary_dark_cyan text-white font-bold p-2 rounded self-start mr-4 h-10"
+              className='bg-primary_dark_cyan text-white font-bold p-2 rounded self-start mr-4 h-10'
             >
               Back to Users
             </Link>
@@ -298,7 +298,7 @@ const NewUserProfile = () => {
         </form>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default NewUserProfile;
+export default NewUserProfile

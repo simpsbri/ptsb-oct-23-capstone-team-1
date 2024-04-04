@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import './business.css'
 import axios from 'axios'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import { AuthContext } from '../../../server/middleware/setAuth'
 
 function BusinessMessages() {
@@ -40,6 +42,8 @@ function BusinessMessages() {
       const messageData = {
         messageText,
         businessId,
+        userId: auth.user._id,
+        userName: auth.user.name,
       }
 
       const response = await fetch('http://localhost:4000/messages', {
@@ -105,25 +109,21 @@ function BusinessMessages() {
       </button>
 
       {showModal && (
-        <div className='fixed z-10 inset-0 overflow-y-auto'>
-          <div className='flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0'>
+        <div className='fixed z-10 inset-0'>
+          <div className='flex items-end justify-center min-h-screen pt-1 px-1 pb-2 text-center sm:block sm:p-0'>
             <div className='fixed inset-0 transition-opacity'>
               <div className='absolute inset-0 bg-gray-500 opacity-75'></div>
             </div>
             <div
-              className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full'
+              className='inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-4 sm:align-middle sm:max-w-lg sm:w-full'
               role='dialog'
               aria-modal='true'
               aria-labelledby='modal-headline'
             >
-              <div className='bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4'>
+              <div className='bg-white px-2 pt-3 pb-2 sm:p-3 sm:pb-2'>
                 <form onSubmit={handleNewMessageSubmit}>
                   <h1 className='text-2xl font-bold mb-4'>Message</h1>
-                  <textarea
-                    value={messageText}
-                    onChange={handleNewMessageChange}
-                    className='myTextarea'
-                  />
+                  <ReactQuill value={messageText} onChange={setMessageText} />
                   <button type='submit' className='myButton'>
                     Submit
                   </button>
@@ -133,7 +133,48 @@ function BusinessMessages() {
           </div>
         </div>
       )}
-      {messages
+
+      <table className='table-auto w-full border'>
+        <thead className='bg-white'>
+          <tr className='bg-white'>
+            <th className='px-4 py-2 border'>Message</th>
+            <th className='px-4 py-2 border'>Created By</th>
+            <th className='px-4 py-2 border'>Created Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {messages
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .map((message, index) => {
+              return (
+                <tr key={message._id}>
+                  <td
+                    className='border px-4 py-2'
+                    style={{ border: '1px solid black' }}
+                  >
+                    <div
+                      className='text-gray-800'
+                      dangerouslySetInnerHTML={{ __html: message.messageText }}
+                    />
+                  </td>
+                  <td
+                    className='border px-4 py-2'
+                    style={{ border: '1px solid black', textAlign: 'center' }}
+                  >
+                    {message.userName ? message.userName : 'User not found'}
+                  </td>
+                  <td
+                    className='border px-4 py-2'
+                    style={{ border: '1px solid black', textAlign: 'center' }}
+                  >
+                    {new Date(message.createdAt).toLocaleString()}
+                  </td>
+                </tr>
+              )
+            })}
+        </tbody>
+      </table>
+      {/* {messages
         .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
         .map((message) => {
           return (
@@ -145,7 +186,14 @@ function BusinessMessages() {
                   alignItems: 'center',
                 }}
               >
-                <p className='text-gray-800'>{message.messageText}</p>
+                <div
+                  className='text-gray-800'
+                  dangerouslySetInnerHTML={{ __html: message.messageText }}
+                  style={{ marginLeft: '20px' }}
+                />
+                <div>
+                  {message.userName ? message.userName : 'User not found'}
+                </div>
                 {auth.isAdmin === 'Admin' && (
                   <button
                     onClick={() => handleDeleteMessage(message._id)}
@@ -156,12 +204,11 @@ function BusinessMessages() {
                 )}
               </div>
 
-              {/* <p className='text-gray-800'>{message._id.toString()}</p> */}
-              <p>{new Date(message.createdAt).toLocaleString()}</p>
+              <p>Created: {new Date(message.createdAt).toLocaleString()}</p>
               <hr />
             </div>
           )
-        })}
+        })} */}
     </div>
   )
 }

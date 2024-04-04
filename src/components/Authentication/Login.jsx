@@ -6,12 +6,16 @@ import { useState } from 'react';
 import PasswordInput from './PasswordInput';
 import EmailInput from './EmailInput';
 import axios from 'axios';
+import { useContext } from 'react';
+import { AuthContext } from '../../../server/middleware/setAuth';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
 
+  // const { login } = useContext(AuthContext); // Destructure login from context
+  const { login } = useContext(AuthContext);
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -32,6 +36,11 @@ const Login = () => {
         { email, password },
         config
       );
+      login(data.token, data.role, data); // Pass the user's role as the second argument
+      console.log(data); // Log the response data to the console
+
+      // login(data.token, data.user.role, data.user); // Update context with the user's information
+
       localStorage.setItem('userInfo', JSON.stringify(data));
       // Handle the response here
     } catch (err) {
