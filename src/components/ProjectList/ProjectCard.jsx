@@ -21,7 +21,10 @@ const ProjectCard = ({ project, onDelete }) => {
             {projectTitle}
           </Link>
         </h1>
-        <p className="text-base mt-2">{details}</p>
+        <div
+          className="text-base mt-2"
+          dangerouslySetInnerHTML={{ __html: details.substring(0, 50) }}
+        />
         <p className="flex items-center gap-2 text-dark_gray_cyan text-base">
           Posted: {formattedCreatedAt} • Status: {status}
         </p>

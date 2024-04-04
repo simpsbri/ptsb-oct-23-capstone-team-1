@@ -24,14 +24,14 @@ const ProjectList = () => {
     fetchProjects();
   }, []);
 
-  const deleteProject = async (projectId) => {
-    try {
-      await axios.delete(`http://localhost:4000/projects/${projectId}`);
-      setProjects(projects.filter((project) => project._id !== projectId));
-    } catch (error) {
-      console.error("Error deleting project:", error);
-    }
-  };
+  // const deleteProject = async (projectId) => {
+  //   try {
+  //     await axios.delete(`http://localhost:4000/projects/${projectId}`);
+  //     setProjects(projects.filter((project) => project._id !== projectId));
+  //   } catch (error) {
+  //     console.error("Error deleting project:", error);
+  //   }
+  // };
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
