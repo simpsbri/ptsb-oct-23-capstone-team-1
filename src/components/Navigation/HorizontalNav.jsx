@@ -77,7 +77,7 @@ function HorizontalNav() {
     );
   }
 
-  if (auth.isAdmin === 'Business') {
+  if (auth.user.isAdmin === 'Business') {
     return (
       <nav style={{ width: '100%' }} className="mb-12">
         <ul style={{ display: 'flex' }}>
@@ -101,7 +101,7 @@ function HorizontalNav() {
     );
   }
 
-  if (auth.isAdmin === 'Capstone') {
+  if (auth.user.isAdmin === 'Capstone') {
     return (
       <nav style={{ width: '100%' }} className="mb-12">
         <ul style={{ display: 'flex' }}>
