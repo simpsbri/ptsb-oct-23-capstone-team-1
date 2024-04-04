@@ -32,19 +32,10 @@ const LazyBusinessBlank = lazy(() => import('./routes/newBusinessProfile'));
 const LazyBusinessProfile = lazy(() => import('./routes/businessProfile'));
 const LazyUserProfile = lazy(() => import('./routes/userProfile'));
 
-// function DebugAuthProvider() {
-//   const authContext = useContext(AuthContext)
-
-//   console.log(authContext)
-
-//   return null
-// }
-
 function App() {
   const { auth } = useContext(AuthContext);
   return (
     <div className="App">
-      {/* <DebugAuthProvider /> */}
       <BrowserRouter>
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>

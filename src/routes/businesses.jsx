@@ -6,7 +6,7 @@ const Businesses = () => {
   const { auth } = React.useContext(AuthContext);
   return (
     <div>
-      {auth.isAdmin ? (
+      {auth.user.isAdmin === 'Admin' ? (
         <BusinessList />
       ) : (
         <p>You are not authorized to view this page.</p>

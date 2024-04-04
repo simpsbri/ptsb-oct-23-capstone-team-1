@@ -7,12 +7,6 @@ export const AuthProvider = ({ children }) => {
     token: null,
     isAdmin: null,
     user: null,
-
-    // user: {
-    //   _id: '66063c6f2c163900f8766a8d', // replace with fake user's _id
-    //   businessId: '660452840ba212fa7ab6971d', // replace with fake user's businessId
-    //   // add other properties as needed
-    // },
   });
 
   const [isLoading, setIsLoading] = useState(true);
