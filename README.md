@@ -54,7 +54,7 @@ This app uses `react-router-dom` for routing. The following routes are defined:
 
 - `/`: the root route, which renders the `Root` component.
 - `/businesses`: the businesses route, which renders the `Businesses` component.
-- `/users`: the all users route, which renders the `AllUsers` component.
+- `/api/user`: the all users route, which renders the `AllUsers` component.
 - `/projects`: the projects route, which renders the `Projects` component.
 
 ## Conclusion
