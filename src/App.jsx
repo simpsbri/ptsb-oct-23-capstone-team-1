@@ -23,7 +23,7 @@ import BusinessBlank from './routes/newBusinessProfile';
 import NoAuthority from './routes/notAuthorized';
 import PrivateRoutes from './components/PrivateRoutes';
 
-// import { AuthContext } from '../server/middleware/setAuth'
+import { AuthContext } from '../server/middleware/setAuth';
 import { Suspense } from 'react';
 
 import './index.css';
@@ -41,6 +41,7 @@ const LazyUserProfile = lazy(() => import('./routes/userProfile'));
 // }
 
 function App() {
+  const { auth } = useContext(AuthContext);
   return (
     <div className="App">
       {/* <DebugAuthProvider /> */}
