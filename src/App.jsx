@@ -10,7 +10,7 @@ import {
   BrowserRouter,
   Routes,
 } from 'react-router-dom'
-import Root from './routes/root'
+import Root from './root'
 import Businesses from './routes/businesses'
 import AllUsers from './routes/users'
 import UserBlank from './routes/newUserBlank'
