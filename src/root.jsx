@@ -1,45 +1,45 @@
-import { useEffect, useState, useContext } from 'react'
-import Homepage from '../components/Authentication/Homepage'
-import Header from '../components/Header/Header'
-import Footer from '../components/Footer/Footer'
-import HorizontalNav from '../components/Navigation/HorizontalNav'
-import { AuthContext } from '../../server/middleware/setAuth'
+import { useEffect, useState, useContext } from 'react';
+import Homepage from './components/Authentication/Homepage';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import HorizontalNav from './components/Navigation/HorizontalNav';
+import { AuthContext } from '../server/middleware/setAuth';
 
 export default function Root() {
-  const [businessList, setBusinessList] = useState([])
-  const { auth } = useContext(AuthContext)
+  const [businessList, setBusinessList] = useState([]);
+  const { auth } = useContext(AuthContext);
 
   const addBusiness = (newBusiness) => {
-    setBusinessList([...businessList, newBusiness])
-  }
+    setBusinessList([...businessList, newBusiness]);
+  };
 
   useEffect(() => {
     const saveBusinessList = async () => {
-      const jsonString = JSON.stringify(businessList)
+      const jsonString = JSON.stringify(businessList);
       const response = await fetch('src/data/businessList.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: jsonString,
-      })
+      });
       if (!response.ok) {
-        console.error('Error saving business list:', response.statusText)
+        console.error('Error saving business list:', response.statusText);
       }
-    }
+    };
 
-    saveBusinessList()
-  }, [businessList])
+    saveBusinessList();
+  }, [businessList]);
 
   return (
     <>
       <Header />
       {auth.token ? <HorizontalNav /> : null}
-      <div id='main' className='main-content'>
-        <h1 className='text-xl'>
+      <div id="main" className="main-content">
+        <h1 className="text-xl">
           We’re Looking for Businesses to Benefit from FREE Work!{' '}
         </h1>
-        <p className='text-xl'>A Capstone Program </p>
+        <p className="text-xl">A Capstone Program </p>
         <p>
           Do you have a challenge in your organization that is going unsolved?
         </p>
@@ -76,11 +76,11 @@ export default function Root() {
           collaborate with a dedicated team of creators, and be free to use the
           source code or design assets after the project concludes.
         </p>
-        <div className='flex w-full'>
+        <div className="flex w-full">
           <Homepage />
         </div>
       </div>
       <Footer />
     </>
-  )
+  );
 }

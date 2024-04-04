@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Route, Outlet, Navigate } from 'react-router-dom';
-// import { AuthContext } from '../../server/middleware/setAuth'
+import { AuthContext } from '../../server/middleware/setAuth';
 
 function PrivateRoutes({ isAdmin, ...rest }) {
   const { auth } = useContext(AuthContext);
