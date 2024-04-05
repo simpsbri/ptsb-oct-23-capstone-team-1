@@ -43,6 +43,11 @@ const Login = () => {
 
       localStorage.setItem('userInfo', JSON.stringify(data));
       // Handle the response here
+
+      // Clear the email and password fields
+      setEmail('');
+      setPassword('');
+
       // Scroll to the top of the page
       window.scrollTo(0, 0);
     } catch (err) {
