@@ -93,7 +93,7 @@
 //                 onChange={(e) => setDetails(e.target.value)}
 //               />
 //             </Grid>
-//             {auth.isAdmin === "Admin" && (
+//             {auth.user.isAdmin === "Admin" && (
 //               <Grid item xs={12}>
 //                 <FormControl fullWidth>
 //                   <InputLabel id="status-select-label">Status</InputLabel>
@@ -103,7 +103,7 @@
 //                     value={status}
 //                     label="Status"
 //                     onChange={(e) => setStatus(e.target.value)}
-//                     // disabled={auth.isAdmin !== "Admin"} // Conditionally disable based on admin status
+//                     // disabled={auth.user.isAdmin !== "Admin"} // Conditionally disable based on admin status
 //                   >
 //                     <MenuItem value="Newly Submitted">Newly Submitted</MenuItem>
 //                     <MenuItem value="Under Review">Under Review</MenuItem>
@@ -271,7 +271,7 @@ function ProjectProfileBlank() {
                 onChange={(e) => setProjectTitle(e.target.value)}
               />
             </Grid>
-            {auth.isAdmin === "Admin" && (
+            {auth.user.isAdmin === "Admin" && (
               <Grid item xs={12}>
                 <FormControl fullWidth>
                   <InputLabel id="status-select-label">Status</InputLabel>
