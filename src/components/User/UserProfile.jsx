@@ -28,6 +28,7 @@ import "react-quill/dist/quill.snow.css";
 //resizable text area for input.
 import { ResizableBox } from "react-resizable";
 import "react-resizable/css/styles.css";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const modules = {
   toolbar: [
@@ -56,6 +57,7 @@ const UserProfile = () => {
   const { auth } = useContext(AuthContext);
   const [isEditing, setIsEditing] = useState(false);
   const { id } = useParams();
+  const navigate = useNavigate();
   const [user, setUser] = useState({});
   const [saveSuccess, setSaveSuccess] = useState(false);
   const saveSuccessRef = useRef(null);
@@ -150,9 +152,11 @@ const UserProfile = () => {
     }
   }; // handleSave
 
-  const deleteUser = async () => {
+  const handleDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:4000/user/${id}`);
+      const response = await axios.delete(
+        `http://localhost:4000/api/user/${id}`
+      );
       if (response.status === 200) {
         navigate("/admin/users");
       }
@@ -182,8 +186,22 @@ const UserProfile = () => {
               xs
               style={{ display: "flex", justifyContent: "flex-end" }}
             >
-              <Button variant="contained" color="warning" onClick={deleteUser}>
-                Delete User
+              <Button
+                variant="contained"
+                color="error"
+                sx={{
+                  backgroundColor: "red",
+                  color: "white",
+                  fontWeight: "bold",
+                  p: "0.5rem 1.5rem",
+                  borderRadius: "0.5rem",
+                  "&:hover": {
+                    backgroundColor: "darkred",
+                  },
+                }}
+                onClick={handleDelete}
+              >
+                <DeleteIcon />
               </Button>
             </Grid>
           )}

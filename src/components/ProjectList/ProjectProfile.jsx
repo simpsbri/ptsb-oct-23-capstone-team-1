@@ -121,14 +121,23 @@ const ProjectProfile = () => {
           </Typography>
         </Grid>
         {auth.user.isAdmin === "Admin" && (
-          <Grid item>
+          <Grid item xs style={{ display: "flex", justifyContent: "flex-end" }}>
             <Button
-              startIcon={<DeleteIcon />}
               variant="contained"
               color="error"
+              sx={{
+                backgroundColor: "red",
+                color: "white",
+                fontWeight: "bold",
+                p: "0.5rem 1.5rem",
+                borderRadius: "0.5rem",
+                "&:hover": {
+                  backgroundColor: "darkred",
+                },
+              }}
               onClick={handleDelete}
             >
-              Delete Project
+              <DeleteIcon />
             </Button>
           </Grid>
         )}
