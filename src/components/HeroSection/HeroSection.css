@@ -7,7 +7,8 @@ video {
 }
 
 .hero-container {
-  /* background: url('/public/images/img-5.jpg') center center/cover no-repeat; */
+  background: url('/public/images/desk-laptop.jpg') center center/cover
+    no-repeat;
   height: 50vh;
   width: 100%;
   display: flex;
@@ -54,7 +55,7 @@ video {
 @media screen and (max-width: 768px) {
   .hero-container > h1 {
     font-size: 30px;
-    margin-top: 200px;
+    margin-top: 70px;
   }
 
   .hero-container > p {
