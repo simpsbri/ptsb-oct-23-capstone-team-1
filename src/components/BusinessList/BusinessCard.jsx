@@ -125,7 +125,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
         </p>
 
         {latestMessage && (
-          <p className='flex items-start gap-2 text-dark_gray_cyan text-base pr-6'>
+          <div className='flex items-start gap-2 text-dark_gray_cyan text-base pr-6'>
             <b>Latest message:</b>{' '}
             <div
               className='text-gray-800'
@@ -143,7 +143,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
               year: '2-digit',
               hour12: true,
             })}
-          </p>
+          </div>
         )}
         {/* <h3>Associated Users</h3> */}
         <ul className='usersList'>
