@@ -64,7 +64,6 @@ const Register = () => {
       // Send a POST request to save the new document in MongoDB
       const response = await axios.post(`${viteUrl}register`, newBusiness)
       setIsSubmitted(true)
-      console.log(response.data) // Optional: Log the response data
     } catch (error) {
       console.error(error)
       // Handle error here
@@ -72,8 +71,7 @@ const Register = () => {
   }
   // useEffect(() => {
   //   const result = PWD_REGEX.test(pwd)
-  //   console.log(result)
-  //   console.log(pwd)
+
   //   setValidPwd(result)
   //   const match = pwd === matchPwd
   //   setValidMatch(match)

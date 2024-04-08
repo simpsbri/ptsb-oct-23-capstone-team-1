@@ -95,7 +95,6 @@ const NewUserProfile = () => {
         `${viteUrl}api/user/createNewUser`,
         newUser,
       )
-      console.log(response.data) // Optional: Log the response data
 
       // Set the success message
       setMessage('Successful Save')
@@ -196,7 +195,6 @@ const NewUserProfile = () => {
                   label='Business'
                   onChange={(event) => {
                     setSelectedBusiness(event.target.value)
-                    console.log(event.target.value)
                   }}
                   className='userBusinessSelect'
                 >

@@ -36,8 +36,6 @@ const LazyUserProfile = lazy(() => import('./routes/userProfile'))
 function DebugAuthProvider() {
   const authContext = useContext(AuthContext)
 
-  console.log(authContext)
-
   return null
 }
 

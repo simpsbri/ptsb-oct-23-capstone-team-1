@@ -37,8 +37,6 @@ function BusinessMessages() {
   }
 
   const handleNewMessageSubmit = async () => {
-    console.log(`messageText: ${messageText}, businessId: ${businessId}`) // Log the values
-
     try {
       // Declare and initialize messageData
       const messageData = {

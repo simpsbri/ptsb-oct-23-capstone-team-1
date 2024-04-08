@@ -202,7 +202,6 @@ const ProjectProfile = () => {
                 label='Business'
                 onChange={(event) => {
                   setSelectedBusiness(event.target.value)
-                  console.log(event.target.value)
                 }}
                 className='userBusinessSelect'
               >

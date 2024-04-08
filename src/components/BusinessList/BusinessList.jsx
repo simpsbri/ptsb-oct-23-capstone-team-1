@@ -37,7 +37,6 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
   }, [])
 
   if (!Array.isArray(businesses)) {
-    console.log('waiting')
     return <div>Loading...</div>
   }
 
