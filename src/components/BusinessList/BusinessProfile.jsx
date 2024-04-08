@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+import React, { useState, useEffect, useRef, useContext } from 'react'
+import { Link, useParams, useNavigate } from 'react-router-dom'
+import axios from 'axios'
 import {
   Box,
   Typography,
@@ -13,6 +16,12 @@ import {
   MenuItem,
   Alert,
 } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
+import MuiAccordion from '@mui/material/Accordion'
+import MuiAccordionSummary from '@mui/material/AccordionSummary'
+import MuiAccordionDetails from '@mui/material/AccordionDetails'
+
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { AuthContext } from '../../../server/middleware/setAuth'
@@ -44,7 +53,25 @@ const BusinessProfile = () => {
   const [primary_contact_email, setPrimary_contact_email] = useState('')
   const [businessStatus, setBusinessStatus] = useState('New')
   const [initialProject, setInitialProject] = useState('')
+  const { auth } = useContext(AuthContext)
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const [business, setBusiness] = useState({})
+  const [company_name, setCompany_name] = useState('')
+  const [street, setStreet] = useState('')
+  const [city, setCity] = useState('')
+  const [state, setState] = useState('')
+  const [zip, setZip] = useState('')
+  const [overview, setOverview] = useState('')
+  const [primary_contact, setPrimary_contact] = useState('')
+  const [primary_contact_email, setPrimary_contact_email] = useState('')
+  const [businessStatus, setBusinessStatus] = useState('New')
+  const [initialProject, setInitialProject] = useState('')
 
+  const [saveSuccess, setSaveSuccess] = useState(false)
+  const saveSuccessRef = useRef(null)
+  const [saveError, setSaveError] = useState(false)
+  const saveErrorRef = useRef(null)
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
   const [saveError, setSaveError] = useState(false)
@@ -52,12 +79,40 @@ const BusinessProfile = () => {
 
   const [passedMessages, setPassedMessages] = useState([])
   const [lastContactedDate, setLastContactedDate] = useState('')
+  const [passedMessages, setPassedMessages] = useState([])
+  const [lastContactedDate, setLastContactedDate] = useState('')
 
   const theme = useTheme()
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get('http://localhost:4000/api/user')
+        if (Array.isArray(response.data)) {
+          const filteredUsers = response.data.filter(
+            (user) => user.businessId === id,
+          )
+          setUsers(filteredUsers)
+        } else {
+          console.error(
+            'Expected response.data to be an array but got',
+            typeof response.data,
+          )
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchUsers()
+  }, [id])
 
   const modules = {
     toolbar: [
+      ['bold', 'italic', 'underline', 'strike'], // toggled buttons
+      ['blockquote', 'code-block'],
       ['bold', 'italic', 'underline', 'strike'], // toggled buttons
       ['blockquote', 'code-block'],
 
@@ -65,7 +120,11 @@ const BusinessProfile = () => {
       [{ list: 'ordered' }, { list: 'bullet' }],
       [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
       [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
+      [{ list: 'ordered' }, { list: 'bullet' }],
+      [{ script: 'sub' }, { script: 'super' }], // superscript/subscript
+      [{ indent: '-1' }, { indent: '+1' }], // outdent/indent
 
+      [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
       [{ size: ['small', false, 'large', 'huge'] }], // custom dropdown
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
 
@@ -74,9 +133,12 @@ const BusinessProfile = () => {
       [{ align: [] }],
 
       ['clean'], // remove formatting button
+      ['clean'], // remove formatting button
 
       ['link', 'image'], // link and image, video
+      ['link', 'image'], // link and image, video
     ],
+  }
   }
 
   const fetchMessages = (id) => {
@@ -87,44 +149,62 @@ const BusinessProfile = () => {
         const businessMessages = data.filter(
           (message) => message.businessId === id,
         )
+          (message) => message.businessId === id,
+        )
 
         // Sort messages from newest to oldest
         const sortedMessages = businessMessages.sort(
           (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
         )
+          (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+        )
 
         // Update the passedMessages state
+        setPassedMessages(sortedMessages)
         setPassedMessages(sortedMessages)
 
         // If there are any messages, update the lastContactedDate state
         if (sortedMessages.length > 0) {
           setLastContactedDate(sortedMessages[0].createdAt)
+          setLastContactedDate(sortedMessages[0].createdAt)
         }
+      })
+  }
       })
   }
 
   useEffect(() => {
     if (saveSuccess && saveSuccessRef.current) {
       saveSuccessRef.current.scrollIntoView({ behavior: 'smooth' })
+      saveSuccessRef.current.scrollIntoView({ behavior: 'smooth' })
     }
     // Reset saveSuccess state after 3 seconds
     const timeoutId = setTimeout(() => {
+      setSaveSuccess(false)
+    }, 3000)
       setSaveSuccess(false)
     }, 3000)
 
     // Clear timeout on component unmount
     return () => clearTimeout(timeoutId)
   }, [saveSuccess])
+    return () => clearTimeout(timeoutId)
+  }, [saveSuccess])
 
   useEffect(() => {
     if (saveError && saveErrorRef.current) {
+      saveErrorRef.current.scrollIntoView({ behavior: 'smooth' })
       saveErrorRef.current.scrollIntoView({ behavior: 'smooth' })
     }
     const timeoutId = setTimeout(() => {
       setSaveSuccess(false)
     }, 3000)
+      setSaveSuccess(false)
+    }, 3000)
 
     // Clear timeout on component unmount
+    return () => clearTimeout(timeoutId)
+  }, [saveError])
     return () => clearTimeout(timeoutId)
   }, [saveError])
 
@@ -201,6 +281,47 @@ const BusinessProfile = () => {
     }
   }
 
+  const Accordion = styled((props) => (
+    <MuiAccordion disableGutters elevation={0} square {...props} />
+  ))(({ theme }) => ({
+    border: `1px solid ${theme.palette.divider}`,
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&::before': {
+      display: 'none',
+    },
+  }))
+
+  const AccordionSummary = styled((props) => (
+    <MuiAccordionSummary
+      expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+      {...props}
+    />
+  ))(({ theme }) => ({
+    backgroundColor:
+      theme.palette.mode === 'dark'
+        ? 'rgba(255, 255, 255, .05)'
+        : 'rgba(0, 0, 0, .03)',
+    flexDirection: 'row-reverse',
+    '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+      transform: 'rotate(90deg)',
+    },
+    '& .MuiAccordionSummary-content': {
+      marginLeft: theme.spacing(1),
+    },
+  }))
+
+  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+    padding: theme.spacing(2),
+    borderTop: '1px solid rgba(0, 0, 0, .125)',
+  }))
+
+  const [expanded, setExpanded] = React.useState('')
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false)
+  }
+
   const handleDelete = async () => {
     try {
       await axios.delete(`${viteUrl}//businesses/${id}`)
@@ -217,9 +338,7 @@ const BusinessProfile = () => {
         {/* Profile Header */}
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant={matchesXS ? 'h6' : 'h2'}>
-              Business Profile
-            </Typography>
+            <Typography variant={'h2'}>Business Profile</Typography>
           </Grid>
 
           <Grid item xs style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -477,19 +596,37 @@ const BusinessProfile = () => {
             )}
           </Box>
         </form>
-        <BusinessMessages />
+
+        <Accordion
+          expanded={expanded === 'panel1'}
+          onChange={handleChange('panel1')}
+          sx={{ mt: 3 }}
+        >
+          <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
+            <Typography>Contact Log</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <BusinessMessages />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === 'panel2'}
+          onChange={handleChange('panel2')}
+        >
+          <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
+            <Typography>Associated User</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ul>
+              {users.map((user, index) => (
+                <li key={index}>{user.name}</li>
+              ))}
+            </ul>
+          </AccordionDetails>
+        </Accordion>
       </Box>
     </>
   )
 }
-
-//TODO: <h3>Associated Users</h3>
-// <ul className='usersList'>
-//   {users.map((user) => (
-//     <li className='usersList' key={user.id}>
-//       {user.name}
-//     </li>
-//   ))}
-// </ul>
 
 export default BusinessProfile
