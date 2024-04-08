@@ -131,7 +131,7 @@ const BusinessProfile = () => {
   useEffect(() => {
     const fetchBusiness = async () => {
       try {
-        const response = await axios.get(`${viteUrl}//businesses/${id}`)
+        const response = await axios.get(`${viteUrl}/businesses/${id}`)
         setBusiness(response.data)
         setCompany_name(response.data.company_name || '')
         setStreet(response.data.street || '')
