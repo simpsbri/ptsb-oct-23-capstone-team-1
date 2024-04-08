@@ -98,13 +98,15 @@ function BusinessMessages() {
   return (
     <div className='p-6 bg-gray-100'>
       <h1 className='text-2xl font-bold mb-4'>Messages</h1>
-      <button
-        type='button'
-        onClick={() => setShowModal(true)}
-        className='myButton'
-      >
-        Create Message
-      </button>
+      {auth.user.isAdmin === 'Admin' && (
+        <button
+          type='button'
+          onClick={() => setShowModal(true)}
+          className='myButton'
+        >
+          Create Message
+        </button>
+      )}
 
       {showModal && (
         <div className='fixed z-10 inset-0'>

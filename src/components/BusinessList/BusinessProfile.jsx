@@ -110,7 +110,7 @@ const BusinessProfile = () => {
   }
 
   const fetchMessages = (id) => {
-    fetch(`${viteUrl}/messages`)
+    fetch(`${viteUrl}messages`)
       .then((response) => response.json())
       .then((data) => {
         // Filter messages for the current business
@@ -564,7 +564,7 @@ const BusinessProfile = () => {
           onChange={handleChange('panel2')}
         >
           <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
-            <Typography>Associated User</Typography>
+            <Typography>Associated Users</Typography>
           </AccordionSummary>
           <AccordionDetails>
             <ul>

@@ -86,8 +86,6 @@ function App() {
                 >
                   <Route path='businesses/:id' element={<BusinessProfile />} />
                   <Route path='users/:id' element={<LazyUserProfile />} />
-                  <Route path='businesses/:id' element={<BusinessProfile />} />
-                  <Route path='users/:id' element={<LazyUserProfile />} />
                 </Route>
 
                 <Route
