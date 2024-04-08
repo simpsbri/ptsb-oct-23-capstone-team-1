@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box } from '@mui/material'
+import { Box, Snackbar, IconButton } from '@mui/material'
 import { Stack } from '@mui/material'
 import Button from '@mui/material/Button'
 import { useState } from 'react'
@@ -10,11 +10,40 @@ import { useContext } from 'react'
 import { AuthContext } from '../../../server/middleware/setAuth'
 
 const viteUrl = import.meta.env.VITE_WEB_ADDRESS
+import CloseIcon from '@mui/icons-material/Close'
+
+// // SNACKBAR CODE SNIP
+
+// ////////////////////////////////////////////////////////////////////////////////////////////////
 
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  // Snackbar state and handlers
+  const [open, setOpen] = useState(false)
+  const handleClick = () => setOpen(true)
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') return
+    setOpen(false)
+  }
+  const [snackbarMessage, setSnackbarMessage] = useState('')
+
+  const action = (
+    <React.Fragment>
+      <Button color='secondary' size='small' onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size='small'
+        aria-label='close'
+        color='inherit'
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize='small' />
+      </IconButton>
+    </React.Fragment>
+  )
 
   // const { login } = useContext(AuthContext); // Destructure login from context
   console.log(viteUrl)
@@ -46,8 +75,20 @@ const Login = () => {
 
       localStorage.setItem('userInfo', JSON.stringify(data))
       // Handle the response here
+
+      // Clear the email and password fields
+      setEmail('')
+      setPassword('')
+
+      // Scroll to the top of the page
+      window.scrollTo(0, 0)
+
+      setSnackbarMessage('Login successful') // Set the Snackbar's message
+      handleClick() // Open the Snackbar
     } catch (err) {
       console.error(err.message)
+      setSnackbarMessage('Error login, try again') // Set the Snackbar's message
+      handleClick() // Open the Snackbar
     } finally {
       setLoading(false)
     }
@@ -101,6 +142,13 @@ const Login = () => {
           </Box>
         </form>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        message={snackbarMessage}
+        action={action}
+      />
     </section>
   )
 }
