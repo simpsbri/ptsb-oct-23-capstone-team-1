@@ -33,6 +33,8 @@ import 'react-resizable/css/styles.css'
 import BusinessMessages from './BusinessMessages'
 import DeleteIcon from '@mui/icons-material/Delete'
 
+const viteUrl = import.meta.env.VITE_WEB_ADDRESS
+
 const BusinessProfile = () => {
   const { auth } = useContext(AuthContext)
   const { id } = useParams()
@@ -64,7 +66,7 @@ const BusinessProfile = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:4000/api/user')
+        const response = await axios.get(`${viteUrl}/api/user`)
         if (Array.isArray(response.data)) {
           const filteredUsers = response.data.filter(
             (user) => user.businessId === id,
@@ -108,7 +110,7 @@ const BusinessProfile = () => {
   }
 
   const fetchMessages = (id) => {
-    fetch('http://localhost:4000/messages')
+    fetch(`${viteUrl}//messages`)
       .then((response) => response.json())
       .then((data) => {
         // Filter messages for the current business
@@ -159,9 +161,7 @@ const BusinessProfile = () => {
   useEffect(() => {
     const fetchBusiness = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:4000/businesses/${id}`,
-        )
+        const response = await axios.get(`${viteUrl}/businesses/${id}`)
         setBusiness(response.data)
         setCompany_name(response.data.company_name || '')
         setStreet(response.data.street || '')
@@ -211,7 +211,7 @@ const BusinessProfile = () => {
 
       // Make the PUT request
       const response = await axios.put(
-        `http://localhost:4000/businesses/${id}`,
+        `${viteUrl}//businesses/${id}`,
         businessData,
       )
 
@@ -274,7 +274,7 @@ const BusinessProfile = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:4000/businesses/${id}`)
+      await axios.delete(`${viteUrl}//businesses/${id}`)
       navigate('/admin/businesses')
     } catch (error) {
       console.error('Error deleting business:', error)
