@@ -6,6 +6,8 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { AuthContext } from '../../../server/middleware/setAuth'
 
+const viteUrl = import.meta.env.VITE_WEB_ADDRESS
+
 function BusinessMessages() {
   const { auth } = useContext(AuthContext)
   const [messages, setMessages] = useState([])
@@ -15,7 +17,7 @@ function BusinessMessages() {
   const { id: businessId } = useParams() // Declare and initialize businessId using useParams
 
   const fetchMessages = () => {
-    fetch('http://localhost:4000/messages')
+    fetch(`${viteUrl}/messages`)
       .then((response) => response.json())
       .then((data) => {
         const filteredMessages = data.filter(
@@ -46,7 +48,7 @@ function BusinessMessages() {
         userName: auth.user.name,
       }
 
-      const response = await fetch('http://localhost:4000/messages', {
+      const response = await fetch(`${viteUrl}/messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -75,9 +77,7 @@ function BusinessMessages() {
     }
 
     try {
-      const response = await axios.delete(
-        `http://localhost:4000/messages/${messageId}`,
-      )
+      const response = await axios.delete(`${viteUrl}/messages/${messageId}`)
 
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`)
@@ -194,7 +194,7 @@ function BusinessMessages() {
                 <div>
                   {message.userName ? message.userName : 'User not found'}
                 </div>
-                {auth.isAdmin === 'Admin' && (
+                {auth.user.isAdmin === 'Admin' && (
                   <button
                     onClick={() => handleDeleteMessage(message._id)}
                     className='deleteButton'

@@ -28,6 +28,7 @@ import 'react-quill/dist/quill.snow.css'
 //resizable text area for input.
 import { ResizableBox } from 'react-resizable'
 import 'react-resizable/css/styles.css'
+import DeleteIcon from '@mui/icons-material/Delete'
 
 const modules = {
   toolbar: [
@@ -51,11 +52,13 @@ const modules = {
     ['link', 'image'], // link and image, video
   ],
 }
+const viteUrl = import.meta.env.VITE_WEB_ADDRESS
 
 const UserProfile = () => {
   const { auth } = useContext(AuthContext)
   const [isEditing, setIsEditing] = useState(false)
   const { id } = useParams()
+  const navigate = useNavigate()
   const [user, setUser] = useState({})
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
@@ -80,7 +83,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/businesses')
+      .get(`${viteUrl}/businesses`)
       .then((response) => {
         setBusinesses(response.data)
       })
@@ -92,7 +95,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/user/${id}`)
+        const response = await axios.get(`${viteUrl}/api/user/${id}`)
         setName(response.data.name)
         setEmail(response.data.email)
         setPassword(response.data.password)
@@ -132,10 +135,7 @@ const UserProfile = () => {
       }
       console.log('User Data:', userData)
 
-      const response = await axios.put(
-        `http://localhost:4000/api/user/${id}`,
-        userData,
-      )
+      const response = await axios.put(`${viteUrl}/api/user/${id}`, userData)
       if (response.status === 200) {
         setSaveSuccess(true)
         setSaveError(false)
@@ -148,11 +148,11 @@ const UserProfile = () => {
     }
   } // handleSave
 
-  const deleteUser = async () => {
+  const handleDelete = async () => {
     try {
-      const response = await axios.delete(`http://localhost:4000/user/${id}`)
+      const response = await axios.delete(`${viteUrl}/api/user/${id}`)
       if (response.status === 200) {
-        navigate('/users')
+        navigate('/admin/users')
       }
     } catch (error) {
       console.error('Error deleting user:', error)
@@ -174,14 +174,28 @@ const UserProfile = () => {
           <Grid item xs={6}>
             <Typography variant='h2'>User Profile</Typography>
           </Grid>
-          {auth.isAdmin === 'Admin' && (
+          {auth.user.isAdmin === 'Admin' && (
             <Grid
               item
               xs
               style={{ display: 'flex', justifyContent: 'flex-end' }}
             >
-              <Button variant='contained' color='warning' onClick={deleteUser}>
-                Delete User
+              <Button
+                variant='contained'
+                color='error'
+                sx={{
+                  backgroundColor: 'red',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  p: '0.5rem 1.5rem',
+                  borderRadius: '0.5rem',
+                  '&:hover': {
+                    backgroundColor: 'darkred',
+                  },
+                }}
+                onClick={handleDelete}
+              >
+                <DeleteIcon />
               </Button>
             </Grid>
           )}
@@ -246,7 +260,7 @@ const UserProfile = () => {
                   id='business-select'
                   value={selectedBusiness}
                   label='Business'
-                  disabled={auth.isAdmin !== 'Admin'}
+                  disabled={auth.user.isAdmin !== 'Admin'}
                   onChange={(event) => {
                     setSelectedBusiness(event.target.value)
                   }}
@@ -276,7 +290,7 @@ const UserProfile = () => {
                 />
               </FormControl>
             </Grid>
-            {auth.isAdmin === 'Admin' && (
+            {auth.user.isAdmin === 'Admin' && (
               <Grid item xs={12}>
                 <InputLabel htmlFor='isAdmin'>User Type</InputLabel>
                 <FormControl fullWidth>
@@ -339,7 +353,7 @@ const UserProfile = () => {
             >
               Save
             </Button>
-            {auth.isAdmin === 'Admin' && (
+            {auth.user.isAdmin === 'Admin' && (
               <Link
                 to='/admin/users'
                 variant='contained'

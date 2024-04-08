@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import {
   Box,
@@ -13,6 +13,12 @@ import {
   MenuItem,
   Alert,
 } from '@mui/material'
+import { styled } from '@mui/material/styles'
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
+import MuiAccordion from '@mui/material/Accordion'
+import MuiAccordionSummary from '@mui/material/AccordionSummary'
+import MuiAccordionDetails from '@mui/material/AccordionDetails'
+
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { AuthContext } from '../../../server/middleware/setAuth'
@@ -25,10 +31,14 @@ import { ResizableBox } from 'react-resizable'
 import 'react-resizable/css/styles.css'
 
 import BusinessMessages from './BusinessMessages'
+import DeleteIcon from '@mui/icons-material/Delete'
+
+const viteUrl = import.meta.env.VITE_WEB_ADDRESS
 
 const BusinessProfile = () => {
   const { auth } = useContext(AuthContext)
   const { id } = useParams()
+  const navigate = useNavigate()
   const [business, setBusiness] = useState({})
   const [company_name, setCompany_name] = useState('')
   const [street, setStreet] = useState('')
@@ -51,6 +61,30 @@ const BusinessProfile = () => {
 
   const theme = useTheme()
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await axios.get(`${viteUrl}/api/user`)
+        if (Array.isArray(response.data)) {
+          const filteredUsers = response.data.filter(
+            (user) => user.businessId === id,
+          )
+          setUsers(filteredUsers)
+        } else {
+          console.error(
+            'Expected response.data to be an array but got',
+            typeof response.data,
+          )
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchUsers()
+  }, [id])
 
   const modules = {
     toolbar: [
@@ -76,7 +110,7 @@ const BusinessProfile = () => {
   }
 
   const fetchMessages = (id) => {
-    fetch('http://localhost:4000/messages')
+    fetch(`${viteUrl}//messages`)
       .then((response) => response.json())
       .then((data) => {
         // Filter messages for the current business
@@ -127,9 +161,7 @@ const BusinessProfile = () => {
   useEffect(() => {
     const fetchBusiness = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:4000/businesses/${id}`,
-        )
+        const response = await axios.get(`${viteUrl}/businesses/${id}`)
         setBusiness(response.data)
         setCompany_name(response.data.company_name || '')
         setStreet(response.data.street || '')
@@ -179,7 +211,7 @@ const BusinessProfile = () => {
 
       // Make the PUT request
       const response = await axios.put(
-        `http://localhost:4000/businesses/${id}`,
+        `${viteUrl}//businesses/${id}`,
         businessData,
       )
 
@@ -199,16 +231,66 @@ const BusinessProfile = () => {
     }
   }
 
+  const Accordion = styled((props) => (
+    <MuiAccordion disableGutters elevation={0} square {...props} />
+  ))(({ theme }) => ({
+    border: `1px solid ${theme.palette.divider}`,
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&::before': {
+      display: 'none',
+    },
+  }))
+
+  const AccordionSummary = styled((props) => (
+    <MuiAccordionSummary
+      expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+      {...props}
+    />
+  ))(({ theme }) => ({
+    backgroundColor:
+      theme.palette.mode === 'dark'
+        ? 'rgba(255, 255, 255, .05)'
+        : 'rgba(0, 0, 0, .03)',
+    flexDirection: 'row-reverse',
+    '& .MuiAccordionSummary-expandIconWrapper.Mui-expanded': {
+      transform: 'rotate(90deg)',
+    },
+    '& .MuiAccordionSummary-content': {
+      marginLeft: theme.spacing(1),
+    },
+  }))
+
+  const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+    padding: theme.spacing(2),
+    borderTop: '1px solid rgba(0, 0, 0, .125)',
+  }))
+
+  const [expanded, setExpanded] = React.useState('')
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false)
+  }
+
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`${viteUrl}//businesses/${id}`)
+      navigate('/admin/businesses')
+    } catch (error) {
+      console.error('Error deleting business:', error)
+      // Optionally, set an error state to display a message to the user
+    }
+  }
+
   return (
     <>
       <Box className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid'>
         {/* Profile Header */}
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant={matchesXS ? 'h6' : 'h2'}>
-              Business Profile
-            </Typography>
+            <Typography variant={'h2'}>Business Profile</Typography>
           </Grid>
+
           <Grid item xs style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <Box display='flex' flexDirection='column'>
               <InputLabel id='businessStatus-label'>
@@ -221,7 +303,7 @@ const BusinessProfile = () => {
                   value={businessStatus}
                   onChange={(e) => setBusinessStatus(e.target.value)}
                   label='Business Status'
-                  disabled={auth.isAdmin !== 'Admin'} // disable if the user is not an admin
+                  disabled={auth.user.isAdmin !== 'Admin'} // disable if the user is not an admin
                 >
                   <MenuItem value={'New'}>New</MenuItem>
                   <MenuItem value={'UnderReview'}>Under Review</MenuItem>
@@ -233,6 +315,28 @@ const BusinessProfile = () => {
               </FormControl>
             </Box>
           </Grid>
+          <Box className='flex mt-4'>
+            {auth.user.isAdmin === 'Admin' && (
+              <Button
+                variant='contained'
+                color='error'
+                sx={{
+                  backgroundColor: 'red',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  p: '0.3rem 1rem',
+                  borderRadius: '0.5rem',
+                  fontSize: '0.875rem',
+                  '&:hover': {
+                    backgroundColor: 'darkred',
+                  },
+                }}
+                onClick={handleDelete}
+              >
+                <DeleteIcon />
+              </Button>
+            )}
+          </Box>
         </Grid>
 
         {saveSuccess && (
@@ -428,7 +532,7 @@ const BusinessProfile = () => {
             </Button>
             {auth.isAdmin === 'Admin' && (
               <Link
-                to='/admin/businesses'
+                to='/businesses'
                 variant='contained'
                 sx={{
                   '&:hover': {
@@ -442,19 +546,37 @@ const BusinessProfile = () => {
             )}
           </Box>
         </form>
-        <BusinessMessages />
+
+        <Accordion
+          expanded={expanded === 'panel1'}
+          onChange={handleChange('panel1')}
+          sx={{ mt: 3 }}
+        >
+          <AccordionSummary aria-controls='panel1d-content' id='panel1d-header'>
+            <Typography>Contact Log</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <BusinessMessages />
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === 'panel2'}
+          onChange={handleChange('panel2')}
+        >
+          <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
+            <Typography>Associated User</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ul>
+              {users.map((user, index) => (
+                <li key={index}>{user.name}</li>
+              ))}
+            </ul>
+          </AccordionDetails>
+        </Accordion>
       </Box>
     </>
   )
 }
-
-//TODO: <h3>Associated Users</h3>
-// <ul className='usersList'>
-//   {users.map((user) => (
-//     <li className='usersList' key={user.id}>
-//       {user.name}
-//     </li>
-//   ))}
-// </ul>
 
 export default BusinessProfile

@@ -21,12 +21,12 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
   const [page, setPage] = useState(1)
   const [perPage, setPerPage] = useState(10)
 
+  const viteUrl = import.meta.env.VITE_WEB_ADDRESS
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:4000/businesses?page=${page}`,
-        )
+        const response = await axios.get(`${viteUrl}/businesses?page=${page}`)
         setBusinesses(response.data)
       } catch (error) {
         console.error('Error fetching data:', error)

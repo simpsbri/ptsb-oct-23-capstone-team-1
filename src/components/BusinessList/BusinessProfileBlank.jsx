@@ -14,6 +14,8 @@ import {
 } from '@mui/material'
 import MessageComponent from './BusinessMessages'
 
+const viteUrl = import.meta.env.VITE_WEB_ADDRESS
+
 function BusinessProfileBlank() {
   const [company_name, setCompany_name] = useState('')
   const [primary_contact, setPrimary_contact] = useState('')
@@ -45,7 +47,7 @@ function BusinessProfileBlank() {
     try {
       // Send a POST request to save the new document in MongoDB
       const response = await axios.post(
-        'http://localhost:4000/businesses/createNewBusiness',
+        `${viteUrl}/businesses/createNewBusiness`,
         newBusiness,
       )
       console.log(response.data) // Optional: Log the response data
