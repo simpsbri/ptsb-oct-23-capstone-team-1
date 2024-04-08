@@ -204,6 +204,7 @@ const ProjectProfile = () => {
                   setSelectedBusiness(event.target.value)
                 }}
                 className='userBusinessSelect'
+                disabled={auth.user.isAdmin !== 'Admin'}
               >
                 {businesses.map((business, index) => (
                   <MenuItem value={business._id} key={business._id}>
@@ -236,12 +237,23 @@ const ProjectProfile = () => {
           >
             Save
           </Button>
-          <Link
-            to='/admin/projects'
-            style={{ textDecoration: 'none', marginTop: '25px' }}
-          >
-            <Button variant='outlined'>Back to List</Button>
-          </Link>
+          {auth.user.isAdmin === 'Admin' ? (
+            <Link
+              to='/admin/projects'
+              style={{ textDecoration: 'none', marginTop: '25px' }}
+            >
+              <Button variant='outlined'>Back to List</Button>
+            </Link>
+          ) : (
+            auth.user.isAdmin === 'Business' && (
+              <Link
+                to={`/business/businesses/${auth.user.businessId}`}
+                style={{ textDecoration: 'none', marginTop: '25px' }}
+              >
+                <Button variant='outlined'>Back to Business Profile</Button>
+              </Link>
+            )
+          )}
         </Box>
       </form>
     </Box>

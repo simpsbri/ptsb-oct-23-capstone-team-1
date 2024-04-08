@@ -63,6 +63,31 @@ const BusinessProfile = () => {
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
   const [users, setUsers] = useState([])
 
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`${viteUrl}projects`)
+        if (Array.isArray(response.data)) {
+          const filteredProjects = response.data.filter(
+            (project) => project.businessId === id,
+          )
+          setProjects(filteredProjects)
+          console.log('filteredProjects', filteredProjects)
+        } else {
+          console.error(
+            'Expected response.data to be an array but got',
+            typeof response.data,
+          )
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchProjects()
+  }, [id])
+
   useEffect(() => {
     const fetchUsers = async () => {
       try {
@@ -274,7 +299,7 @@ const BusinessProfile = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${viteUrl}/businesses/${id}`)
+      await axios.delete(`${viteUrl}businesses/${id}`)
       navigate('/admin/businesses')
     } catch (error) {
       console.error('Error deleting business:', error)
@@ -570,6 +595,33 @@ const BusinessProfile = () => {
             <ul>
               {users.map((user, index) => (
                 <li key={index}>{user.name}</li>
+              ))}
+            </ul>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === 'panel3'}
+          onChange={handleChange('panel3')}
+        >
+          <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+            <Typography>Projects</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <ul>
+              {projects.map((project, index) => (
+                <li key={index}>
+                  {auth.user.isAdmin === 'Business' ? (
+                    <Link to={`/business/projects/${project._id}`}>
+                      {project.projectTitle}
+                    </Link>
+                  ) : (
+                    auth.user.isAdmin === 'Admin' && (
+                      <Link to={`/admin/projects/${project._id}`}>
+                        {project.projectTitle}
+                      </Link>
+                    )
+                  )}
+                </li>
               ))}
             </ul>
           </AccordionDetails>
