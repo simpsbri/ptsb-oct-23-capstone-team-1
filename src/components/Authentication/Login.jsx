@@ -11,7 +11,7 @@ import { AuthContext } from '../../../server/middleware/setAuth'
 
 const viteUrl = import.meta.env.VITE_WEB_ADDRESS
 import CloseIcon from '@mui/icons-material/Close'
-
+console.log(VERCEL_URL)
 // // SNACKBAR CODE SNIP
 
 // ////////////////////////////////////////////////////////////////////////////////////////////////
