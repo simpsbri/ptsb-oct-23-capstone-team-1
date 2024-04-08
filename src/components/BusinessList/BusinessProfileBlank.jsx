@@ -50,7 +50,6 @@ function BusinessProfileBlank() {
         `${viteUrl}businesses/createNewBusiness`,
         newBusiness,
       )
-      console.log(response.data) // Optional: Log the response data
 
       navigate('/businesses')
     } catch (error) {

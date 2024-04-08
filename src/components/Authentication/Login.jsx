@@ -46,7 +46,6 @@ const Login = () => {
   )
 
   // const { login } = useContext(AuthContext); // Destructure login from context
-  console.log(viteUrl)
   const { login } = useContext(AuthContext)
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -69,7 +68,6 @@ const Login = () => {
         config,
       )
       login(data.token, data.role, data) // Pass the user's role as the second argument
-      console.log(data) // Log the response data to the console
 
       // login(data.token, data.user.role, data.user); // Update context with the user's information
 

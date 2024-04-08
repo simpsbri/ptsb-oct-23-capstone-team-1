@@ -133,7 +133,6 @@ const UserProfile = () => {
         isCapstone,
         isBusiness,
       }
-      console.log('User Data:', userData)
 
       const response = await axios.put(`${viteUrl}api/user/${id}`, userData)
       if (response.status === 200) {
