@@ -7,7 +7,7 @@ const viteUrl = process.env.VITE_URL
 
 async function getAdminEmails() {
   try {
-    const response = await axios.get(`${viteUrl}/api/user`)
+    const response = await axios.get(`${viteUrl}api/user`)
 
     const admins = response.data.filter((user) => user.isAdmin === 'Admin') // Use filter on response.data
 

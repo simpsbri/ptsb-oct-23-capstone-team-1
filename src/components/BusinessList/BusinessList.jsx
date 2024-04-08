@@ -26,7 +26,7 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${viteUrl}/businesses?page=${page}`)
+        const response = await axios.get(`${viteUrl}businesses?page=${page}`)
         setBusinesses(response.data)
       } catch (error) {
         console.error('Error fetching data:', error)

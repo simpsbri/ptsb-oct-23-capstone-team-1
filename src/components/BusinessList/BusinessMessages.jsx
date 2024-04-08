@@ -17,7 +17,7 @@ function BusinessMessages() {
   const { id: businessId } = useParams() // Declare and initialize businessId using useParams
 
   const fetchMessages = () => {
-    fetch(`${viteUrl}/messages`)
+    fetch(`${viteUrl}messages`)
       .then((response) => response.json())
       .then((data) => {
         const filteredMessages = data.filter(
@@ -48,7 +48,7 @@ function BusinessMessages() {
         userName: auth.user.name,
       }
 
-      const response = await fetch(`${viteUrl}/messages`, {
+      const response = await fetch(`${viteUrl}messages`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ function BusinessMessages() {
     }
 
     try {
-      const response = await axios.delete(`${viteUrl}/messages/${messageId}`)
+      const response = await axios.delete(`${viteUrl}messages/${messageId}`)
 
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`)

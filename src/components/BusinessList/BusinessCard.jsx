@@ -28,7 +28,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
-    fetch(`${viteUrl}/messages`)
+    fetch(`${viteUrl}messages`)
       .then((response) => response.json())
       .then(
         (data) => {
@@ -82,7 +82,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   }, [])
 
   useEffect(() => {
-    fetch(`${viteUrl}/api/user`)
+    fetch(`${viteUrl}api/user`)
       .then((response) => response.json())
       .then((data) => {
         const filteredUsers = data.filter((user) => user.businessId === _id)

@@ -83,7 +83,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`${viteUrl}/businesses`)
+      .get(`${viteUrl}businesses`)
       .then((response) => {
         setBusinesses(response.data)
       })
@@ -95,7 +95,7 @@ const UserProfile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const response = await axios.get(`${viteUrl}/api/user/${id}`)
+        const response = await axios.get(`${viteUrl}api/user/${id}`)
         setName(response.data.name)
         setEmail(response.data.email)
         setPassword(response.data.password)
@@ -135,7 +135,7 @@ const UserProfile = () => {
       }
       console.log('User Data:', userData)
 
-      const response = await axios.put(`${viteUrl}/api/user/${id}`, userData)
+      const response = await axios.put(`${viteUrl}api/user/${id}`, userData)
       if (response.status === 200) {
         setSaveSuccess(true)
         setSaveError(false)
@@ -150,7 +150,7 @@ const UserProfile = () => {
 
   const handleDelete = async () => {
     try {
-      const response = await axios.delete(`${viteUrl}/api/user/${id}`)
+      const response = await axios.delete(`${viteUrl}api/user/${id}`)
       if (response.status === 200) {
         navigate('/admin/users')
       }

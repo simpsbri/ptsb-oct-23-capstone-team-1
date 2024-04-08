@@ -36,7 +36,7 @@ const ProjectProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`${viteUrl}/businesses`)
+      .get(`${viteUrl}businesses`)
       .then((response) => {
         setBusinesses(response.data)
       })
@@ -45,7 +45,7 @@ const ProjectProfile = () => {
       })
 
     axios
-      .get(`${viteUrl}/projects/${id}`)
+      .get(`${viteUrl}projects/${id}`)
       .then((response) => {
         const data = response.data
         setProject(data)
@@ -70,7 +70,7 @@ const ProjectProfile = () => {
     }
 
     try {
-      await axios.put(`${viteUrl}/projects/${id}`, projectData)
+      await axios.put(`${viteUrl}projects/${id}`, projectData)
       setSaveSuccess(true)
       setSaveError(false)
       setTimeout(() => navigate('/admin/projects'), 2000) // Redirect after a successful save
@@ -82,7 +82,7 @@ const ProjectProfile = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${viteUrl}/projects/${id}`)
+      await axios.delete(`${viteUrl}projects/${id}`)
       navigate('/admin/projects')
     } catch (error) {
       console.error('Error deleting project:', error)

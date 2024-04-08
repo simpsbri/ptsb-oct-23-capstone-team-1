@@ -64,7 +64,7 @@ const Login = () => {
       }
 
       const { data } = await axios.post(
-        `${viteUrl}/api/user/login`,
+        `${viteUrl}api/user/login`,
         { email, password },
         config,
       )

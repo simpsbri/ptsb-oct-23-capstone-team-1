@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail60 = async () => {
   try {
-    const response = await axios.get(`${viteUrl}/businesses`)
+    const response = await axios.get(`${viteUrl}businesses`)
     const businesses = response.data
 
     const today = startOfDay(new Date())

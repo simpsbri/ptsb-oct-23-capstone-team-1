@@ -62,7 +62,7 @@ const Register = () => {
 
     try {
       // Send a POST request to save the new document in MongoDB
-      const response = await axios.post(`${viteUrl}/register`, newBusiness)
+      const response = await axios.post(`${viteUrl}register`, newBusiness)
       setIsSubmitted(true)
       console.log(response.data) // Optional: Log the response data
     } catch (error) {

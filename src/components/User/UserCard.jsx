@@ -21,7 +21,7 @@ const UserCard = ({ user, handleEditClick }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${viteUrl}/businesses`)
+        const response = await axios.get(`${viteUrl}businesses`)
         setBusinesses(response.data)
       } catch (error) {
         console.error('Error fetching data:', error)

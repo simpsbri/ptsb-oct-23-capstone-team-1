@@ -92,7 +92,7 @@ const NewUserProfile = () => {
     try {
       // Send a POST request to save the new document in MongoDB
       const response = await axios.post(
-        `${viteUrl}/api/user/createNewUser`,
+        `${viteUrl}api/user/createNewUser`,
         newUser,
       )
       console.log(response.data) // Optional: Log the response data
@@ -119,7 +119,7 @@ const NewUserProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`${viteUrl}/businesses`)
+      .get(`${viteUrl}businesses`)
       .then((response) => {
         setBusinesses(response.data)
       })

@@ -47,7 +47,7 @@ function BusinessProfileBlank() {
     try {
       // Send a POST request to save the new document in MongoDB
       const response = await axios.post(
-        `${viteUrl}/businesses/createNewBusiness`,
+        `${viteUrl}businesses/createNewBusiness`,
         newBusiness,
       )
       console.log(response.data) // Optional: Log the response data

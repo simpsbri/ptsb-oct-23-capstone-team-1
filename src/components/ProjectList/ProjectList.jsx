@@ -16,7 +16,7 @@ const ProjectList = () => {
   useEffect(() => {
     const fetchProjects = async () => {
       try {
-        const response = await axios.get(`${viteUrl}/projects`)
+        const response = await axios.get(`${viteUrl}projects`)
         setProjects(response.data)
       } catch (error) {
         console.error('Error fetching projects:', error)
@@ -28,7 +28,7 @@ const ProjectList = () => {
 
   // const deleteProject = async (projectId) => {
   //   try {
-  //     await axios.delete(`${viteUrl}/projects/${projectId}`);
+  //     await axios.delete(`${viteUrl}projects/${projectId}`);
   //     setProjects(projects.filter((project) => project._id !== projectId));
   //   } catch (error) {
   //     console.error("Error deleting project:", error);

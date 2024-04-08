@@ -31,7 +31,7 @@
 //   // Effect hook to fetch businesses on component mount
 //   useEffect(() => {
 //     axios
-//       .get(`${viteUrl}/businesses`)
+//       .get(`${viteUrl}businesses`)
 //       .then((response) => {
 //         setBusinesses(response.data);
 //       })
@@ -53,7 +53,7 @@
 
 //     try {
 //       await axios.post(
-//         `${viteUrl}/projects/createNewProject`,
+//         `${viteUrl}projects/createNewProject`,
 //         newProject
 //       );
 //       navigate("/admin/projects");
@@ -196,7 +196,7 @@ function ProjectProfileBlank() {
   // Effect hook to fetch businesses on component mount
   useEffect(() => {
     axios
-      .get(`${viteUrl}/businesses`)
+      .get(`${viteUrl}businesses`)
       .then((response) => {
         setBusinesses(response.data)
       })
@@ -241,7 +241,7 @@ function ProjectProfileBlank() {
     }
 
     try {
-      await axios.post(`${viteUrl}/projects/createNewProject`, newProject)
+      await axios.post(`${viteUrl}projects/createNewProject`, newProject)
       navigate('/admin/projects')
     } catch (error) {
       console.error('Error saving the new project:', error)

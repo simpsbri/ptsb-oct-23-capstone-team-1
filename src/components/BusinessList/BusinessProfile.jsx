@@ -66,7 +66,7 @@ const BusinessProfile = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get(`${viteUrl}/api/user`)
+        const response = await axios.get(`${viteUrl}api/user`)
         if (Array.isArray(response.data)) {
           const filteredUsers = response.data.filter(
             (user) => user.businessId === id,
@@ -110,7 +110,7 @@ const BusinessProfile = () => {
   }
 
   const fetchMessages = (id) => {
-    fetch(`${viteUrl}//messages`)
+    fetch(`${viteUrl}/messages`)
       .then((response) => response.json())
       .then((data) => {
         // Filter messages for the current business
@@ -161,7 +161,7 @@ const BusinessProfile = () => {
   useEffect(() => {
     const fetchBusiness = async () => {
       try {
-        const response = await axios.get(`${viteUrl}/businesses/${id}`)
+        const response = await axios.get(`${viteUrl}businesses/${id}`)
         setBusiness(response.data)
         setCompany_name(response.data.company_name || '')
         setStreet(response.data.street || '')
@@ -211,7 +211,7 @@ const BusinessProfile = () => {
 
       // Make the PUT request
       const response = await axios.put(
-        `${viteUrl}//businesses/${id}`,
+        `${viteUrl}businesses/${id}`,
         businessData,
       )
 
@@ -274,7 +274,7 @@ const BusinessProfile = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${viteUrl}//businesses/${id}`)
+      await axios.delete(`${viteUrl}/businesses/${id}`)
       navigate('/admin/businesses')
     } catch (error) {
       console.error('Error deleting business:', error)
