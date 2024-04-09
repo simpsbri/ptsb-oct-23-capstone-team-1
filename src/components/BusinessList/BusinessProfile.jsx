@@ -12,6 +12,10 @@ import {
   Select,
   MenuItem,
   Alert,
+  ListItem,
+  ListItemText,
+  List,
+  Divider,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
@@ -50,6 +54,7 @@ const BusinessProfile = () => {
   const [primary_contact_email, setPrimary_contact_email] = useState('')
   const [businessStatus, setBusinessStatus] = useState('New')
   const [initialProject, setInitialProject] = useState('')
+  const [website, setWebsite] = useState('')
 
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
@@ -62,6 +67,31 @@ const BusinessProfile = () => {
   const theme = useTheme()
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
   const [users, setUsers] = useState([])
+
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`${viteUrl}projects`)
+        if (Array.isArray(response.data)) {
+          const filteredProjects = response.data.filter(
+            (project) => project.businessId === id,
+          )
+          setProjects(filteredProjects)
+          console.log('filteredProjects', filteredProjects)
+        } else {
+          console.error(
+            'Expected response.data to be an array but got',
+            typeof response.data,
+          )
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchProjects()
+  }, [id])
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -110,7 +140,7 @@ const BusinessProfile = () => {
   }
 
   const fetchMessages = (id) => {
-    fetch(`${viteUrl}/messages`)
+    fetch(`${viteUrl}messages`)
       .then((response) => response.json())
       .then((data) => {
         // Filter messages for the current business
@@ -174,6 +204,7 @@ const BusinessProfile = () => {
         setLastContactedDate(response.data.lastContactedDate || '')
         setBusinessStatus(response.data.businessStatus)
         setInitialProject(response.data.initialProject || '')
+        setWebsite(response.data.website || '')
       } catch (error) {
         console.error(error)
       }
@@ -207,6 +238,7 @@ const BusinessProfile = () => {
         lastContactedDate,
         businessStatus,
         initialProject,
+        website,
       }
 
       // Make the PUT request
@@ -274,7 +306,7 @@ const BusinessProfile = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${viteUrl}/businesses/${id}`)
+      await axios.delete(`${viteUrl}businesses/${id}`)
       navigate('/admin/businesses')
     } catch (error) {
       console.error('Error deleting business:', error)
@@ -440,6 +472,18 @@ const BusinessProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
+              <InputLabel htmlFor='website'>Website</InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='website'
+                  name='website'
+                  autoComplete='website'
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
               <InputLabel htmlFor='initialProject'>
                 Initial Project Submission
               </InputLabel>
@@ -564,14 +608,47 @@ const BusinessProfile = () => {
           onChange={handleChange('panel2')}
         >
           <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
-            <Typography>Associated User</Typography>
+            <Typography>Associated Users</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ul>
+            <List>
               {users.map((user, index) => (
-                <li key={index}>{user.name}</li>
+                <div key={index}>
+                  <ListItem>
+                    <ListItemText primary={user.name} />
+                  </ListItem>
+                  <Divider />
+                </div>
               ))}
-            </ul>
+            </List>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === 'panel3'}
+          onChange={handleChange('panel3')}
+        >
+          <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+            <Typography>Projects</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <List>
+              {projects.map((project, index) => (
+                <div key={index}>
+                  <ListItem
+                    button
+                    component={Link}
+                    to={
+                      auth.user.isAdmin === 'Business'
+                        ? `/business/projects/${project._id}`
+                        : `/admin/projects/${project._id}`
+                    }
+                  >
+                    <ListItemText primary={project.projectTitle} />
+                  </ListItem>
+                  <Divider />
+                </div>
+              ))}
+            </List>
           </AccordionDetails>
         </Accordion>
       </Box>
