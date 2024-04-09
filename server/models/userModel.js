@@ -11,16 +11,6 @@ const userSchema = mongoose.Schema(
       required: true,
       default: 'Business',
     },
-    isBusiness: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
-    isCapstone: {
-      type: Boolean,
-      required: true,
-      default: false,
-    },
     role: { type: String },
     status: { type: String },
     languages: { type: [String] },
