@@ -12,6 +12,10 @@ import {
   Select,
   MenuItem,
   Alert,
+  ListItem,
+  ListItemText,
+  List,
+  Divider,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
@@ -50,6 +54,7 @@ const BusinessProfile = () => {
   const [primary_contact_email, setPrimary_contact_email] = useState('')
   const [businessStatus, setBusinessStatus] = useState('New')
   const [initialProject, setInitialProject] = useState('')
+  const [website, setWebsite] = useState('')
 
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
@@ -199,6 +204,7 @@ const BusinessProfile = () => {
         setLastContactedDate(response.data.lastContactedDate || '')
         setBusinessStatus(response.data.businessStatus)
         setInitialProject(response.data.initialProject || '')
+        setWebsite(response.data.website || '')
       } catch (error) {
         console.error(error)
       }
@@ -232,6 +238,7 @@ const BusinessProfile = () => {
         lastContactedDate,
         businessStatus,
         initialProject,
+        website,
       }
 
       // Make the PUT request
@@ -465,6 +472,18 @@ const BusinessProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
+              <InputLabel htmlFor='website'>Website</InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='website'
+                  name='website'
+                  autoComplete='website'
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
               <InputLabel htmlFor='initialProject'>
                 Initial Project Submission
               </InputLabel>
@@ -592,11 +611,16 @@ const BusinessProfile = () => {
             <Typography>Associated Users</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ul>
+            <List>
               {users.map((user, index) => (
-                <li key={index}>{user.name}</li>
+                <div key={index}>
+                  <ListItem>
+                    <ListItemText primary={user.name} />
+                  </ListItem>
+                  <Divider />
+                </div>
               ))}
-            </ul>
+            </List>
           </AccordionDetails>
         </Accordion>
         <Accordion
@@ -607,23 +631,24 @@ const BusinessProfile = () => {
             <Typography>Projects</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ul>
+            <List>
               {projects.map((project, index) => (
-                <li key={index}>
-                  {auth.user.isAdmin === 'Business' ? (
-                    <Link to={`/business/projects/${project._id}`}>
-                      {project.projectTitle}
-                    </Link>
-                  ) : (
-                    auth.user.isAdmin === 'Admin' && (
-                      <Link to={`/admin/projects/${project._id}`}>
-                        {project.projectTitle}
-                      </Link>
-                    )
-                  )}
-                </li>
+                <div key={index}>
+                  <ListItem
+                    button
+                    component={Link}
+                    to={
+                      auth.user.isAdmin === 'Business'
+                        ? `/business/projects/${project._id}`
+                        : `/admin/projects/${project._id}`
+                    }
+                  >
+                    <ListItemText primary={project.projectTitle} />
+                  </ListItem>
+                  <Divider />
+                </div>
               ))}
-            </ul>
+            </List>
           </AccordionDetails>
         </Accordion>
       </Box>

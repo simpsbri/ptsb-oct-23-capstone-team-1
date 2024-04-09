@@ -18,6 +18,7 @@ const businessModel = new mongoose.Schema(
     primary_contact: { type: String, required: false },
     primary_contact_email: { type: String, required: false },
     businessStatus: { type: String, required: false, default: 'New' }, // "new", "in progress", "completed"
+    website: { type: String, required: false },
   },
   {
     timestamps: true,
