@@ -13,6 +13,7 @@ import {
   Select,
   MenuItem,
   Chip,
+  Autocomplete,
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ReactQuill from 'react-quill'
@@ -26,7 +27,7 @@ const ProjectProfile = () => {
   const [projectTitle, setProjectTitle] = useState('')
   const [details, setDetails] = useState('')
   const [status, setStatus] = useState('')
-  const [projectType, setProjectType] = useState('')
+  const [projectType, setProjectType] = useState([])
   const [saveSuccess, setSaveSuccess] = useState(false)
   const [saveError, setSaveError] = useState(false)
   const [businesses, setBusinesses] = useState([])
@@ -162,6 +163,7 @@ const ProjectProfile = () => {
               label='Project Title'
               value={projectTitle}
               onChange={(e) => setProjectTitle(e.target.value)}
+              disabled={auth.user.isAdmin === 'Capstone'}
             />
           </Grid>
 
@@ -184,12 +186,32 @@ const ProjectProfile = () => {
               </Select>
             </FormControl>
           </Grid>
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             <TextField
               fullWidth
               label='Project Type'
               value={projectType}
               onChange={(e) => setProjectType(e.target.value)}
+            />
+          </Grid> */}
+          <Grid item xs={12}>
+            <Autocomplete
+              multiple
+              fullWidth
+              options={[
+                'UX/UI',
+                'Software Development',
+                'Data Analytics',
+                'Sales',
+                'Digital Marketing',
+              ]} // add options if needed
+              value={projectType}
+              onChange={(event, newValue) => {
+                setProjectType(newValue)
+              }}
+              renderInput={(params) => (
+                <TextField {...params} label='Project Type' />
+              )}
             />
           </Grid>
           <Grid item xs={12}>
