@@ -17,7 +17,22 @@ import {
 import DeleteIcon from "@mui/icons-material/Delete";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { ResizableBox } from "react-resizable";
+import "react-resizable/css/styles.css";
 import { AuthContext } from "../../../server/middleware/setAuth"; // Ensure this path is correct for your project structure
+
+// Style for delete button
+const deleteButtonStyle = {
+  backgroundColor: "red",
+  color: "white",
+  fontWeight: "bold",
+  padding: "0.5rem 1.5rem",
+  borderRadius: "0.5rem",
+  fontSize: "0.875rem",
+  "&:hover": {
+    backgroundColor: "darkred",
+  },
+};
 
 const ProjectProfile = () => {
   const { id } = useParams();
@@ -36,12 +51,10 @@ const ProjectProfile = () => {
   useEffect(() => {
     axios
       .get("http://localhost:4000/businesses")
-      .then((response) => {
-        setBusinesses(response.data);
-      })
-      .catch((error) => {
-        console.error("There was an error fetching businesses:", error);
-      });
+      .then((response) => setBusinesses(response.data))
+      .catch((error) =>
+        console.error("There was an error fetching businesses:", error)
+      );
 
     axios
       .get(`http://localhost:4000/projects/${id}`)
@@ -54,9 +67,9 @@ const ProjectProfile = () => {
         setProjectType(data.projectType || "");
         setSelectedBusiness(data.businessId || "");
       })
-      .catch((error) => {
-        console.error("Error fetching project details:", error);
-      });
+      .catch((error) =>
+        console.error("Error fetching project details:", error)
+      );
   }, [id]);
 
   const handleSave = async () => {
@@ -88,7 +101,6 @@ const ProjectProfile = () => {
     }
   };
 
-  // Define the React-Quill modules configuration outside of the component
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike"],
@@ -122,23 +134,16 @@ const ProjectProfile = () => {
         </Grid>
         {auth.user.isAdmin === "Admin" && (
           <Grid item xs style={{ display: "flex", justifyContent: "flex-end" }}>
-            <Button
-              variant="contained"
-              color="error"
-              sx={{
-                backgroundColor: "red",
-                color: "white",
-                fontWeight: "bold",
-                p: "0.5rem 1.5rem",
-                borderRadius: "0.5rem",
-                "&:hover": {
-                  backgroundColor: "darkred",
-                },
-              }}
-              onClick={handleDelete}
-            >
-              <DeleteIcon />
-            </Button>
+            <div style={{ width: "100px", height: "50px" }}>
+              <Button
+                variant="contained"
+                color="error"
+                sx={deleteButtonStyle}
+                onClick={handleDelete}
+              >
+                <DeleteIcon />
+              </Button>
+            </div>
           </Grid>
         )}
       </Grid>
@@ -154,7 +159,7 @@ const ProjectProfile = () => {
 
       <form onSubmit={(event) => event.preventDefault()}>
         <Grid container spacing={2}>
-          {/* Form fields go here */}
+          {/* Form fields */}
           <Grid item xs={12}>
             <TextField
               fullWidth
@@ -199,10 +204,7 @@ const ProjectProfile = () => {
                 id="business-select"
                 value={selectedBusiness}
                 label="Business"
-                onChange={(event) => {
-                  setSelectedBusiness(event.target.value);
-                  console.log(event.target.value);
-                }}
+                onChange={(event) => setSelectedBusiness(event.target.value)}
                 className="userBusinessSelect"
               >
                 {businesses.map((business, index) => (
@@ -213,18 +215,27 @@ const ProjectProfile = () => {
               </Select>
             </FormControl>
           </Grid>
-        </Grid>
 
-        <Typography variant="h6" gutterBottom>
-          Project Details
-        </Typography>
-        <ReactQuill
-          theme="snow"
-          value={details}
-          onChange={setDetails}
-          modules={modules}
-          style={{ height: "200px", marginBottom: "20px" }}
-        />
+          <Grid item xs={12}>
+            <Typography variant="h6" gutterBottom>
+              Project Details
+            </Typography>
+            <ResizableBox
+              width={Infinity}
+              height={200}
+              minConstraints={[Infinity, 100]}
+              maxConstraints={[Infinity, 300]}
+            >
+              <ReactQuill
+                theme="snow"
+                value={details}
+                onChange={setDetails}
+                modules={modules}
+                style={{ height: "100%", overflowY: "auto" }}
+              />
+            </ResizableBox>
+          </Grid>
+        </Grid>
 
         <Box sx={{ display: "flex", justifyContent: "flex-start", mt: 2 }}>
           <Button

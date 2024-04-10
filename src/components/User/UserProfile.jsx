@@ -186,23 +186,25 @@ const UserProfile = () => {
               xs
               style={{ display: "flex", justifyContent: "flex-end" }}
             >
-              <Button
-                variant="contained"
-                color="error"
-                sx={{
-                  backgroundColor: "red",
-                  color: "white",
-                  fontWeight: "bold",
-                  p: "0.5rem 1.5rem",
-                  borderRadius: "0.5rem",
-                  "&:hover": {
-                    backgroundColor: "darkred",
-                  },
-                }}
-                onClick={handleDelete}
-              >
-                <DeleteIcon />
-              </Button>
+              <div style={{ width: "100px", height: "50px" }}>
+                <Button
+                  variant="contained"
+                  color="error"
+                  sx={{
+                    backgroundColor: "red",
+                    color: "white",
+                    fontWeight: "bold",
+                    p: "0.5rem 1.5rem",
+                    borderRadius: "0.5rem",
+                    "&:hover": {
+                      backgroundColor: "darkred",
+                    },
+                  }}
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon />
+                </Button>
+              </div>
             </Grid>
           )}
         </Grid>
