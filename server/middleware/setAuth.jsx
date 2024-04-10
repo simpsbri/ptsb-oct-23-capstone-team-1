@@ -21,17 +21,17 @@ export const AuthProvider = ({ children }) => {
   }
 
   // Simulate fetching auth state from an API
-  useEffect(() => {
-    const fetchAuthState = async () => {
-      // Fetch auth state from API...
-      // For now, we'll just simulate a delay
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+  // useEffect(() => {
+  //   const fetchAuthState = async () => {
+  //     // Fetch auth state from API...
+  //     // For now, we'll just simulate a delay
+  //     await new Promise((resolve) => setTimeout(resolve, 2000))
 
-      // login('fake-token', true, 'fake-user')
-    }
+  //     login('fake-token', true, 'fake-user')
+  //   }
 
-    fetchAuthState()
-  }, [])
+  //   fetchAuthState()
+  // }, [])
 
   useEffect(() => {
     const savedAuth = localStorage.getItem('auth')
