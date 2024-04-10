@@ -14,9 +14,7 @@ export const AuthProvider = ({ children }) => {
 
   // authentication logic...
   const login = (token, isAdmin, user) => {
-    const authData = { token, isAdmin, user }
-    setAuth(authData)
-    localStorage.setItem('auth', JSON.stringify(authData))
+    setAuth({ token, isAdmin, user })
     setIsLoading(false)
   }
 
