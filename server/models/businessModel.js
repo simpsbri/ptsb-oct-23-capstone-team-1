@@ -6,6 +6,7 @@ const businessModel = new mongoose.Schema(
     businessID: { type: mongoose.Schema.Types.ObjectId, ref: 'Business' },
     lastContactedDate: { type: Date, default: null, required: false },
     initialProject: { type: String, required: false },
+    isNew: { type: Boolean, required: false },
     street: { type: String, required: false },
     city: { type: String, required: false },
     state: { type: String, required: false },
@@ -23,6 +24,19 @@ const businessModel = new mongoose.Schema(
     timestamps: true,
   },
 )
+
+const CounterSchema = new mongoose.Schema({
+  _id: { type: String, required: true },
+  seq: { type: Number, default: 0 },
+})
+const Counter = mongoose.model('Counter', CounterSchema)
+
+businessModel.pre('save', function (next) {
+  if (this.isNew) {
+    this.businessID = this._id
+  }
+  next()
+})
 
 const Business = mongoose.model('Business', businessModel)
 
