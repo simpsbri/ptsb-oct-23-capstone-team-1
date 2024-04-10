@@ -59,7 +59,7 @@ function BusinessMessages() {
       }
 
       const data = await response.json()
-
+      console.log(auth)
       // Add the new message to the messages state
       setMessages((prevMessages) => [...prevMessages, data])
     } catch (error) {
