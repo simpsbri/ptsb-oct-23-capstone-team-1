@@ -204,7 +204,7 @@ const ProjectProfile = () => {
                 'Data Analytics',
                 'Sales',
                 'Digital Marketing',
-              ]} // add options if needed
+              ]} // add options as needed
               value={projectType}
               onChange={(event, newValue) => {
                 setProjectType(newValue)
