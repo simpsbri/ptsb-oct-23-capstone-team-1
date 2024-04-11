@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Footer from './components/Footer/Footer';
 import HorizontalNav from './components/Navigation/HorizontalNav';
 import { AuthContext } from '../server/middleware/setAuth';
+import HeroSection from './components/HeroSection/HeroSection';
 
 export default function Root() {
   const [businessList, setBusinessList] = useState([]);
@@ -35,6 +36,7 @@ export default function Root() {
     <>
       <Header />
       {auth.token ? <HorizontalNav /> : null}
+      <HeroSection />
       <div id="main" className="main-content">
         <h1 className="text-xl">
           We’re Looking for Businesses to Benefit from FREE Work!{' '}

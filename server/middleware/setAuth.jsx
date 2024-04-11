@@ -1,24 +1,24 @@
-import React, { createContext, useState, useEffect } from 'react'
-import CircularProgress from '@mui/material/CircularProgress'
+import React, { createContext, useState, useEffect } from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
 
-export const AuthContext = createContext()
+export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [auth, setAuth] = useState({
     token: null,
     isAdmin: null,
     user: null,
-  })
+  });
 
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(true);
 
   // authentication logic...
   const login = (token, isAdmin, user) => {
-    setAuth({ token, isAdmin, user })
-    setIsLoading(false)
+    setAuth({ token, isAdmin, user });
+    setIsLoading(false);
     // Save to local storage
-    localStorage.setItem('auth', JSON.stringify({ token, isAdmin, user }))
-  }
+    localStorage.setItem('auth', JSON.stringify({ token, isAdmin, user }));
+  };
 
   useEffect(() => {
     const fetchAuthState = async () => {
@@ -27,17 +27,17 @@ export const AuthProvider = ({ children }) => {
       // await new Promise((resolve) => setTimeout(resolve, 2000))
 
       // Retrieve auth state from local storage
-      const storedAuth = localStorage.getItem('auth')
+      const storedAuth = localStorage.getItem('auth');
       if (storedAuth) {
-        const { token, isAdmin, user } = JSON.parse(storedAuth)
-        login(token, isAdmin, user)
+        const { token, isAdmin, user } = JSON.parse(storedAuth);
+        login(token, isAdmin, user);
       } else {
-        login('fake-token', true, 'fake-user')
+        login('fake-token', true, 'fake-user');
       }
-    }
+    };
 
-    fetchAuthState()
-  }, [])
+    fetchAuthState();
+  }, []);
 
   if (isLoading) {
     return (
@@ -51,12 +51,27 @@ export const AuthProvider = ({ children }) => {
       >
         <CircularProgress />
       </div>
-    )
+    );
   }
 
+  const logout = () => {
+    // Clear the auth state
+    setAuth({
+      token: null,
+      isAdmin: null,
+      user: null,
+    });
+
+    // Clear the auth data from local storage
+    localStorage.removeItem('userInfo');
+    localStorage.removeItem('auth');
+  };
+
+  // Pass the logout function to the context provider
+
   return (
-    <AuthContext.Provider value={{ auth, login }}>
+    <AuthContext.Provider value={{ auth, login, logout }}>
       {children}
     </AuthContext.Provider>
-  )
-}
+  );
+};

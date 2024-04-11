@@ -1,13 +1,13 @@
-import express from "express";
-import mongoose from "mongoose";
-import User from "../models/userModel.js";
-import { authUser } from "../controllers/userControllers.js";
-import { protect } from "../config/authMiddleware.js";
+import express from 'express';
+import mongoose from 'mongoose';
+import User from '../models/userModel.js';
+import { authUser } from '../controllers/userControllers.js';
+import { protect } from '../config/authMiddleware.js';
 
 const router = express.Router();
 
 // Get all users
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const users = await User.find({});
     res.json(users);
@@ -17,11 +17,11 @@ router.get("/", async (req, res) => {
 });
 
 // Get a single user by ID
-router.get("/:_id", async (req, res) => {
+router.get('/:_id', async (req, res) => {
   try {
     const user = await User.findById(req.params._id);
     if (!user) {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: 'User not found' });
     } else {
       res.json(user);
     }
@@ -30,9 +30,9 @@ router.get("/:_id", async (req, res) => {
   }
 });
 
-router.post("/login", authUser);
+router.post('/login', authUser);
 
-router.post("/createNewUser", async (req, res) => {
+router.post('/createNewUser', async (req, res) => {
   try {
     const newUser = new User({
       name: req.body.name,
@@ -54,7 +54,7 @@ router.post("/createNewUser", async (req, res) => {
 });
 
 // PUT update user by ID
-router.put("/:_id", async (req, res) => {
+router.put('/:_id', async (req, res) => {
   try {
     const updatedUser = await User.findByIdAndUpdate(req.params._id, req.body);
     res.json(updatedUser);
@@ -63,13 +63,13 @@ router.put("/:_id", async (req, res) => {
   }
 });
 
-router.delete("/:_id", async (req, res) => {
+router.delete('/:_id', async (req, res) => {
   try {
     const deletedUser = await User.findByIdAndDelete(req.params._id);
     if (deletedUser) {
-      res.json({ message: "User deleted successfully" });
+      res.json({ message: 'User deleted successfully' });
     } else {
-      res.status(404).json({ message: "User not found" });
+      res.status(404).json({ message: 'User not found' });
     }
   } catch (error) {
     res.status(500).send(error.message);
