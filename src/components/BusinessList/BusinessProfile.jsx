@@ -349,24 +349,33 @@ const BusinessProfile = () => {
           </Grid>
           <Box className='flex mt-4'>
             {auth.user.isAdmin === 'Admin' && (
-              <Button
-                variant='contained'
-                color='error'
-                sx={{
-                  backgroundColor: 'red',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  p: '0.3rem 1rem',
-                  borderRadius: '0.5rem',
-                  fontSize: '0.875rem',
-                  '&:hover': {
-                    backgroundColor: 'darkred',
-                  },
+              <div
+                style={{
+                  width: '70px',
+                  height: '50px',
+                  marginLeft: '50px',
+                  paddingTop: '30px',
                 }}
-                onClick={handleDelete}
               >
-                <DeleteIcon />
-              </Button>
+                <Button
+                  variant='contained'
+                  color='error'
+                  sx={{
+                    backgroundColor: 'red',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    p: '0.3rem 1rem',
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    '&:hover': {
+                      backgroundColor: 'darkred',
+                    },
+                  }}
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon />
+                </Button>
+              </div>
             )}
           </Box>
         </Grid>
@@ -469,6 +478,18 @@ const BusinessProfile = () => {
                     onChange={(e) => setZip(e.target.value)}
                   />
                 </Box>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='website'>Website</InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='website'
+                  name='website'
+                  autoComplete='website'
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
