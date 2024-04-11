@@ -53,9 +53,7 @@ const Login = () => {
   );
 
   console.log(viteUrl);
-  // const { login } = useContext(AuthContext);
-  // const { login } = useContext(AuthContext); // Destructure login from context
-  const { login } = useContext(AuthContext);
+
   const submitHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
