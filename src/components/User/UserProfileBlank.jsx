@@ -48,6 +48,7 @@ const modules = {
     ['link', 'image'], // link and image, video
   ],
 }
+const viteUrl = import.meta.env.VITE_WEB_ADDRESS
 
 import './user.css'
 
@@ -91,10 +92,9 @@ const NewUserProfile = () => {
     try {
       // Send a POST request to save the new document in MongoDB
       const response = await axios.post(
-        'http://localhost:4000/api/user/createNewUser',
+        `${viteUrl}api/user/createNewUser`,
         newUser,
       )
-      console.log(response.data) // Optional: Log the response data
 
       // Set the success message
       setMessage('Successful Save')
@@ -118,7 +118,7 @@ const NewUserProfile = () => {
 
   useEffect(() => {
     axios
-      .get('http://localhost:4000/businesses')
+      .get(`${viteUrl}businesses`)
       .then((response) => {
         setBusinesses(response.data)
       })
@@ -195,7 +195,6 @@ const NewUserProfile = () => {
                   label='Business'
                   onChange={(event) => {
                     setSelectedBusiness(event.target.value)
-                    console.log(event.target.value)
                   }}
                   className='userBusinessSelect'
                 >

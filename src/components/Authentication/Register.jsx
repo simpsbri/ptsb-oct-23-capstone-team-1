@@ -47,6 +47,8 @@ const Register = () => {
   const [initialProject, setInitialProject] = useState('')
   const [Phone, setPhone] = useState('')
 
+  const viteUrl = import.meta.env.VITE_WEB_ADDRESS
+
   async function handleSave(event) {
     event.preventDefault()
 
@@ -60,12 +62,8 @@ const Register = () => {
 
     try {
       // Send a POST request to save the new document in MongoDB
-      const response = await axios.post(
-        'http://localhost:4000/register',
-        newBusiness,
-      )
+      const response = await axios.post(`${viteUrl}register`, newBusiness)
       setIsSubmitted(true)
-      console.log(response.data) // Optional: Log the response data
     } catch (error) {
       console.error(error)
       // Handle error here
@@ -73,8 +71,7 @@ const Register = () => {
   }
   // useEffect(() => {
   //   const result = PWD_REGEX.test(pwd)
-  //   console.log(result)
-  //   console.log(pwd)
+
   //   setValidPwd(result)
   //   const match = pwd === matchPwd
   //   setValidMatch(match)

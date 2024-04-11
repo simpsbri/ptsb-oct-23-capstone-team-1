@@ -6,6 +6,7 @@ import ReportGmailerrorredTwoToneIcon from '@mui/icons-material/ReportGmailerror
 import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone'
 import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone'
 import ContactSupportTwoToneIcon from '@mui/icons-material/ContactSupportTwoTone'
+const viteUrl = import.meta.env.VITE_WEB_ADDRESS
 
 const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   const {
@@ -27,7 +28,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:4000/messages')
+    fetch(`${viteUrl}messages`)
       .then((response) => response.json())
       .then(
         (data) => {
@@ -81,7 +82,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   }, [])
 
   useEffect(() => {
-    fetch(`http://localhost:4000/api/user`)
+    fetch(`${viteUrl}api/user`)
       .then((response) => response.json())
       .then((data) => {
         const filteredUsers = data.filter((user) => user.businessId === _id)
@@ -124,7 +125,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
         </p>
 
         {latestMessage && (
-          <p className='flex items-start gap-2 text-dark_gray_cyan text-base pr-6'>
+          <div className='flex items-start gap-2 text-dark_gray_cyan text-base pr-6'>
             <b>Latest message:</b>{' '}
             <div
               className='text-gray-800'
@@ -142,7 +143,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
               year: '2-digit',
               hour12: true,
             })}
-          </p>
+          </div>
         )}
         {/* <h3>Associated Users</h3> */}
         <ul className='usersList'>

@@ -6,6 +6,8 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+const viteUrl = process.env.VITE_WEB_ADDRESS
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -16,7 +18,7 @@ const transporter = nodemailer.createTransport({
 
 const sendEmail60 = async () => {
   try {
-    const response = await axios.get('http://localhost:4000/businesses')
+    const response = await axios.get(`${viteUrl}businesses`)
     const businesses = response.data
 
     const today = startOfDay(new Date())
