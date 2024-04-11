@@ -79,7 +79,6 @@ const BusinessProfile = () => {
             (project) => project.businessId === id,
           )
           setProjects(filteredProjects)
-          console.log('filteredProjects', filteredProjects)
         } else {
           console.error(
             'Expected response.data to be an array but got',
@@ -558,22 +557,6 @@ const BusinessProfile = () => {
                 </FormControl>
               </Grid>
             )}
-            {/* <Grid item xs={12}>
-              <Typography
-                variant='h6'
-                component='h2'
-                className='text-sm font-medium text-gray-700 mb-1'
-              >
-                Projects
-              </Typography>
-              <ul>
-                {business.Projects.map((project, index) => (
-                  <li key={index} className='text-dark_gray_cyan text-base'>
-                    {project}
-                  </li>
-                ))}
-              </ul>
-            </Grid> */}
           </Grid>
 
           {/* Save Button */}
@@ -648,8 +631,32 @@ const BusinessProfile = () => {
           expanded={expanded === 'panel3'}
           onChange={handleChange('panel3')}
         >
-          <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+          {/* <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
             <Typography>Projects</Typography>
+          </AccordionSummary> */}
+          <AccordionSummary aria-controls='panel1a-content' id='panel3d-header'>
+            <Box display='flex' justifyContent='space-between' width='100%'>
+              <Typography>Projects</Typography>
+              {auth.user.isAdmin === 'Business' && (
+                <Button
+                  component={Link}
+                  to={`/business/projects/createNewProject`}
+                  sx={{
+                    mr: '1rem',
+                    backgroundColor: 'green',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    p: '0.5rem 1.5rem',
+                    borderRadius: '0.5rem',
+                    '&:hover': {
+                      backgroundColor: '#9eb8d0',
+                    },
+                  }}
+                >
+                  + Add Project
+                </Button>
+              )}
+            </Box>
           </AccordionSummary>
           <AccordionDetails>
             <List>
