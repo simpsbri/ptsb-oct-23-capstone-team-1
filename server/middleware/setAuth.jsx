@@ -63,6 +63,7 @@ export const AuthProvider = ({ children }) => {
     });
 
     // Clear the auth data from local storage
+    localStorage.removeItem('userInfo');
     localStorage.removeItem('auth');
   };
 
