@@ -158,7 +158,7 @@ function BusinessMessages() {
                   <h1 className="text-2xl font-bold mb-4">Message</h1>
                   <ReactQuill value={messageText} onChange={setMessageText} />
                   <button type="submit" className="myButton">
-                    Submit
+                    Save
                   </button>
                 </form>
               </div>
