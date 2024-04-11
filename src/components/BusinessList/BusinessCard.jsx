@@ -93,7 +93,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
   return (
-    <div className='flex flex-col justify-between items-center shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
+    <div className='flex flex-col justify-between items-center shadow-md my-5 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
       <div className='flex-flex-col-justify-between ml-4'>
         {/* company name with logo */}
         <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>

@@ -13,6 +13,7 @@ import {
   Select,
   MenuItem,
   Chip,
+  Autocomplete,
 } from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import ReactQuill from 'react-quill'
@@ -96,11 +97,13 @@ const ProjectProfile = () => {
   }
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`${viteUrl}projects/${id}`)
-      navigate('/admin/projects')
-    } catch (error) {
-      console.error('Error deleting project:', error)
+    if (window.confirm('Are you sure you want to delete this project?')) {
+      try {
+        await axios.delete(`${viteUrl}projects/${id}`)
+        navigate('/admin/projects')
+      } catch (error) {
+        console.error('Error deleting project:', error)
+      }
     }
   }
 
