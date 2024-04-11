@@ -22,7 +22,7 @@ const ProjectCard = ({ project, onDelete }) => {
           : '/not-authorized'
 
   return (
-    <div className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
+    <div className='flex flex-col justify-between bg-white shadow-md my-5  p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
       <div className='flex flex-col justify-between ml-4'>
         <h1 className='text-xl font-bold cursor-pointer'>
           <Link
