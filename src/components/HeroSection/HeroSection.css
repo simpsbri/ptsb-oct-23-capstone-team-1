@@ -7,8 +7,8 @@ video {
 }
 
 .hero-container {
-  background: url('/public/images/laptop.jpg') center center/cover no-repeat;
-  height: 50vh;
+  background: url('/images/laptop.jpg') center center/cover no-repeat;
+  height: 40vh;
   width: 100%;
   display: flex;
   flex-direction: column;

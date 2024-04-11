@@ -31,8 +31,6 @@ const Homepage = () => {
           backgroundColor: 'white',
           width: '100%',
           margin: '0px 0 15px 0',
-          borderRadius: 1,
-          borderWidth: '1px',
         }}
       >
         <h1 className='text-xxl font-bold p-10'>Get in touch.</h1>
@@ -47,6 +45,7 @@ const Homepage = () => {
           width: '100%', // adjust as needed
           height: '100%', // adjust as needed
           backgroundColor: 'lightblue', // adjust as needed
+          mb: 4,
         }}
       >
         <TabContext value={value}>
