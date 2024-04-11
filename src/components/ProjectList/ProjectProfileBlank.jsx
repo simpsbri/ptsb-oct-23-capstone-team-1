@@ -76,6 +76,12 @@ function ProjectProfileBlank() {
   // Function to handle form submission
   async function handleSave(event) {
     event.preventDefault()
+
+    if (!projectTitle.trim()) {
+      alert('Project title cannot be blank.')
+      return
+    }
+
     const newProject = {
       projectTitle,
       details,
@@ -201,7 +207,7 @@ function ProjectProfileBlank() {
             <Button
               onClick={() =>
                 navigate(
-                  auth.user.isAdmin === 'admin'
+                  auth.user.isAdmin === 'Admin'
                     ? '/admin/projects'
                     : '/business/businesses/${businessId}',
                 )
@@ -209,7 +215,7 @@ function ProjectProfileBlank() {
               style={{ marginLeft: '10px', marginTop: '25px' }}
               variant='outlined'
             >
-              {auth.user.isAdmin === 'admin'
+              {auth.user.isAdmin === 'Admin'
                 ? 'Back to Project List'
                 : 'Back to Business Profile'}
             </Button>

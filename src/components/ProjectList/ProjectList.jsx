@@ -55,7 +55,7 @@ const ProjectList = () => {
   return (
     <>
       <div style={{ textAlign: 'center' }} className='mb-4 px-4'>
-        <h1 className='text-3xl'>Projects</h1>
+        <h1 style={{ fontSize: '1.5rem' }}>Projects</h1>
       </div>
       <div className='w-full flex justify-between mb-4 px-4'>
         <div className='w-1/3'>

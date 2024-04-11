@@ -51,7 +51,9 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
     <>
       <div className='flex flex-col items-center mx-auto h-96 w-full'>
         <div className='flex items-center justify-between w-full mb-4'>
-          <div className='font-bold text-center mx-auto'>Businesses</div>
+          <div className='text-center mx-auto' style={{ fontSize: '1.5rem' }}>
+            Businesses
+          </div>
         </div>
         <div className='flex justify-between w-full mb-4'>
           <div className='flex ml-5'>
@@ -62,7 +64,6 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
               onClick={() => navigate('createNewBusiness')}
             >
               <AddIcon />
-              Create New
             </button>
           </div>
           <div className='flex items-center mx-auto'>
