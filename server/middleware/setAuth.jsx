@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
   // Pass the logout function to the context provider
 
   return (
-    <AuthContext.Provider value={{ auth, login }}>
+    <AuthContext.Provider value={{ auth, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
