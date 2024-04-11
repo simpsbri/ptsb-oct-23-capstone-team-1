@@ -3,7 +3,7 @@ import axios from 'axios'
 import dotenv from 'dotenv'
 dotenv.config()
 
-const viteUrl = process.env.VITE_URL
+const viteUrl = process.env.VITE_WEB_ADDRESS
 
 async function getAdminEmails() {
   try {

@@ -33,7 +33,7 @@ const UserList = () => {
     <>
       <div>
         <div style={{ textAlign: 'center' }}>
-          <h2>User List</h2>
+          <h1 style={{ fontSize: '1.5rem' }}>Users</h1>
         </div>
         <div className='flex justify-between w-full mb-4'>
           <div className='flex ml-5'>
@@ -44,7 +44,6 @@ const UserList = () => {
               onClick={() => navigate('createNewUser')}
             >
               <AddIcon />
-              Create New
             </button>
           </div>
           <div>

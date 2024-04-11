@@ -36,8 +36,6 @@ const LazyUserProfile = lazy(() => import('./routes/userProfile'))
 function DebugAuthProvider() {
   const authContext = useContext(AuthContext)
 
-  console.log(authContext)
-
   return null
 }
 
@@ -88,8 +86,11 @@ function App() {
                 >
                   <Route path='businesses/:id' element={<BusinessProfile />} />
                   <Route path='users/:id' element={<LazyUserProfile />} />
-                  <Route path='businesses/:id' element={<BusinessProfile />} />
-                  <Route path='users/:id' element={<LazyUserProfile />} />
+                  <Route
+                    path='projects/createNewProject'
+                    element={<ProjectBlank />}
+                  />
+                  <Route path='projects/:id' element={<ProjectOverview />} />
                 </Route>
 
                 <Route

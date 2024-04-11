@@ -35,7 +35,7 @@ const UserCard = ({ user, handleEditClick }) => {
   const business = businesses.find((business) => business._id === businessId)
 
   return (
-    <div className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
+    <div className='flex flex-col justify-between bg-white shadow-md my-5  p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
       <div className='flex-flex-col-justify-between ml-4'>
         {/* user info */}
         <h1 className='py-2 text-primary_dark_cyan text-xl'>

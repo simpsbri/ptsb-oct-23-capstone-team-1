@@ -93,7 +93,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   const tags = Array.isArray(Projects) ? Projects : [Projects]
 
   return (
-    <div className='flex flex-col justify-between items-center shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
+    <div className='flex flex-col justify-between items-center shadow-md my-5 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
       <div className='flex-flex-col-justify-between ml-4'>
         {/* company name with logo */}
         <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>
@@ -125,7 +125,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
         </p>
 
         {latestMessage && (
-          <p className='flex items-start gap-2 text-dark_gray_cyan text-base pr-6'>
+          <div className='flex items-start gap-2 text-dark_gray_cyan text-base pr-6'>
             <b>Latest message:</b>{' '}
             <div
               className='text-gray-800'
@@ -143,7 +143,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
               year: '2-digit',
               hour12: true,
             })}
-          </p>
+          </div>
         )}
         {/* <h3>Associated Users</h3> */}
         <ul className='usersList'>

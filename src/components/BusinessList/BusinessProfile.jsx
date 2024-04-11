@@ -12,6 +12,10 @@ import {
   Select,
   MenuItem,
   Alert,
+  ListItem,
+  ListItemText,
+  List,
+  Divider,
 } from '@mui/material'
 import { styled } from '@mui/material/styles'
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp'
@@ -50,6 +54,7 @@ const BusinessProfile = () => {
   const [primary_contact_email, setPrimary_contact_email] = useState('')
   const [businessStatus, setBusinessStatus] = useState('New')
   const [initialProject, setInitialProject] = useState('')
+  const [website, setWebsite] = useState('')
 
   const [saveSuccess, setSaveSuccess] = useState(false)
   const saveSuccessRef = useRef(null)
@@ -62,6 +67,30 @@ const BusinessProfile = () => {
   const theme = useTheme()
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
   const [users, setUsers] = useState([])
+
+  const [projects, setProjects] = useState([])
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const response = await axios.get(`${viteUrl}projects`)
+        if (Array.isArray(response.data)) {
+          const filteredProjects = response.data.filter(
+            (project) => project.businessId === id,
+          )
+          setProjects(filteredProjects)
+        } else {
+          console.error(
+            'Expected response.data to be an array but got',
+            typeof response.data,
+          )
+        }
+      } catch (err) {
+        console.error(err)
+      }
+    }
+    fetchProjects()
+  }, [id])
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -110,7 +139,7 @@ const BusinessProfile = () => {
   }
 
   const fetchMessages = (id) => {
-    fetch(`${viteUrl}/messages`)
+    fetch(`${viteUrl}messages`)
       .then((response) => response.json())
       .then((data) => {
         // Filter messages for the current business
@@ -174,6 +203,7 @@ const BusinessProfile = () => {
         setLastContactedDate(response.data.lastContactedDate || '')
         setBusinessStatus(response.data.businessStatus)
         setInitialProject(response.data.initialProject || '')
+        setWebsite(response.data.website || '')
       } catch (error) {
         console.error(error)
       }
@@ -207,6 +237,7 @@ const BusinessProfile = () => {
         lastContactedDate,
         businessStatus,
         initialProject,
+        website,
       }
 
       // Make the PUT request
@@ -274,7 +305,7 @@ const BusinessProfile = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`${viteUrl}/businesses/${id}`)
+      await axios.delete(`${viteUrl}businesses/${id}`)
       navigate('/admin/businesses')
     } catch (error) {
       console.error('Error deleting business:', error)
@@ -317,24 +348,33 @@ const BusinessProfile = () => {
           </Grid>
           <Box className='flex mt-4'>
             {auth.user.isAdmin === 'Admin' && (
-              <Button
-                variant='contained'
-                color='error'
-                sx={{
-                  backgroundColor: 'red',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  p: '0.3rem 1rem',
-                  borderRadius: '0.5rem',
-                  fontSize: '0.875rem',
-                  '&:hover': {
-                    backgroundColor: 'darkred',
-                  },
+              <div
+                style={{
+                  width: '70px',
+                  height: '50px',
+                  marginLeft: '50px',
+                  paddingTop: '30px',
                 }}
-                onClick={handleDelete}
               >
-                <DeleteIcon />
-              </Button>
+                <Button
+                  variant='contained'
+                  color='error'
+                  sx={{
+                    backgroundColor: 'red',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    p: '0.3rem 1rem',
+                    borderRadius: '0.5rem',
+                    fontSize: '0.875rem',
+                    '&:hover': {
+                      backgroundColor: 'darkred',
+                    },
+                  }}
+                  onClick={handleDelete}
+                >
+                  <DeleteIcon />
+                </Button>
+              </div>
             )}
           </Box>
         </Grid>
@@ -440,6 +480,30 @@ const BusinessProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
+              <InputLabel htmlFor='website'>Website</InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='website'
+                  name='website'
+                  autoComplete='website'
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='website'>Website</InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='website'
+                  name='website'
+                  autoComplete='website'
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
               <InputLabel htmlFor='initialProject'>
                 Initial Project Submission
               </InputLabel>
@@ -493,22 +557,6 @@ const BusinessProfile = () => {
                 </FormControl>
               </Grid>
             )}
-            {/* <Grid item xs={12}>
-              <Typography
-                variant='h6'
-                component='h2'
-                className='text-sm font-medium text-gray-700 mb-1'
-              >
-                Projects
-              </Typography>
-              <ul>
-                {business.Projects.map((project, index) => (
-                  <li key={index} className='text-dark_gray_cyan text-base'>
-                    {project}
-                  </li>
-                ))}
-              </ul>
-            </Grid> */}
           </Grid>
 
           {/* Save Button */}
@@ -564,14 +612,71 @@ const BusinessProfile = () => {
           onChange={handleChange('panel2')}
         >
           <AccordionSummary aria-controls='panel2d-content' id='panel2d-header'>
-            <Typography>Associated User</Typography>
+            <Typography>Associated Users</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <ul>
+            <List>
               {users.map((user, index) => (
-                <li key={index}>{user.name}</li>
+                <div key={index}>
+                  <ListItem>
+                    <ListItemText primary={user.name} />
+                  </ListItem>
+                  <Divider />
+                </div>
               ))}
-            </ul>
+            </List>
+          </AccordionDetails>
+        </Accordion>
+        <Accordion
+          expanded={expanded === 'panel3'}
+          onChange={handleChange('panel3')}
+        >
+          {/* <AccordionSummary aria-controls='panel3d-content' id='panel3d-header'>
+            <Typography>Projects</Typography>
+          </AccordionSummary> */}
+          <AccordionSummary aria-controls='panel1a-content' id='panel3d-header'>
+            <Box display='flex' justifyContent='space-between' width='100%'>
+              <Typography>Projects</Typography>
+              {auth.user.isAdmin === 'Business' && (
+                <Button
+                  component={Link}
+                  to={`/business/projects/createNewProject`}
+                  sx={{
+                    mr: '1rem',
+                    backgroundColor: 'green',
+                    color: 'white',
+                    fontWeight: 'bold',
+                    p: '0.5rem 1.5rem',
+                    borderRadius: '0.5rem',
+                    '&:hover': {
+                      backgroundColor: '#9eb8d0',
+                    },
+                  }}
+                >
+                  + Add Project
+                </Button>
+              )}
+            </Box>
+          </AccordionSummary>
+          <AccordionDetails>
+            <List>
+              {projects.map((project, index) => (
+                <div key={index}>
+                  <ListItem
+                    button
+                    component={Link}
+                    to={
+                      auth.user.isAdmin === 'Business'
+                        ? `/business/projects/${project._id}`
+                        : `/admin/projects/${project._id}`
+                    }
+                  >
+                    <ListItemText primary={project.projectTitle} />
+                  </ListItem>
+                  <Divider />
+                </div>
+              ))}
+            </List>
           </AccordionDetails>
         </Accordion>
       </Box>

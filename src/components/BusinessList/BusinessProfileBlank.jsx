@@ -26,6 +26,7 @@ function BusinessProfileBlank() {
   const [Zip, setZip] = useState('')
   const [Overview, setOverview] = useState('')
   const [lastContactedDate, setLastContactedDate] = useState('')
+  const [website, setWebsite] = useState('')
 
   const navigate = useNavigate()
 
@@ -42,6 +43,7 @@ function BusinessProfileBlank() {
       Zip,
       Overview,
       lastContactedDate,
+      website,
     }
 
     try {
@@ -50,7 +52,6 @@ function BusinessProfileBlank() {
         `${viteUrl}businesses/createNewBusiness`,
         newBusiness,
       )
-      console.log(response.data) // Optional: Log the response data
 
       navigate('/businesses')
     } catch (error) {
@@ -149,6 +150,18 @@ function BusinessProfileBlank() {
                     onChange={(e) => setZip(e.target.value)}
                   />
                 </Box>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <InputLabel htmlFor='website'>Website</InputLabel>
+              <FormControl fullWidth>
+                <TextField
+                  id='website'
+                  name='website'
+                  autoComplete='website'
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                />
               </FormControl>
             </Grid>
             <Grid item xs={12}>
