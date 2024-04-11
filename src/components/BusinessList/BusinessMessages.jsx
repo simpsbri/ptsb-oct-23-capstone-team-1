@@ -143,7 +143,7 @@ function BusinessMessages() {
 
       {showModal && (
         <div className="fixed z-10 inset-0">
-          <div className="flex items-end justify-center min-h-screen pt-1 px-1 pb-2 text-center sm:block sm:p-0">
+          <div className="flex items-end justify-center pt-1 px-1 pb-2 text-center sm:block sm:p-0">
             <div className="fixed inset-0 transition-opacity">
               <div className="absolute inset-0 bg-gray-500 opacity-75"></div>
             </div>
