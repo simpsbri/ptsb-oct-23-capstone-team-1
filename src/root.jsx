@@ -50,7 +50,7 @@ export default function Root() {
             marginTop: '40px',
             marginBottom: '40px',
             marginLeft: '60px',
-            marginRight: '60px',
+            marginRight: '0px',
             color: '#FFFFFF',
           }}
         >
@@ -117,9 +117,9 @@ export default function Root() {
         <div
           className="card bg-white shadow-md rounded-lg p-4 m-2 mb-4"
           style={{
-            marginRight: '80px',
+            marginRight: '100px',
             marginTop: '30px',
-            marginLeft: '80px',
+            marginLeft: '100px',
           }}
         >
           <Homepage />
