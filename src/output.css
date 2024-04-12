@@ -622,6 +622,9 @@ video {
   height: 7rem;
   padding-left: 25px;
   padding-right: 25px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .min-h-screen {
