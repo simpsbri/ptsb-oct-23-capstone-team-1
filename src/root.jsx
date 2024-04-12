@@ -46,7 +46,12 @@ export default function Root() {
         <div
           id="main"
           className="main-content w-1/2"
-          style={{ margin: '40px' }}
+          style={{
+            marginTop: '40px',
+            marginBottom: '40px',
+            marginLeft: '60px',
+            marginRight: '20px',
+          }}
         >
           <h1 className="text-4xl sm:text-3xl md:text-2xl lg:text-xl">
             We’re Looking for Businesses to Benefit from FREE Work!
@@ -92,7 +97,10 @@ export default function Root() {
             design assets after the project concludes.
           </p>
         </div>
-        <div className="card bg-white shadow-md rounded-lg p-4 m-2 mb-4">
+        <div
+          className="card bg-white shadow-md rounded-lg p-4 m-2 mb-4"
+          style={{ marginRight: '60px', marginTop: '30px' }}
+        >
           <Homepage />
         </div>
       </div>
