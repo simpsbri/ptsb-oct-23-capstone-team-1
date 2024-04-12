@@ -1,48 +1,54 @@
-import { useEffect, useState, useContext } from 'react'
-import Homepage from './components/Authentication/Homepage'
-import Header from './components/Header/Header'
-import Footer from './components/Footer/Footer'
-import HorizontalNav from './components/Navigation/HorizontalNav'
-import { AuthContext } from '../server/middleware/setAuth'
-import HeroSection from './components/HeroSection/HeroSection'
+import { useEffect, useState, useContext } from 'react';
+import Homepage from './components/Authentication/Homepage';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+import HorizontalNav from './components/Navigation/HorizontalNav';
+import { AuthContext } from '../server/middleware/setAuth';
+import HeroSection from './components/HeroSection/HeroSection';
+import LogoHeader from './components/Header/logoHeader';
 
 export default function Root() {
-  const [businessList, setBusinessList] = useState([])
-  const { auth } = useContext(AuthContext)
+  const [businessList, setBusinessList] = useState([]);
+  const { auth } = useContext(AuthContext);
 
   const addBusiness = (newBusiness) => {
-    setBusinessList([...businessList, newBusiness])
-  }
+    setBusinessList([...businessList, newBusiness]);
+  };
 
   useEffect(() => {
     const saveBusinessList = async () => {
-      const jsonString = JSON.stringify(businessList)
+      const jsonString = JSON.stringify(businessList);
       const response = await fetch('src/data/businessList.json', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: jsonString,
-      })
+      });
       if (!response.ok) {
-        console.error('Error saving business list:', response.statusText)
+        console.error('Error saving business list:', response.statusText);
       }
-    }
+    };
 
-    saveBusinessList()
-  }, [businessList])
+    saveBusinessList();
+  }, [businessList]);
 
   return (
     <>
       <Header />
       {auth.token ? <HorizontalNav /> : null}
       <HeroSection />
-      <div className='flex flex-col sm:flex-row'>
-        <div id='main' className='main-content w-1/2'>
-          <h1 className='text-4xl sm:text-3xl md:text-2xl lg:text-xl'>
+      <LogoHeader />
+      <div className="flex flex-col sm:flex-row">
+        <div
+          id="main"
+          className="main-content w-1/2"
+          style={{ margin: '40px' }}
+        >
+          <h1 className="text-4xl sm:text-3xl md:text-2xl lg:text-xl">
             We’re Looking for Businesses to Benefit from FREE Work!
           </h1>
-          <h2 className='text-4xl sm:text-3xl md:text-2xl lg:text-xl'>
+          <h2 className="text-4xl sm:text-3xl md:text-2xl lg:text-xl">
             A Capstone Program
           </h2>
           <p>
@@ -83,11 +89,11 @@ export default function Root() {
             design assets after the project concludes.
           </p>
         </div>
-        <div className='card bg-white shadow-md rounded-lg p-4 m-2 mb-4'>
+        <div className="card bg-white shadow-md rounded-lg p-4 m-2 mb-4">
           <Homepage />
         </div>
       </div>
       <Footer />
     </>
-  )
+  );
 }
