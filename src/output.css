@@ -620,6 +620,8 @@ video {
 
 .h-28 {
   height: 7rem;
+  padding-left: 25px;
+  padding-right: 25px;
 }
 
 .min-h-screen {
