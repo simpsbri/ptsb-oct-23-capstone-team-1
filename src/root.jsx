@@ -39,7 +39,10 @@ export default function Root() {
       {auth.token ? <HorizontalNav /> : null}
       <HeroSection />
       <LogoHeader />
-      <div className="flex flex-col sm:flex-row">
+      <div
+        className="flex flex-col sm:flex-row"
+        style={{ backgroundColor: '#0B4A8F' }}
+      >
         <div
           id="main"
           className="main-content w-1/2"
