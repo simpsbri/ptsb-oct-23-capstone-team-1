@@ -585,6 +585,9 @@ video {
 
 .mb-12 {
   /* margin-bottom: 3rem; */
+  position: sticky;
+  top: 105px;
+  z-index: 100;
 }
 
 .mb-4 {
