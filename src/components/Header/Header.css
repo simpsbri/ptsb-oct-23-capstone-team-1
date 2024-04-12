@@ -5,6 +5,11 @@
 .align-items-center {
   align-items: center;
 }
+.h-28.w-full.bg-primary_dark_cyan.display-flex.align-items-center {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
 .header-links {
   right: 0;
