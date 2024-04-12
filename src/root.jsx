@@ -50,7 +50,8 @@ export default function Root() {
             marginTop: '40px',
             marginBottom: '40px',
             marginLeft: '60px',
-            marginRight: '20px',
+            marginRight: '60px',
+            color: '#FFFFFF',
           }}
         >
           <h1 className="text-4xl sm:text-3xl md:text-2xl lg:text-xl">
@@ -99,7 +100,11 @@ export default function Root() {
         </div>
         <div
           className="card bg-white shadow-md rounded-lg p-4 m-2 mb-4"
-          style={{ marginRight: '60px', marginTop: '30px' }}
+          style={{
+            marginRight: '80px',
+            marginTop: '30px',
+            marginLeft: '80px',
+          }}
         >
           <Homepage />
         </div>
