@@ -491,18 +491,7 @@ const BusinessProfile = () => {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <InputLabel htmlFor='website'>Website</InputLabel>
-              <FormControl fullWidth>
-                <TextField
-                  id='website'
-                  name='website'
-                  autoComplete='website'
-                  value={website}
-                  onChange={(e) => setWebsite(e.target.value)}
-                />
-              </FormControl>
-            </Grid>
+
             <Grid item xs={12}>
               <InputLabel htmlFor='initialProject'>
                 Initial Project Submission
