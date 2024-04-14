@@ -15,7 +15,7 @@
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 1px solid #6b7280;
+  border: 1px solid #424b5c;
   border-radius: 0.25rem;
 }
 
@@ -81,4 +81,27 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
   background-color: #e8e8e8;
+}
+
+/* Default light mode styles */
+.text-primary_dark_cyan {
+  color: rgb(41, 18, 145);
+}
+
+/* Other default styles */
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .text-primary_dark_cyan {
+    color: rgb(
+      211,
+      195,
+      13
+    ); /* Choose a color that is visible on dark backgrounds */
+  }
+
+  /* Change colors of other elements in dark mode */
+  .text-dark_gray_cyan {
+    color: rgb(12, 56, 12);
+  }
 }
