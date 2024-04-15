@@ -143,7 +143,11 @@ const Login = () => {
             className="p-2"
           >
             <Stack spacing={2} direction="row">
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ backgroundColor: '#0b4a8f', color: 'white' }}
+              >
                 Submit
               </Button>
             </Stack>
