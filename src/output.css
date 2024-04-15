@@ -817,7 +817,7 @@ body {
   background-color: hsl(180, 52%, 96%);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1200px) {
   .sm\:my-0 {
     margin-top: 0px;
     margin-bottom: 0px;
