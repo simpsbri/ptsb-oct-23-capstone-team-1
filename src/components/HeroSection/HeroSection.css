@@ -73,3 +73,24 @@ video {
     margin-top: 0px;
   }
 }
+
+@media screen and (max-width: 375px) {
+  .hero-container > h1 {
+    font-size: 20px;
+    margin-top: 70px;
+  }
+
+  .hero-container > p {
+    font-size: 20px;
+  }
+
+  .btn-mobile {
+    display: block;
+    text-decoration: none;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 12px;
+  }
+}
