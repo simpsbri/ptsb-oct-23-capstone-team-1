@@ -3,7 +3,7 @@ nav {
   justify-content: center;
   align-items: center;
   height: 50px;
-  background-color: #7b8e8e;
+  background-color: #004b8f;
   width: 100%;
   /* margin-bottom: 20px; */
 }
@@ -28,7 +28,17 @@ li:last-child {
   color: #eef6f6;
   font-size: 16px;
 }
+a {
+  display: inline-block;
+  position: relative;
+}
 
-a:hover {
-  background-color: rgb(11, 74, 143, 0.4);
+a:hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: whitesmoke;
 }
