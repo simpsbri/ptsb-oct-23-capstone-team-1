@@ -1,0 +1,25 @@
+.RegisterCSS {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 60vh;
+  background-color: rgb(11, 74, 143, 0.4);
+}
+
+/* text-xl font-bold mb-4 */
+
+.contactUs {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  margin-left: 15px;
+  height: 2vh;
+}
+
+@media (max-width: 2100px) {
+  .RegisterCSS {
+    background-size: 60% 60%;
+    height: 70vh;
+  }
+}

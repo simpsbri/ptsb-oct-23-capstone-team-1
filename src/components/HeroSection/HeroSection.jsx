@@ -18,6 +18,7 @@ function HeroSection() {
           className="btns"
           buttonStyle="btn--outline"
           buttonSize="btn--large"
+          link="https://frontrange.uprighted.com/"
         >
           STUDENT INFORMATION
         </Button>
@@ -25,6 +26,7 @@ function HeroSection() {
           className="btns"
           buttonStyle="btn--outline"
           buttonSize="btn--large"
+          link="https://www.uprighted.com/about"
         >
           LEARN MORE ABOUT BOOTCAMPS <i className="far fa-play-circle"></i>
         </Button>

@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useContext } from 'react';
 import { AuthContext } from '../../../server/middleware/setAuth';
 import { useEffect } from 'react';
+import './Login.css';
 
 const viteUrl = import.meta.env.VITE_WEB_ADDRESS;
 import CloseIcon from '@mui/icons-material/Close';
@@ -101,11 +102,12 @@ const Login = () => {
   };
 
   return (
-    <section className="p-10 bg-primary_dark_cyan flex w-full flex-row ">
+    <section className="loginCSS" id="login">
+      {/*p-10 bg-primary_dark_cyan flex w-full flex-row*/}
       <div>
-        <h1 className="text-xl font-bold mb-4">Login</h1>
+        <h1 className="loginHeader">Login</h1>
         <form onSubmit={submitHandler}>
-          <Box>
+          <Box id="emailInput">
             <EmailInput
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -141,7 +143,11 @@ const Login = () => {
             className="p-2"
           >
             <Stack spacing={2} direction="row">
-              <Button variant="contained" type="submit">
+              <Button
+                variant="contained"
+                type="submit"
+                style={{ backgroundColor: '#0b4a8f', color: 'white' }}
+              >
                 Submit
               </Button>
             </Stack>

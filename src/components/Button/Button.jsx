@@ -12,21 +12,45 @@ export const Button = ({
   onClick,
   buttonStyle,
   buttonSize,
+  link,
 }) => {
   const checkButtonStyle = STYLES.includes(buttonStyle)
     ? buttonStyle
     : STYLES[0];
   const checkButtonSize = SIZES.includes(buttonSize) ? buttonSize : SIZES[0];
 
-  return (
-    <Link to="/contact-us" className="btn-mobile">
-      <button
-        className={`btn ${checkButtonStyle} ${checkButtonSize}`}
-        onClick={onClick}
-        type={type}
+  // Check if the link is an external link
+  const isExternal =
+    link && (link.startsWith('http://') || link.startsWith('https://'));
+
+  if (isExternal) {
+    return (
+      <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="btn-mobile"
       >
-        {children}
-      </button>
-    </Link>
-  );
+        <button
+          className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+          onClick={onClick}
+          type={type}
+        >
+          {children}
+        </button>
+      </a>
+    );
+  } else {
+    return (
+      <Link to={link} className="btn-mobile">
+        <button
+          className={`btn ${checkButtonStyle} ${checkButtonSize}`}
+          onClick={onClick}
+          type={type}
+        >
+          {children}
+        </button>
+      </Link>
+    );
+  }
 };
