@@ -51,6 +51,7 @@ router.post('/createNewBusiness', async (req, res) => {
     businessStatus: 'new',
     lastContactedDate: undefined,
     website: req.body.website,
+    initialProject: req.body.initialProject,
   })
   try {
     const savedBusiness = await newBusiness.save()
@@ -59,7 +60,7 @@ router.post('/createNewBusiness', async (req, res) => {
       from: process.env.VITE_EMAIL_USER, // sender address
       to: getAdminEmails.join(','), // list of receivers
       subject: 'New Business Created', // Subject line
-      text: `A new business has been created: ${newBusiness.company_name}\n\nPrimary Contact: ${newBusiness.primary_contact}\nPrimary Contact Email: ${newBusiness.primary_contact_email}\n\n\nOverview: ${newBusiness.Overview}`,
+      text: `A new business has been created: ${newBusiness.company_name}\n\nPrimary Contact: ${newBusiness.primary_contact}\nPrimary Contact Email: ${newBusiness.primary_contact_email}\n\n\nOverview: ${newBusiness.initialProject}`,
     })
     res.status(201).json(savedBusiness)
   } catch (err) {
