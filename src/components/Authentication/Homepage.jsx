@@ -1,17 +1,17 @@
-import React from 'react'
-import Registration from './Register'
-import Login from './Login'
+import React from 'react';
+import Registration from './Register';
+import Login from './Login';
 
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import { Container, Tabs, Tab, Box, Typography } from '@mui/material'
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import { Container, Tabs, Tab, Box, Typography } from '@mui/material';
 const Homepage = () => {
-  const [value, setValue] = React.useState('1')
+  const [value, setValue] = React.useState('1');
 
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   return (
     <Container
@@ -33,7 +33,7 @@ const Homepage = () => {
           margin: '0px 0 15px 0',
         }}
       >
-        <h1 className='text-xxl font-bold p-10'>Get in touch.</h1>
+        <h1 className="text-xxl font-bold p-10">Get in touch.</h1>
         <p>
           Are you interested in learning more about our capstone project
           process? Simply send us a message and our program manager will reach
@@ -52,14 +52,14 @@ const Homepage = () => {
           <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
             <TabList
               onChange={handleChange}
-              aria-label='lab API tabs example'
+              aria-label="lab API tabs example"
               sx={{ justifyContent: 'center' }}
             >
               <Tab
-                label='Contact Us'
-                value='1'
+                label="Contact Us"
+                value="1"
                 sx={{
-                  width: '100%',
+                  width: '50%',
                   margin: 'auto',
                   '@media (min-width: 600px)': {
                     width: '50%',
@@ -67,10 +67,10 @@ const Homepage = () => {
                 }}
               />
               <Tab
-                label='Login'
-                value='2'
+                label="Login"
+                value="2"
                 sx={{
-                  width: '100%',
+                  width: '50%',
                   margin: 'auto',
                   '@media (min-width: 600px)': {
                     width: '50%',
@@ -79,16 +79,16 @@ const Homepage = () => {
               />
             </TabList>
           </Box>
-          <TabPanel value='1'>
+          <TabPanel value="1">
             <Registration />{' '}
           </TabPanel>
-          <TabPanel value='2'>
+          <TabPanel value="2">
             <Login />
           </TabPanel>
         </TabContext>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;
