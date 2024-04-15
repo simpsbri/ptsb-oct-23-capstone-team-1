@@ -14,6 +14,7 @@
   font-weight: bold;
   margin-bottom: 1rem;
   margin-left: 15px;
+  height: 2vh;
 }
 
 @media (max-width: 2100px) {
