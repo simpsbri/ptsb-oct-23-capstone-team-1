@@ -50,7 +50,9 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
   return (
     <>
       <div className="flex flex-col items-center mx-auto h-96 w-full">
-        <div className="flex items-center justify-between w-full mb-4">
+        <div className="flex items-center justify-center w-full mb-4">
+          {" "}
+          {/* Centering the header toolbar */}
           <div className="text-center mx-auto" style={{ fontSize: "1.5rem" }}>
             Businesses
           </div>

@@ -19,3 +19,26 @@
   overflow-y: auto;
   flex-grow: 1;
 }
+
+/* Default light mode styles */
+.text-primary_dark_cyan {
+  color: #004b8f;
+}
+
+/* Other default styles */
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .text-primary_dark_cyan {
+    color: rgb(
+      211,
+      195,
+      13
+    ); /* Choose a color that is visible on dark backgrounds */
+  }
+
+  /* Change colors of other elements in dark mode */
+  .text-dark_gray_cyan {
+    color: rgb(12, 56, 12);
+  }
+}
