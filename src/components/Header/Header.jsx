@@ -21,7 +21,7 @@ const Header = () => {
             FAQs
           </a>
 
-          <a href="#link3" className="header-link">
+          <a href="#emailInput" className="header-link">
             Sign In
           </a>
           <a

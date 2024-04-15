@@ -102,12 +102,12 @@ const Login = () => {
   };
 
   return (
-    <section className="loginCSS">
+    <section className="loginCSS" id="login">
       {/*p-10 bg-primary_dark_cyan flex w-full flex-row*/}
       <div>
         <h1 className="loginHeader">Login</h1>
         <form onSubmit={submitHandler}>
-          <Box>
+          <Box id="emailInput">
             <EmailInput
               value={email}
               onChange={(e) => setEmail(e.target.value)}
