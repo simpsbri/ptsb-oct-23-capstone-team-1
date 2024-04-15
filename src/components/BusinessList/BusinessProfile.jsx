@@ -66,6 +66,8 @@ const BusinessProfile = () => {
 
   const theme = useTheme()
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
+  const matches = useMediaQuery('(max-width:600px)')
+
   const [users, setUsers] = useState([])
 
   const [projects, setProjects] = useState([])
@@ -319,7 +321,7 @@ const BusinessProfile = () => {
         {/* Profile Header */}
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant={'h2'}>Business Profile</Typography>
+            <Typography className='profileHeader'>Business Profile</Typography>
           </Grid>
 
           <Grid item xs style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -642,7 +644,7 @@ const BusinessProfile = () => {
                     },
                   }}
                 >
-                  + Add Project
+                  {matches ? '+' : '+ Add Project'}
                 </Button>
               )}
             </Box>
