@@ -28,6 +28,7 @@ const ProjectCard = ({ project, onDelete }) => {
           <Link
             to={linkPath}
             className='text-primary_dark_cyan hover:underline'
+            style={{ marginLeft: 0 }}
           >
             {projectTitle}
           </Link>

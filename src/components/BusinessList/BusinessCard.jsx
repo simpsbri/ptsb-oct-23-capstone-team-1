@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import './business.css'
 import { useLatestMessage } from './useLatestMessage'
-import ReportGmailerrorredTwoToneIcon from '@mui/icons-material/ReportGmailerrorredTwoTone'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import DangerousRoundedIcon from '@mui/icons-material/DangerousRounded'
 import WarningTwoToneIcon from '@mui/icons-material/WarningTwoTone'
-import ChatBubbleTwoToneIcon from '@mui/icons-material/ChatBubbleTwoTone'
-import ContactSupportTwoToneIcon from '@mui/icons-material/ContactSupportTwoTone'
+import ErrorOutlineRoundedIcon from '@mui/icons-material/ErrorOutlineRounded'
+
 const viteUrl = import.meta.env.VITE_WEB_ADDRESS
 
 const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
@@ -43,7 +45,7 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
 
           if (!latestMessage) {
             setBackgroundColor('gray')
-            setStatusIcon(<ContactSupportTwoToneIcon />)
+            setStatusIcon(<ErrorOutlineRoundedIcon />)
             setStatus('No Messages Yet')
             updateStatus('No Messages Yet')
           } else {
@@ -56,19 +58,19 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
             switch (true) {
               case differenceInDays > 60:
                 setBackgroundColor('lightcoral')
-                setStatusIcon(<ReportGmailerrorredTwoToneIcon />)
+                setStatusIcon(<DangerousRoundedIcon />)
                 setStatus('No Messages in 60 days')
                 updateStatus('No Messages in 60 days')
                 break
               case differenceInDays > 30:
                 setBackgroundColor('yellow')
-                setStatusIcon(<WarningTwoToneIcon />)
+                setStatusIcon(<CloseRoundedIcon />)
                 setStatus('No Messages in 30 days')
                 updateStatus('No Messages in 30 days')
                 break
               default:
                 setBackgroundColor('lightgreen')
-                setStatusIcon(<ChatBubbleTwoToneIcon />)
+                setStatusIcon(<CheckCircleRoundedIcon />)
                 setStatus('Active')
                 updateStatus('Active')
             }
@@ -95,19 +97,11 @@ const BusinessCard = ({ business, handleTagClick, updateStatus }) => {
   return (
     <div className='flex flex-col justify-between items-center shadow-md my-5 p-6 rounded-md border-teal-500 border-solid sm:flex-row'>
       <div className='flex-flex-col-justify-between ml-4'>
-        {/* company name with logo */}
-        <h1 className='py-2 text-primary_dark_cyan text-lg flex items-center gap-2'>
+        <h1 className='py-2 text-primary_dark_cyan text-lg'>
           <Link
             to={`/admin/businesses/${business._id}`}
-            className='flex items-center gap-2'
+            style={{ marginLeft: 0 }}
           >
-            {logo && (
-              <img
-                src={logo}
-                alt={`${company_name} logo`}
-                className='w-9 h-9 object-cover'
-              />
-            )}
             {company_name}
           </Link>
           <span className='bg-primary_dark_cyan rounded-full px-3 text-base text-white'>

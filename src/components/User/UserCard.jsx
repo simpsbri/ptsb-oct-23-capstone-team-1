@@ -40,7 +40,11 @@ const UserCard = ({ user, handleEditClick }) => {
         {/* user info */}
         <h1 className='py-2 text-primary_dark_cyan text-xl'>
           {/* Wrap the user name in a Link component */}
-          <Link to={`/admin/users/${_id}`} className='hover:text-teal-700'>
+          <Link
+            to={`/admin/users/${_id}`}
+            className='hover:text-teal-700'
+            style={{ marginLeft: 0 }}
+          >
             {name}
           </Link>
 
