@@ -58,7 +58,7 @@
 }
 
 #dark {
-  background-color: #46045e;
+  background-color: #121212;
 }
 
 /* body {
@@ -79,7 +79,13 @@ body .main {
 }
 
 #dark .main {
-  background-color: #38004c;
+  background-color: #121212;
+}
+#dark .main-content {
+  color: white;
+}
+#dark .header-links {
+  color: white;
 }
 
 /* .sign {
@@ -137,17 +143,17 @@ body .main {
   font-family: 'Ubuntu', sans-serif;
 } */
 
-#light .username,
+/* #light .username,
 #light .password {
   color: rgb(38, 50, 56);
   background: rgba(136, 126, 126, 0.04);
-}
+} */
 
-#dark .username,
+/* #dark .username,
 #dark .password {
   color: rgb(254, 255, 255);
   background: rgba(255, 247, 247, 0.299);
-}
+} */
 
 /* .username:focus,
 .password:focus {
@@ -176,11 +182,11 @@ body .main {
   padding-top: 15px;
 } */
 
-a {
+/* a {
   text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
   color: #e1bee7;
   text-decoration: none;
-}
+} */
 
 /* @media (max-width: 600px) {
   .main {
