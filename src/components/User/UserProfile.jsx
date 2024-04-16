@@ -20,6 +20,7 @@ import {
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import './user.css'
+
 import { AuthContext } from '../../../server/middleware/setAuth'
 
 //rich text editor
@@ -148,13 +149,15 @@ const UserProfile = () => {
   } // handleSave
 
   const handleDelete = async () => {
-    try {
-      const response = await axios.delete(`${viteUrl}api/user/${id}`)
-      if (response.status === 200) {
-        navigate('/admin/users')
+    if (window.confirm('Are you sure you want to delete this?')) {
+      try {
+        const response = await axios.delete(`${viteUrl}api/user/${id}`)
+        if (response.status === 200) {
+          navigate('/admin/users')
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error)
       }
-    } catch (error) {
-      console.error('Error deleting user:', error)
     }
   } // deleteUser
 
@@ -171,7 +174,9 @@ const UserProfile = () => {
       <Box className='flex flex-col justify-between bg-white shadow-md my-5 mx-10 p-6 rounded-md border-teal-500 border-solid'>
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant='h2'>User Profile</Typography>
+            <Typography variant='h2' className='profileHeader'>
+              User Profile
+            </Typography>
           </Grid>
           {auth.user.isAdmin === 'Admin' && (
             <Grid

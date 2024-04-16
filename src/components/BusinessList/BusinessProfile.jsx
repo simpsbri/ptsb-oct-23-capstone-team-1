@@ -306,12 +306,14 @@ const BusinessProfile = () => {
   }
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`${viteUrl}businesses/${id}`)
-      navigate('/admin/businesses')
-    } catch (error) {
-      console.error('Error deleting business:', error)
-      // Optionally, set an error state to display a message to the user
+    if (window.confirm('Are you sure you want to delete this?')) {
+      try {
+        await axios.delete(`${viteUrl}businesses/${id}`)
+        navigate('/admin/businesses')
+      } catch (error) {
+        console.error('Error deleting business:', error)
+        // Optionally, set an error state to display a message to the user
+      }
     }
   }
 

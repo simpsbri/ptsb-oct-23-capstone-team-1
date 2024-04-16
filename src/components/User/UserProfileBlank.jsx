@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
+// import nodemailer from 'nodemailer'
 import {
   Box,
   Typography,
@@ -52,6 +53,17 @@ const viteUrl = import.meta.env.VITE_WEB_ADDRESS
 
 import './user.css'
 
+function generatePassword(length) {
+  var result = ''
+  var characters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  var charactersLength = characters.length
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return result
+}
+
 const NewUserProfile = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -73,8 +85,28 @@ const NewUserProfile = () => {
 
   const navigate = useNavigate()
 
+  // async function sendEmail(email, password) {
+  //   let transporter = nodemailer.createTransport({
+  //     service: 'gmail',
+  //     auth: {
+  //       user: process.env.VITE_EMAIL_USER,
+  //       pass: process.env.VITE_EMAIL_PASSWORD,
+  //     },
+  //   })
+
+  //   let mailOptions = {
+  //     from: process.env.VITE_EMAIL_USER,
+  //     to: email,
+  //     subject: "You've been registered",
+  //     text: `Your new password is ${password}`,
+  //   }
+
+  //   await transporter.sendMail(mailOptions)
+  // }
+
   async function handleSave(event) {
     event.preventDefault()
+    const password = generatePassword(10) // Generate a random password
 
     const newUser = {
       name,
@@ -101,9 +133,7 @@ const NewUserProfile = () => {
 
       // Redirect to /users after a delay to allow the message to be seen
 
-      setTimeout(() => {
-        navigate('/users')
-      }, 2000)
+      setTimeout(() => {}, 2000)
     } catch (error) {
       console.error(error)
       if (error.response) {
@@ -182,6 +212,7 @@ const NewUserProfile = () => {
                   value={password}
                   type='password'
                   onChange={(e) => setPassword(e.target.value)}
+                  disabled
                 />
               </FormControl>
             </Grid>
