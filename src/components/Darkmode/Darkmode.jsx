@@ -14,16 +14,16 @@ function MyApp() {
     <Box
       sx={{
         display: 'flex',
-        width: '100%',
+        width: '73%', // adjusts placement of icon on header
         alignItems: 'center',
-        justifyContent: 'center',
-        bgcolor: 'background.default',
+        justifyContent: 'flex-end',
+        bgcolor: 'transparent',
         color: 'text.primary',
         borderRadius: 1,
-        p: 3,
+        p: 1,
       }}
     >
-      {theme.palette.mode} mode
+      {/* {theme.palette.mode} */}
       <IconButton
         sx={{ ml: 1 }}
         onClick={colorMode.toggleColorMode}
