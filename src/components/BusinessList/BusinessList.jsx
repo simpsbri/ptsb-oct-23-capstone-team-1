@@ -50,10 +50,11 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
   return (
     <>
       <div className="flex flex-col items-center mx-auto h-96 w-full">
-        <div className="flex items-center justify-center w-full mb-4">
-          {" "}
-          {/* Centering the header toolbar */}
-          <div className="text-center mx-auto" style={{ fontSize: "1.5rem" }}>
+        <div className="flex items-center justify-between w-full mb-4">
+          <div
+            className="text-center mx-auto"
+            style={{ fontSize: "1.5rem", marginTop: "20px" }}
+          >
             Businesses
           </div>
         </div>
@@ -79,6 +80,7 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
               className="p-2 border rounded-md shadow-sm text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
+              // style={{ width: "50%", marginLeft: "-9px", marginRight: "10vw" }}
             >
               <option value="all">All</option>
               <option value="No Messages Yet">No Messages Yet</option>
@@ -100,7 +102,7 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
               value={businessStatus}
               onChange={(e) => setBusinessStatus(e.target.value)}
               className="p-2 border rounded-md shadow-sm w-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mr-4"
-              style={{ width: "50%" }}
+              style={{ width: "50%", marginLeft: "-9px", marginRight: "10vw" }}
             >
               <option value="">All</option>
               <option value="New">New</option>
@@ -119,12 +121,15 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               className="p-2 border rounded-md shadow-sm w-full text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent mr-4"
+              style={{ marginTop: "10px", marginLeft: "0px" }}
             />
           </div>
+          <div className="flex items-center mx-auto">
           <div className="flex items-center mx-auto">
             <label
               htmlFor="perPage"
               className="block text-sm font-medium text-gray-700 pr-6 mr-4"
+              style={{ marginTop: "10px" }}
             >
               Show:
             </label>
@@ -132,6 +137,7 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
               <Select
                 value={perPage}
                 onChange={(event) => setPerPage(event.target.value)}
+                style={{ marginLeft: "0px" }}
               >
                 <MenuItem value={10}>10</MenuItem>
                 <MenuItem value={20}>20</MenuItem>
