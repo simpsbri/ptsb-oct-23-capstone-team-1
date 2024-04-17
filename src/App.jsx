@@ -31,6 +31,7 @@ import { createContext } from 'react';
 export const ThemeContext = createContext(null);
 import { useState } from 'react';
 import './App.css';
+import ReactSwitch from 'react-switch';
 
 const LazyBusinessBlank = lazy(() => import('./routes/newBusinessProfile'));
 const LazyBusinessProfile = lazy(() => import('./routes/businessProfile'));
@@ -55,6 +56,9 @@ function App() {
         <AuthProvider>
           <DebugAuthProvider />
           <BrowserRouter>
+            <div className="switch">
+              <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'} />
+            </div>
             <Suspense>
               <Routes>
                 <Route path="/" element={<Root />} />
