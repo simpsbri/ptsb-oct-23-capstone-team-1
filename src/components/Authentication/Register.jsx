@@ -99,7 +99,7 @@ const Register = () => {
 
   return (
     <section
-      id="registerForm"
+      id="registerSection"
       className="p-10 bg-primary_dark_cyan flex w-full flex-row "
     >
       <div>

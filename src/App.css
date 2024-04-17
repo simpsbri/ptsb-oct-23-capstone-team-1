@@ -110,17 +110,17 @@ body .main {
   background-color: rgb(102, 102, 102);
 }
 
-/* #dark .loginForm {
-  background-color: rgb(102, 102, 102);
-} */
-
 #dark #loginText,
 #registerText {
   color: black;
 }
 
+#dark #registerSection.bg-primary_dark_cyan {
+  background-color: grey;
+}
+
 #dark #loginSection.bg-primary_dark_cyan {
-  background-color: grey; /* Replace with your desired color */
+  background-color: grey;
 }
 
 /* #dark .white-text {
