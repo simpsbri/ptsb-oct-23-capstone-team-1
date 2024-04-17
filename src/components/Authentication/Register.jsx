@@ -1,21 +1,28 @@
 import React from 'react';
 import { useRef, useState, useEffect } from 'react';
+import React from 'react';
+import { useRef, useState, useEffect } from 'react';
 import {
   faCheck,
   faTimes,
   faInfoCircle,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
-import { useTheme } from '@mui/material/styles';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import { Box } from '@mui/material';
+import TextField from '@mui/material/TextField';;
+import Stack from '@mui/material/Stack';;
+import Button from '@mui/material/Button';;
+import { useTheme } from '@mui/material/styles';;
+import useMediaQuery from '@mui/material/useMediaQuery';;
+import { Box } from '@mui/material';;
 import axios from 'axios';
-import './Register.css';
+import './Register.css';;
 
+const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
+const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const REGISTER_URL = '/register';
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const REGISTER_URL = '/register';
@@ -25,11 +32,19 @@ const Register = () => {
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
   const userRef = useRef();
   const errRef = useRef();
+  const theme = useTheme();
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
+  const userRef = useRef();
+  const errRef = useRef();
 
   // const [user, setUser] = useState('');
   const [validName, setValidName] = useState(false);
+  const [validName, setValidName] = useState(false);
   // const [userFocus, setUserFocus] = useState(false);
 
+  const [pwd, setPwd] = useState('');
+  const [validPwd, setValidPwd] = useState(false);
+  const [pwdFocus, setPwdFocus] = useState(false);
   const [pwd, setPwd] = useState('');
   const [validPwd, setValidPwd] = useState(false);
   const [pwdFocus, setPwdFocus] = useState(false);
@@ -37,7 +52,12 @@ const Register = () => {
   const [matchPwd, setMatchPwd] = useState('');
   const [validMatch, setValidMatch] = useState(false);
   const [matchFocus, setMatchFocus] = useState(false);
+  const [matchPwd, setMatchPwd] = useState('');
+  const [validMatch, setValidMatch] = useState(false);
+  const [matchFocus, setMatchFocus] = useState(false);
 
+  const [errMsg, setErrMsg] = useState('');
+  const [success, setSuccess] = useState(false);
   const [errMsg, setErrMsg] = useState('');
   const [success, setSuccess] = useState(false);
 
@@ -47,10 +67,18 @@ const Register = () => {
   const [primary_contact_email, setPrimary_contact_email] = useState('');
   const [initialProject, setInitialProject] = useState('');
   const [Phone, setPhone] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [company_name, setCompany_name] = useState('');
+  const [primary_contact, setPrimary_contact] = useState('');
+  const [primary_contact_email, setPrimary_contact_email] = useState('');
+  const [initialProject, setInitialProject] = useState('');
+  const [Phone, setPhone] = useState('');
 
+  const viteUrl = import.meta.env.VITE_WEB_ADDRESS;
   const viteUrl = import.meta.env.VITE_WEB_ADDRESS;
 
   async function handleSave(event) {
+    event.preventDefault();
     event.preventDefault();
 
     const newBusiness = {
@@ -60,12 +88,16 @@ const Register = () => {
       initialProject,
       Phone,
     };
+    };
 
     try {
       // Send a POST request to save the new document in MongoDB
       const response = await axios.post(`${viteUrl}register`, newBusiness);
       setIsSubmitted(true);
+      const response = await axios.post(`${viteUrl}register`, newBusiness);
+      setIsSubmitted(true);
     } catch (error) {
+      console.error(error);
       console.error(error);
       // Handle error here
     }
@@ -81,7 +113,9 @@ const Register = () => {
   if (isSubmitted) {
     return (
       <section className="p-10 bg-primary_dark_cyan flex w-full flex-row ">
+      <section className="p-10 bg-primary_dark_cyan flex w-full flex-row ">
         <div>
+          <h1 className="text-xl font-bold mb-4">
           <h1 className="text-xl font-bold mb-4">
             Thank you for your interest
           </h1>
@@ -99,11 +133,17 @@ const Register = () => {
   }
 
   return (
-    <section className="RegisterCSS">
+    <section
+      id="registerSection"
+      className="p-10 bg-primary_dark_cyan flex w-full flex-row "
+    >
       <div>
-        <h1 className="contactUs">Contact Us</h1>
+        <h1 id="registerText" className="text-xl font-bold mb-4">
+          Contact Us
+        </h1>
         <form onSubmit={(event) => handleSave(event)}>
           <Box
+            component="div"
             component="div"
             sx={{
               '& > :not(style)': { m: 0.5, width: '30ch' },
@@ -111,9 +151,14 @@ const Register = () => {
             noValidate
             autoComplete="off"
             className="p-2"
+            autoComplete="off"
+            className="p-2"
           >
             <TextField
               required
+              id="primary_contact"
+              label="Name"
+              placeholder="Name"
               id="primary_contact"
               label="Name"
               placeholder="Name"
@@ -124,15 +169,21 @@ const Register = () => {
 
           <Box
             component="div"
+            component="div"
             sx={{
               '& > :not(style)': { m: 1, width: '30ch' },
             }}
             noValidate
             autoComplete="off"
             className="p-2"
+            autoComplete="off"
+            className="p-2"
           >
             <TextField
               required
+              id="outlined-required"
+              label="Email"
+              placeholder="Email"
               id="outlined-required"
               label="Email"
               placeholder="Email"
@@ -143,10 +194,13 @@ const Register = () => {
 
           <Box
             component="div"
+            component="div"
             sx={{
               '& > :not(style)': { m: 1, width: '30ch' },
             }}
             noValidate
+            autoComplete="off"
+            className="p-2"
             autoComplete="off"
             className="p-2"
           >
@@ -210,12 +264,7 @@ const Register = () => {
             className="p-2"
           >
             <Stack spacing={2} direction="row">
-              <Button
-                variant="contained"
-                type="submit"
-                className="submitButton"
-                style={{ backgroundColor: '#0b4a8f', color: 'white' }}
-              >
+              <Button variant="contained" type="submit">
                 Submit
               </Button>
             </Stack>

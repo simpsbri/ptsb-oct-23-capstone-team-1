@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
+import './user.css'
 const viteUrl = import.meta.env.VITE_WEB_ADDRESS
 
 const UserCard = ({ user, handleEditClick }) => {
