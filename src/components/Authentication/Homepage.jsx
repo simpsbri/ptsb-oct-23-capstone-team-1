@@ -1,20 +1,21 @@
-import React from 'react'
-import Registration from './Register'
-import Login from './Login'
+import React from 'react';
+import Registration from './Register';
+import Login from './Login';
 
-import TabContext from '@mui/lab/TabContext'
-import TabList from '@mui/lab/TabList'
-import TabPanel from '@mui/lab/TabPanel'
-import { Container, Tabs, Tab, Box, Typography } from '@mui/material'
+import TabContext from '@mui/lab/TabContext';
+import TabList from '@mui/lab/TabList';
+import TabPanel from '@mui/lab/TabPanel';
+import { Container, Tabs, Tab, Box, Typography } from '@mui/material';
 const Homepage = () => {
-  const [value, setValue] = React.useState('1')
+  const [value, setValue] = React.useState('1');
 
   const handleChange = (event, newValue) => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   return (
     <Container
+      className="homepage"
       sx={{
         display: 'flex',
         flexDirection: 'column',
@@ -22,6 +23,7 @@ const Homepage = () => {
       }}
     >
       <Box
+        className="homepage-header"
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -35,7 +37,7 @@ const Homepage = () => {
           borderWidth: '1px',
         }}
       >
-        <h1 className='text-xxl font-bold p-10'>Get in touch.</h1>
+        <h1 className="text-xxl font-bold p-10">Get in touch.</h1>
         <p>
           Are you interested in learning more about our capstone project
           process? Simply send us a message and our program manager will reach
@@ -50,15 +52,18 @@ const Homepage = () => {
         }}
       >
         <TabContext value={value}>
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Box
+            className="divider"
+            sx={{ borderBottom: 1, borderColor: 'divider' }}
+          >
             <TabList
               onChange={handleChange}
-              aria-label='lab API tabs example'
+              aria-label="lab API tabs example"
               sx={{ justifyContent: 'center' }}
             >
               <Tab
-                label='Contact Us'
-                value='1'
+                label="Contact Us"
+                value="1"
                 sx={{
                   width: '100%',
                   margin: 'auto',
@@ -68,8 +73,8 @@ const Homepage = () => {
                 }}
               />
               <Tab
-                label='Login'
-                value='2'
+                label="Login"
+                value="2"
                 sx={{
                   width: '100%',
                   margin: 'auto',
@@ -80,16 +85,16 @@ const Homepage = () => {
               />
             </TabList>
           </Box>
-          <TabPanel value='1'>
+          <TabPanel className="panelOne" value="1">
             <Registration />{' '}
           </TabPanel>
-          <TabPanel value='2'>
+          <TabPanel className="panelTwo" value="2">
             <Login />
           </TabPanel>
         </TabContext>
       </Box>
     </Container>
-  )
-}
+  );
+};
 
-export default Homepage
+export default Homepage;
