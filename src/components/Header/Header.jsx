@@ -5,7 +5,6 @@ import ToggleColorMode from '../Darkmode/Darkmode';
 
 const Header = () => {
   const location = useLocation();
-  const location = useLocation();
 
   return (
     <header className="h-28 w-full display-flex align-items-center">
@@ -17,27 +16,16 @@ const Header = () => {
             href="https://workgapsolution.com/faqs"
             target="_blank"
             className="header-link"
-            href="https://workgapsolution.com/faqs"
-            target="_blank"
-            className="header-link"
+
           >
             FAQs
-          </a>
-          <a href="#link2" className="header-link">
-            SmartGig Series
-          </a>
-          <a href="#link3" className="header-link">
-            Sign In
           </a>
           <a
             href="https://calendly.com/workgapsolution/30min"
             target="_blank"
             className="form-button"
-            href="https://calendly.com/workgapsolution/30min"
-            target="_blank"
-            className="form-button"
+
           >
-            <button className="book-a-call-button">Book a Call</button>
             <button className="book-a-call-button">Book a Call</button>
           </a>
         </div>
@@ -48,5 +36,4 @@ const Header = () => {
   );
 };
 
-export default Header;
 export default Header;
