@@ -15,7 +15,7 @@
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 1px solid #6b7280;
+  border: 1px solid #424b5c;
   border-radius: 0.25rem;
 }
 
@@ -82,6 +82,24 @@ tr:nth-child(even) {
 
 tr:nth-child(odd) {
   background-color: #e8e8e8;
+}
+
+/* Dark mode styles */
+@media (prefers-color-scheme: dark) {
+  .text-primary_dark_cyan {
+    color: rgb(211, 195, 13);
+  }
+
+  .text-dark_gray_cyan {
+    color: rgb(12, 56, 12);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .dark-mode .bg-white {
+    --tw-bg-opacity: 1;
+    background-color: #7a3f3f !important;
+  }
 }
 
 @media (max-width: 1200px) {

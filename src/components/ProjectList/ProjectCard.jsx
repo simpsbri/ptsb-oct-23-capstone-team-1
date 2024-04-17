@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@mui/material'
 import { AuthContext } from '../../../server/middleware/setAuth'
+import './project.css'
 
 const ProjectCard = ({ project, onDelete }) => {
   const { auth } = useContext(AuthContext)

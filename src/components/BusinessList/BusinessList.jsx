@@ -125,6 +125,7 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
             />
           </div>
           <div className="flex items-center mx-auto">
+          <div className="flex items-center mx-auto">
             <label
               htmlFor="perPage"
               className="block text-sm font-medium text-gray-700 pr-6 mr-4"
