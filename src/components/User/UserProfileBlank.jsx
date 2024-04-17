@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Link, useParams, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-// import nodemailer from 'nodemailer'
 import {
   Box,
   Typography,
@@ -20,8 +19,6 @@ import {
 } from '@mui/material'
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
-
-import newUserEmail from '../../../server/emailSend/newUserEmail'
 
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -91,9 +88,6 @@ const NewUserProfile = () => {
     event.preventDefault()
     const password = generatePassword(10) // Generate a random password
 
-    // After the user is created, send the email
-    newUserEmail(email, password)
-
     const newUser = {
       name,
       email,
@@ -113,7 +107,6 @@ const NewUserProfile = () => {
         `${viteUrl}api/user/createNewUser`,
         newUser,
       )
-
       // Set the success message
       setMessage('Successful Save')
 

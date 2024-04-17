@@ -1,41 +1,42 @@
-import express from 'express';
-import { PORT } from './config/config.js';
-import { connectDB } from './config/db.js';
-import { setupMiddleware } from './config/middleware.js';
-import businessRoutes from '../server/api/business.js';
-import messagesRoutes from '../server/api/busMessages.js';
-import userRouter from '../server/api/users.js';
-import newBusinessRouter from '../server/api/register.js';
-import projectRouter from '../server/api/projects.js';
-import colors from 'colors';
-import dotenv from 'dotenv';
-dotenv.config();
+import express from 'express'
+import { PORT } from './config/config.js'
+import { connectDB } from './config/db.js'
+import { setupMiddleware } from './config/middleware.js'
+import businessRoutes from '../server/api/business.js'
+import messagesRoutes from '../server/api/busMessages.js'
+import userRouter from '../server/api/users.js'
+import newBusinessRouter from '../server/api/register.js'
+import projectRouter from '../server/api/projects.js'
+import colors from 'colors'
+import dotenv from 'dotenv'
+import cors from 'cors'
 
-import cors from 'cors';
+dotenv.config()
+
 // import { errorHandler, notFound } from './middleware/errorMiddleware.js';
-const app = express();
+const app = express()
 
-setupMiddleware(app);
+setupMiddleware(app)
 
-connectDB();
+connectDB()
 
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(express.json())
 
 app.get('/', (req, res) => {
-  res.send('Hello, world!');
-});
+  res.send('Hello, world!')
+})
 
-app.use('/businesses', businessRoutes);
+app.use('/businesses', businessRoutes)
 
-app.use('/messages', messagesRoutes);
-app.use('/api/user', userRouter);
-app.use('/register', newBusinessRouter);
-app.use('/projects', projectRouter);
+app.use('/messages', messagesRoutes)
+app.use('/api/user', userRouter)
+app.use('/register', newBusinessRouter)
+app.use('/projects', projectRouter)
 
 // app.user(notFound);
 // app.user(errorHandler);
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+  console.log(`Server running on port ${PORT}`)
+})

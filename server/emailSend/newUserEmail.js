@@ -1,7 +1,7 @@
-import nodemailer from 'nodemailer'
+// import nodemailer from 'nodemailer'
 
 let transporter = nodemailer.createTransport({
-  service: 'gmail', // replace with your email service
+  service: 'gmail',
   auth: {
     user: process.env.VITE_EMAIL_USER,
     pass: process.env.VITE_EMAIL_PASSWORD,
@@ -9,15 +9,13 @@ let transporter = nodemailer.createTransport({
 })
 
 function newUserEmail(email, password) {
-  // setup email data with unicode symbols
   let mailOptions = {
-    from: process.env.VITE_EMAIL_USER, // sender address
-    to: email, // list of receivers
-    subject: 'Welcome to Our Platform', // Subject line
+    from: process.env.VITE_EMAIL_USER,
+    to: email,
+    subject: 'Welcome to Our Platform',
     text: `Welcome to our platform. We are glad to have you. Your new password is: ${password}`,
   }
 
-  // send mail with defined transport object
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       return console.log(error)

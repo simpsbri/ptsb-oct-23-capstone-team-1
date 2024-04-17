@@ -7,7 +7,10 @@ const Header = () => {
   const location = useLocation()
 
   return (
-    <header className='h-28 w-full display-flex align-items-center'>
+    <header
+      className='h-28 w-full display-flex align-items-center'
+      style={{ backgroundColor: '#FFFFFF' }}
+    >
       <Background />
 
       {location.pathname === '/' && (
