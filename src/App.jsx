@@ -57,6 +57,7 @@ function App() {
           <DebugAuthProvider />
           <BrowserRouter>
             <div className="switch">
+              <labeL>{theme === 'light' ? 'Light Mode' : 'Dark Mode'}</labeL>
               <ReactSwitch onChange={toggleTheme} checked={theme === 'dark'} />
             </div>
             <Suspense>

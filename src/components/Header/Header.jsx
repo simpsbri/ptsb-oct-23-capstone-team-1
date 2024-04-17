@@ -9,7 +9,7 @@ const Header = () => {
   return (
     <header className="h-28 w-full display-flex align-items-center">
       <Background />
-      <ToggleColorMode />
+
       {location.pathname === '/' && (
         <div className="header-links">
           <a
