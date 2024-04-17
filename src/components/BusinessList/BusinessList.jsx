@@ -193,6 +193,7 @@ const BusinessList = ({ handleTagClick, latestMessage, backgroundColor }) => {
           />
         </div>
       </div>
+    </div>
     </>
   );
 };
