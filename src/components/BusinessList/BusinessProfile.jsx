@@ -66,6 +66,8 @@ const BusinessProfile = () => {
 
   const theme = useTheme()
   const matchesXS = useMediaQuery(theme.breakpoints.down('xs'))
+  const matches = useMediaQuery('(max-width:600px)')
+
   const [users, setUsers] = useState([])
 
   const [projects, setProjects] = useState([])
@@ -304,12 +306,14 @@ const BusinessProfile = () => {
   }
 
   const handleDelete = async () => {
-    try {
-      await axios.delete(`${viteUrl}businesses/${id}`)
-      navigate('/admin/businesses')
-    } catch (error) {
-      console.error('Error deleting business:', error)
-      // Optionally, set an error state to display a message to the user
+    if (window.confirm('Are you sure you want to delete this?')) {
+      try {
+        await axios.delete(`${viteUrl}businesses/${id}`)
+        navigate('/admin/businesses')
+      } catch (error) {
+        console.error('Error deleting business:', error)
+        // Optionally, set an error state to display a message to the user
+      }
     }
   }
 
@@ -319,7 +323,7 @@ const BusinessProfile = () => {
         {/* Profile Header */}
         <Grid container spacing={3}>
           <Grid item xs={6}>
-            <Typography variant={'h2'}>Business Profile</Typography>
+            <Typography className='profileHeader'>Business Profile</Typography>
           </Grid>
 
           <Grid item xs style={{ display: 'flex', justifyContent: 'flex-end' }}>
@@ -491,18 +495,7 @@ const BusinessProfile = () => {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
-              <InputLabel htmlFor='website'>Website</InputLabel>
-              <FormControl fullWidth>
-                <TextField
-                  id='website'
-                  name='website'
-                  autoComplete='website'
-                  value={website}
-                  onChange={(e) => setWebsite(e.target.value)}
-                />
-              </FormControl>
-            </Grid>
+
             <Grid item xs={12}>
               <InputLabel htmlFor='initialProject'>
                 Initial Project Submission
@@ -653,7 +646,7 @@ const BusinessProfile = () => {
                     },
                   }}
                 >
-                  + Add Project
+                  {matches ? '+' : '+ Add Project'}
                 </Button>
               )}
             </Box>

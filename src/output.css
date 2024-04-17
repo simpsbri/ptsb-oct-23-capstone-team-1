@@ -2,13 +2,14 @@
 
 .main-content {
   padding: 2rem; /* Add padding to create some space around the content */
-  max-width: 800px;
+  max-width: 65%;
   margin: 0 auto; /* Center the content */
 }
 .main-content p {
   padding: 1rem 0; /* Add padding around the paragraphs */
   line-height: 1.5; /* Improve readability */
   font-size: 1rem;
+  text-align: justify;
 }
 
 /*
@@ -110,7 +111,7 @@ abbr:where([title]) {
 Remove the default font size and weight for headings.
 */
 
-h1,
+/* h1,
 h2,
 h3,
 h4,
@@ -118,7 +119,7 @@ h5,
 h6 {
   font-size: inherit;
   font-weight: inherit;
-}
+} */
 
 /*
 Reset links to optimize for opt-in styling instead of opt-out.
@@ -584,6 +585,9 @@ video {
 
 .mb-12 {
   /* margin-bottom: 3rem; */
+  position: sticky;
+  top: 105px;
+  z-index: 100;
 }
 
 .mb-4 {
@@ -616,6 +620,11 @@ video {
 
 .h-28 {
   height: 7rem;
+  padding-left: 25px;
+  padding-right: 25px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .min-h-screen {
@@ -808,7 +817,7 @@ body {
   background-color: hsl(180, 52%, 96%);
 }
 
-@media (min-width: 640px) {
+@media (min-width: 1200px) {
   .sm\:my-0 {
     margin-top: 0px;
     margin-bottom: 0px;

@@ -11,7 +11,6 @@ function MainLayout() {
       <Container maxWidth={false} sx={{ width: '100%' }}>
         <Header />
         <HorizontalNav />
-        {/* {children} */}
         <Outlet />
         <Footer />
       </Container>

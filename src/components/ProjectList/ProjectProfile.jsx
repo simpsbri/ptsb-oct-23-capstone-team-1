@@ -133,7 +133,7 @@ const ProjectProfile = () => {
           <Typography
             variant='h2'
             component='h1'
-            className='text-2xl font-bold mb-4'
+            className='profileHeader font-bold mb-4'
           >
             Project Profile
           </Typography>

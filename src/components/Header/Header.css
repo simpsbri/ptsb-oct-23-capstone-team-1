@@ -5,6 +5,11 @@
 .align-items-center {
   align-items: center;
 }
+.h-28.w-full.bg-primary_dark_cyan.display-flex.align-items-center {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
 
 .header-links {
   right: 0;
@@ -17,7 +22,7 @@
   margin-right: 1rem;
 }
 .book-a-call-button {
-  background-color: #004b8f; /* Red background */
+  background-color: #004b8f;
   border: none;
   color: white;
   padding: 10px 20px;
@@ -28,4 +33,22 @@
   margin: 4px 2px;
   cursor: pointer;
   border-radius: 12px;
+}
+
+a {
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+.header-link:hover::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background-color: #0b4a8f;
 }

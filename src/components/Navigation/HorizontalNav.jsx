@@ -53,29 +53,29 @@ function HorizontalNav() {
       <nav style={{ width: '100%' }} className="mb-12">
         <ul style={{ display: 'flex' }}>
           <li>
-            <Link to="/" className="navlink">
+            <Link to="/" className="navlink myClass">
               Home
             </Link>
           </li>
           <li>
             <Badge badgeContent={oldBusinessesCount} color="warning">
-              <Link to="/admin/businesses" className="navlink">
+              <Link to="/admin/businesses" className="navlink myClass">
                 Businesses
               </Link>
             </Badge>
           </li>
           <li>
-            <Link to="/admin/users" className="navlink">
+            <Link to="/admin/users" className="navlink myClass">
               Users
             </Link>
           </li>
           <li>
-            <Link to="/admin/projects" className="navlink">
+            <Link to="/admin/projects" className="navlink myClass">
               Projects
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout} className="navlink">
+            <Link to="/" onClick={logout} className="navlink myClass">
               Logout
             </Link>
           </li>
@@ -89,22 +89,25 @@ function HorizontalNav() {
       <nav style={{ width: '100%' }} className="mb-12">
         <ul style={{ display: 'flex' }}>
           <li>
-            <Link to="/" className="navlink">
+            <Link to="/" className="navlink myClass">
               Home
             </Link>
           </li>
           <li>
-            <Link to={`/business/businesses/${businessId}`} className="navlink">
+            <Link
+              to={`/business/businesses/${businessId}`}
+              className="navlink myClass"
+            >
               My Business
             </Link>
           </li>
           <li>
-            <Link to={`/business/users/${userId}`} className="navlink">
+            <Link to={`/business/users/${userId}`} className="navlink myClass">
               My Profile
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout} className="navlink">
+            <Link to="/" onClick={logout} className="navlink myClass">
               Logout
             </Link>
           </li>
@@ -118,22 +121,22 @@ function HorizontalNav() {
       <nav style={{ width: '100%' }} className="mb-12">
         <ul style={{ display: 'flex' }}>
           <li>
-            <Link to="/" className="navlink">
+            <Link to="/" className="navlink myClass">
               Home
             </Link>
           </li>
           <li>
-            <Link to={`/capstone/users/${userId}`} className="navlink">
+            <Link to={`/capstone/users/${userId}`} className="navlink myClass">
               My Profile
             </Link>
           </li>
           <li>
-            <Link to="capstone/projects" className="navlink">
+            <Link to="capstone/projects" className="navlink myClass">
               Projects
             </Link>
           </li>
           <li>
-            <Link to="/" onClick={logout} className="navlink">
+            <Link to="/" onClick={logout} className="navlink myClass">
               Logout
             </Link>
           </li>

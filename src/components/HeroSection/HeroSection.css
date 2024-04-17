@@ -7,7 +7,7 @@ video {
 }
 
 .hero-container {
-  background: url('/public/images/laptop.jpg') center center/cover no-repeat;
+  background: url('/images/laptop.jpg') center center/cover no-repeat;
   height: 50vh;
   width: 100%;
   display: flex;
@@ -47,13 +47,13 @@ video {
 @media screen and (max-width: 960px) {
   .hero-container > h1 {
     font-size: 30px;
-    margin-top: 200px;
+    margin-top: 50px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .hero-container > h1 {
-    font-size: 30px;
+  .hero-container > h1 > p {
+    font-size: 20px;
     margin-top: 70px;
   }
 
@@ -68,5 +68,29 @@ video {
 
   .btn {
     width: 100%;
+  }
+  .hero-btns {
+    margin-top: 0px;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .hero-container > h1 {
+    font-size: 20px;
+    margin-top: 70px;
+  }
+
+  .hero-container > p {
+    font-size: 20px;
+  }
+
+  .btn-mobile {
+    display: block;
+    text-decoration: none;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 12px;
   }
 }
