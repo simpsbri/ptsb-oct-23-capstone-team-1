@@ -101,7 +101,10 @@ const Login = () => {
   };
 
   return (
-    <section className="p-10 flex w-full flex-row ">
+    <section
+      id="loginSection"
+      className="p-10 bg-primary_dark_cyan flex w-full flex-row "
+    >
       <div className="loginForm">
         <h1 id="loginText" className="text-xl font-bold mb-4">
           Login
