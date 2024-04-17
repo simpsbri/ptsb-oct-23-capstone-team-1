@@ -21,6 +21,8 @@ import {
 import { useMediaQuery } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
+import newUserEmail from '../../../server/emailSend/newUserEmail'
+
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
@@ -85,28 +87,12 @@ const NewUserProfile = () => {
 
   const navigate = useNavigate()
 
-  // async function sendEmail(email, password) {
-  //   let transporter = nodemailer.createTransport({
-  //     service: 'gmail',
-  //     auth: {
-  //       user: process.env.VITE_EMAIL_USER,
-  //       pass: process.env.VITE_EMAIL_PASSWORD,
-  //     },
-  //   })
-
-  //   let mailOptions = {
-  //     from: process.env.VITE_EMAIL_USER,
-  //     to: email,
-  //     subject: "You've been registered",
-  //     text: `Your new password is ${password}`,
-  //   }
-
-  //   await transporter.sendMail(mailOptions)
-  // }
-
   async function handleSave(event) {
     event.preventDefault()
     const password = generatePassword(10) // Generate a random password
+
+    // After the user is created, send the email
+    newUserEmail(email, password)
 
     const newUser = {
       name,
@@ -131,14 +117,10 @@ const NewUserProfile = () => {
       // Set the success message
       setMessage('Successful Save')
 
-      // Redirect to /users after a delay to allow the message to be seen
-
       setTimeout(() => {}, 2000)
     } catch (error) {
       console.error(error)
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         console.error('Error data:', error.response.data)
         console.error('Error status:', error.response.status)
         console.error('Error headers:', error.response.headers)
@@ -203,7 +185,7 @@ const NewUserProfile = () => {
                 />
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <InputLabel htmlFor='password'>Password</InputLabel>
               <FormControl fullWidth>
                 <TextField
@@ -215,7 +197,7 @@ const NewUserProfile = () => {
                   disabled
                 />
               </FormControl>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <FormControl fullWidth>
                 <InputLabel id='business-select-label'>Business</InputLabel>
